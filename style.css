@@ -253,3 +253,195 @@ main h1 {
     line-height: 1.6;
     font-size: 0.9em;
 }
+
+/* Learning Page Specific Styles */
+.learning-resources {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2em;
+    padding: 2em;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.learning-resource-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.learning-resource-item h2 {
+    color: #232F3E; /* AWS Blue */
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.learning-resource-item p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 1em;
+    flex-grow: 1; /* Ensure paragraph takes space to push button down */
+}
+
+.learning-resource-item .button {
+    display: inline-block;
+    background-color: #FF9900; /* AWS Orange */
+    color: white;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.learning-resource-item .button:hover {
+    background-color: #e68a00; /* Darker orange for hover */
+    text-decoration: none;
+}
+
+/* Documentation Page Specific Styles */
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2em;
+    padding: 2em;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.doc-section-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.doc-section-item h2 {
+    color: #232F3E; /* AWS Blue */
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+.doc-section-item p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.doc-section-item .button {
+    display: inline-block;
+    background-color: #007bff; /* Standard link blue */
+    color: white;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.doc-section-item .button:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    text-decoration: none;
+}
+
+/* Pricing Page Specific Styles */
+.pricing-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 2em;
+    padding: 2em;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the tiers */
+}
+
+.pricing-tier-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 2em;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes button to the bottom */
+}
+
+.pricing-tier-item h2 {
+    color: #232F3E; /* AWS Blue */
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: 1.75em;
+}
+
+.pricing-tier-item .price {
+    color: #FF9900; /* AWS Orange */
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.pricing-tier-item ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1.5em;
+    flex-grow: 1; /* Allows list to take available space */
+}
+
+.pricing-tier-item ul li {
+    padding: 0.5em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-tier-item ul li:last-child {
+    border-bottom: none;
+}
+
+.pricing-tier-item button {
+    background-color: #FF9900; /* AWS Orange */
+    color: white;
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    align-self: center; /* Center button if it's not full width */
+}
+
+.pricing-tier-item button:hover {
+    background-color: #e68a00; /* Darker orange for hover */
+}
+
+/* Solutions Page Specific Styles */
+.solutions-list {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 1.5em;
+    padding: 2em;
+    max-width: 900px;
+    margin: 0 auto; /* Center the list */
+}
+
+.solution-item {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.solution-item h2 {
+    color: #232F3E; /* AWS Blue */
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+}
+
+.solution-item p {
+    color: #333;
+    line-height: 1.6;
+    font-size: 0.9em;
+}
