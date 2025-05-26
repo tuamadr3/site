@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isabel León - Y. León Clone</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1, h2, h3 {
+            color: #111;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styling */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        /* Ensure container within header doesn't have vertical margins */
+        header .container {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+
+        .site-title h1 {
+            margin: 0 0 5px 0;
+            font-size: 2em;
+        }
+
+        .site-title p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .lang-switcher {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            position: absolute; /* Example positioning */
+            top: 20px;
+            right: 15px; /* Relative to container padding */
+        }
+
+        .search-placeholder {
+            position: absolute; /* Example positioning */
+            top: 45px;
+            right: 15px; /* Relative to container padding */
+        }
+
+        .search-placeholder button {
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+
+        header nav {
+            margin-top: 15px; /* Add space above nav */
+        }
+
+        header nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header nav ul li {
+            position: relative;
+        }
+
+        header nav ul li a {
+            padding: 5px 0;
+            display: block;
+        }
+
+        header nav ul li ul { /* Sub-menus */
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #eee;
+            padding: 10px;
+            z-index: 100;
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header nav ul li:hover > ul {
+            display: block;
+        }
+
+        header nav ul li ul li a {
+            padding: 5px;
+        }
+
+        /* Main Content Styling */
+        main h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* .image-placeholder is already styled inline, which is fine for now.
+           If moved to CSS:
+        .image-placeholder {
+            width:480px;
+            height:300px;
+            background-color:#ccc;
+            margin: 0 auto 20px auto;
+            display: block;
+        }
+        */
+
+        article h3 {
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #222;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        article ul {
+            padding-left: 20px;
+            list-style: disc;
+        }
+
+        article ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer Styling */
+        footer {
+            padding: 20px 0;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }
+        /* Ensure container within footer doesn't have vertical margins */
+        footer .container {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .footer-logos span {
+            margin: 0 10px;
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .footer-contact p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="site-title">
+                <h1>Y. León</h1>
+                <p>Arquitectura y Urbanismo Arquitectos consultores</p>
+            </div>
+            <div class="lang-switcher"><a href="#">Es</a> / <a href="#">En</a></div>
+            <div class="search-placeholder"><button>Search...</button></div>
+            <nav>
+                <ul>
+                    <li>
+                    <a href="#">El Estudio</a>
+                    <ul>
+                        <li><a href="#">Isabel León</a></li>
+                        <li><a href="#">Cómo trabajamos</a></li>
+                        <li><a href="#">Sostenibilidad</a></li>
+                        <li><a href="#">Calidad</a></li>
+                        <li><a href="#">Premios y concursos</a></li>
+                        <li><a href="#">Portfolio</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Proyectos</a>
+                    <ul>
+                        <li><a href="#">Edificios Residenciales</a></li>
+                        <li><a href="#">Edificios Singulares</a></li>
+                        <li><a href="#">Rehabilitación Urbana</a></li>
+                        <li><a href="#">Tratamientos de espacios urbanos</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Área Internacional</a></li>
+                <li><a href="#">Actualidad</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Isabel León</h2>
+            <div class="image-placeholder" style="width:480px; height:300px; background-color:#ccc; margin-bottom: 20px; margin-left: auto; margin-right: auto; display: block;"></div>
+            <article>
+                <p>Isabel León (Madrid 1959). Arquitecto por la Escuela Técnica Superior de Arquitectura de Madrid (ETSAM) en 1985.</p>
+                <p>Socia fundadora de Y. León Arquitectura y Urbanismo, S.L.P. y de Arquitectos Consultores Internacionales Y. León, S.L.</p>
+            <p>Es Master en Dirección de Empresas Constructoras e Inmobiliarias (MDI) por la Universidad Politécnica de Madrid y la Universidad de Lovaina, en 1990.</p>
+            <p>Es miembro del Royal Institution of Chartered Surveyors (RICS) desde 2006.</p>
+            <p>Patrono de la <a href="#">Fundación Arquitectura COAM</a> y miembro del Consejo de Administración de la ASEMAS (Mutua de Seguros y Reaseguros a Prima Fija) desde 2018.</p>
+            <p>Presidenta de la Asociación de Empresas de Arquitectura de Madrid (ASEMAS) desde 2018.</p>
+            <p>Miembro de la Junta de Gobierno del Colegio Oficial de Arquitectos de Madrid (COAM) desde 2015 a 2019.</p>
+            <p>Miembro de la Junta de Representantes del Colegio Oficial de Arquitectos de Madrid (COAM) desde 2002 a 2015.</p>
+            <p>Miembro del Consejo Superior de los Colegios de Arquitectos de España (CSCAE) desde 2015 a 2019.</p>
+
+            <h3>Participa en diversos comités y grupos internacionales:</h3>
+            <ul>
+                <li>Miembro del Comité de Dirección del <a href="#">Green Building Council España (GBCe)</a> desde 2010.</li>
+                <li>Miembro del <a href="#">Architects’ Council of Europe (ACE)</a> Working Group on Urban Issues desde 2008.</li>
+                <li>Miembro del <a href="#">Architects’ Council of Europe (ACE)</a> Working Group on Environment and Sustainable Architecture desde 2006.</li>
+                <li>Miembro del <a href="#">Architects’ Council of Europe (ACE)</a> Task Force on Energy Efficiency in Buildings desde 2012.</li>
+                <li>Miembro del <a href="#">Architects’ Council of Europe (ACE)</a> Task Force on Public Procurement desde 2010.</li>
+                <li>Miembro de la <a href="#">Fundación DIMAD</a> (Diseño Madrid) desde 2006.</li>
+            </ul>
+
+            <h3>Con anterioridad ha ocupado los siguientes cargos:</h3>
+            <ul>
+                <li>Vocal de la Junta de Gobierno del Colegio Oficial de Arquitectos de Madrid (COAM) de 2007 a 2012.</li>
+                <li>Presidenta de la Comisión de Calidad del COAM de 2007 a 2012.</li>
+                <li>Presidenta de la Comisión de Sostenibilidad y Medio Ambiente del COAM de 2007 a 2012.</li>
+                <li>Miembro de la Comisión de Urbanismo del Ayuntamiento de Madrid de 2007 a 2012.</li>
+                <li>Miembro de la Comisión de Seguimiento del Plan General de Ordenación Urbana de Madrid de 2007 a 2012.</li>
+                <li>Miembro de la Comisión de Patrimonio Histórico Artístico de la Comunidad de Madrid de 2007 a 2012.</li>
+            </ul>
+            <p>Ha sido profesora invitada en diversas universidades y escuelas de arquitectura, entre ellas la <a href="#">Escuela Técnica Superior de Arquitectura de Madrid (ETSAM)</a>, la <a href="#">Universidad Europea de Madrid (UEM)</a> y la <a href="#">Universidad San Pablo CEU</a>.</p>
+            <p>Ha participado como ponente en numerosos congresos y seminarios nacionales e internacionales sobre arquitectura, urbanismo y sostenibilidad.</p>
+            <p>Es autora de diversos artículos y publicaciones sobre arquitectura y urbanismo.</p>
+        </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logos"><span>[Logo1]</span> <span>[Logo2]</span> <span>[Logo3]</span></div>
+            <div class="footer-contact">
+                <p>Contacta con nosotros:</p>
+                <p><a href="mailto:yleon@yleon.com">yleon@yleon.com</a></p>
+                <p>+34 91 561 8207</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
