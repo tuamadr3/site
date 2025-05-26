@@ -1,0 +1,255 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    color: #111;
+    margin: 0;
+    padding: 0;
+    background-color: #F1F1F1;
+}
+
+a {
+    color: #007bff; /* Standard link blue, can be adjusted */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header Styling */
+header {
+    background-color: #232F3E; /* AWS Blue */
+    color: white;
+    padding: 1em 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header div { /* Logo */
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section Styling */
+#hero {
+    background-color: #f8f9fa; /* Light background */
+    padding: 4em 2em;
+    text-align: center;
+}
+
+#hero h1 {
+    font-size: 2.5em;
+    color: #232F3E; /* AWS Blue */
+    margin-bottom: 0.5em;
+}
+
+#hero button {
+    background-color: #FF9900; /* AWS Orange */
+    color: white;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#hero button:hover {
+    background-color: #e68a00; /* Darker orange for hover */
+}
+
+/* Product Categories Section Styling */
+#product-categories {
+    padding: 2em;
+    text-align: center;
+}
+
+#product-categories h2 {
+    color: #232F3E; /* AWS Blue */
+    margin-bottom: 1em;
+}
+
+.category-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* Distributes items evenly */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.category-list li {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 1.5em;
+    margin: 0.5em;
+    border-radius: 5px;
+    width: 200px; /* Fixed width for each item */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* "Why AWS Clone?" Section Styling */
+#why-aws-clone {
+    background-color: #ffffff; /* White background */
+    padding: 2em;
+    text-align: center;
+}
+
+#why-aws-clone h2 {
+    color: #232F3E; /* AWS Blue */
+    margin-bottom: 1em;
+}
+
+#why-aws-clone p {
+    color: #333;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 1em auto; /* Center the paragraphs */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #232F3E; /* AWS Blue */
+    color: white;
+    padding: 2em 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; /* For responsiveness */
+}
+
+.footer-content p {
+    margin: 0.5em;
+}
+
+footer nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+footer nav ul li {
+    margin-left: 20px;
+}
+
+footer nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Navigation Styles */
+.hamburger-menu {
+    display: none; /* Hidden by default on larger screens */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    header nav ul {
+        display: none; /* Hide nav links by default on small screens */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; /* Adjust as per header height */
+        left: 0;
+        background-color: #232F3E; /* AWS Blue */
+    }
+
+    header nav ul.nav-active {
+        display: flex; /* Show nav links when active */
+    }
+
+    header nav ul li {
+        margin: 0;
+        text-align: center;
+        padding: 1em 0;
+        border-top: 1px solid #3a4f68; /* Separator for links */
+    }
+    
+    .hamburger-menu {
+        display: block; /* Show hamburger on small screens */
+    }
+
+    header {
+        justify-content: space-between; /* Adjust header layout for hamburger */
+        padding: 1em;
+    }
+    header div#logo {
+        margin-left: 1em; /* Add some margin to the logo */
+    }
+}
+
+/* Product Page Specific Styles */
+main h1 {
+    text-align: center;
+    color: #232F3E; /* AWS Blue */
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 2em;
+    padding: 2em;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the grid */
+}
+
+.product-item {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.product-item h2 {
+    color: #FF9900; /* AWS Orange */
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+}
+
+.product-item p {
+    color: #333;
+    line-height: 1.6;
+    font-size: 0.9em;
+}
