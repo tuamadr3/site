@@ -4,7 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Webpage</title>
-    <link rel="stylesheet" href="style.css">
+    <style type="text/css">
+/* Reset default browser margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a modern sans-serif font for the body */
+body {
+    font-family: 'Arial', sans-serif;
+    color: var(--neutral-text-color); 
+    background-color: var(--neutral-background-color);
+    line-height: 1.6; /* Improved readability */
+}
+
+/* Define a basic color palette */
+:root {
+    --primary-color: #007bff; /* Example primary color */
+    --secondary-color: #6c757d; /* Example secondary color */
+    --neutral-text-color: #333;
+    --neutral-background-color: #f4f4f4;
+    --header-bg: #343a40;
+    --footer-bg: #343a40;
+    --hero-bg-gradient: linear-gradient(135deg, #6e8efb, #a777e3); /* More distinct hero background */
+    --content-cards-bg: #ffffff;
+    --card-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --card-hover-transform: scale(1.02);
+}
+
+/* General container for max-width and centering */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Add some padding to prevent content from touching edges */
+}
+
+/* Style the header */
+header {
+    background-color: var(--header-bg);
+    color: white;
+    padding: 20px 0; /* Adjust padding for container */
+}
+
+header .container {
+    display: flex;
+    justify-content: center; /* Center content within header */
+    align-items: center;
+}
+
+header p {
+    font-size: 1.2em; /* Style header placeholder text */
+}
+
+/* Style the main section */
+main {
+    /* Main itself does not need padding if sections have it */
+}
+
+/* Style the hero section */
+#hero {
+    background-image: var(--hero-bg-gradient);
+    color: white; /* Text color on gradient */
+    min-height: 60vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#hero p {
+    font-size: 2em; /* Larger, more prominent text */
+    font-weight: bold;
+    max-width: 80%; /* Prevent text from being too wide */
+}
+
+/* Style the content-cards section */
+#content-cards {
+    background-color: var(--content-cards-bg);
+    padding: 40px 0; /* Adjust padding for container */
+}
+
+#content-cards .container {
+    display: flex; /* Set up for Flexbox/Grid for cards */
+    flex-wrap: wrap; /* Allow cards to wrap */
+    justify-content: space-around; /* Example alignment for cards */
+    gap: 20px; /* Add space between cards */
+}
+
+
+/* Style individual cards */
+.card {
+    background-color: #ffffff; /* White background for cards */
+    padding: 25px; /* Increased padding */
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* More prominent box shadow */
+    flex-basis: calc(33.333% - 40px); /* Aim for 3 cards per row, accounting for gap and margins */
+    min-width: 280px; /* Minimum width before wrapping */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    
+    /* Intended initial state for scroll-triggered animation:
+       opacity: 0;
+       transform: translateY(30px); 
+    */
+    opacity: 1; /* Set to final state for demonstration */
+    transform: translateY(0); /* Set to final state for demonstration */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; /* Added opacity and transform transitions */
+}
+
+.card:hover {
+    transform: var(--card-hover-transform); /* var(--card-hover-transform) is scale(1.02) */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2); /* More pronounced shadow on hover */
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px; /* Slightly more space */
+    font-size: 1.5em;
+    font-weight: bold; /* Ensure headings are distinct */
+}
+
+.card p {
+    font-size: 1em;
+    line-height: 1.6; /* Ensure consistent line height */
+    color: var(--neutral-text-color);
+    text-align: left; /* Default, but good to be explicit for card content */
+}
+
+/* Styles for new sections: #company-history and #our-founders */
+#company-history,
+#our-founders {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff; /* White text */
+    position: relative; /* For overlay positioning if needed, though background directly on section works */
+}
+
+#company-history {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+}
+
+#our-founders {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+}
+
+/* Fallback backgrounds if Unsplash URLs are problematic - uncomment to use
+#company-history {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+#our-founders {
+    background: linear-gradient(135deg, #3a5372, #4b6b8c);
+}
+*/
+
+.section-content-wrapper {
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for better readability */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow to the wrapper */
+}
+
+#company-history h2,
+#our-founders h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold; /* Ensure it stands out */
+}
+
+#company-history p,
+#our-founders p {
+    font-size: 1.2em;
+    line-height: 1.7;
+}
+
+/* Style the footer */
+footer {
+    background-color: var(--footer-bg);
+    color: white;
+    padding: 20px 0; /* Adjust padding for container */
+    border-top: 3px solid var(--primary-color); /* Adds a distinct separation */
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between; /* Space out content */
+    align-items: center;
+}
+
+footer p {
+    font-size: 1em; /* Style footer placeholder text */
+}
+    </style>
 </head>
 <body>
     <header>
@@ -32,52 +233,52 @@
         <section id="content-cards">
             <div class="container">
                 <div class="card">
-                    <h3>Company History</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h3>Explore Our Latest Collection</h3>
+                    <p>Discover fresh arrivals and trending designs, crafted with passion and precision for your unique style and preferences.</p>
                 </div>
                 <div class="card">
-                    <h3>Our Founders</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h3>Sustainable & Ethical Sourcing</h3>
+                    <p>Learn about our commitment to the planet and fair practices, ensuring a better future with every single product we offer.</p>
                 </div>
                 <div class="card">
-                    <h3>Our Mission</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h3>Meet Our Artisans</h3>
+                    <p>Go behind the scenes and meet the skilled craftspeople and designers who bring our exclusive and unique designs to life.</p>
                 </div>
                 <div class="card">
-                    <h3>Feature 1</h3>
-                    <p>Details about Feature 1. Lorem ipsum dolor sit amet.</p>
+                    <h3>Rave Reviews: Customers Love Us!</h3>
+                    <p>See what our community is saying! Real stories, testimonials, and feedback from satisfied shoppers just like you.</p>
                 </div>
                 <div class="card">
-                    <h3>Feature 2</h3>
-                    <p>Details about Feature 2. Consectetur adipiscing elit.</p>
+                    <h3>Innovation in Every Thread</h3>
+                    <p>We're pioneering new materials and advanced techniques to bring you the next generation of quality, comfort, and style.</p>
                 </div>
                 <div class="card">
-                    <h3>Feature 3</h3>
-                    <p>Details about Feature 3. Sed do eiusmod tempor incididunt.</p>
+                    <h3>Join Our Loyalty Program</h3>
+                    <p>Unlock exclusive rewards, get early access to sales, and enjoy special perks when you become a valued member today.</p>
                 </div>
                 <div class="card">
-                    <h3>Team Member A</h3>
-                    <p>Bio of Team Member A. Ut labore et dolore magna aliqua.</p>
+                    <h3>Style Guide: Trends of 2024</h3>
+                    <p>Get inspired by our latest lookbook and gather expert tips on how to style this season's absolute must-have items.</p>
                 </div>
                 <div class="card">
-                    <h3>Team Member B</h3>
-                    <p>Bio of Team Member B. Quis nostrud exercitation ullamco.</p>
+                    <h3>Gift Cards: The Perfect Present</h3>
+                    <p>Give the wonderful gift of choice with our versatile gift cards, ideal for any occasion, celebration, and any taste.</p>
                 </div>
                 <div class="card">
-                    <h3>Team Member C</h3>
-                    <p>Bio of Team Member C. Laboris nisi ut aliquip ex ea commodo.</p>
+                    <h3>Our Journey to Zero Waste</h3>
+                    <p>Follow our dedicated progress as we strive for sustainability, actively reducing our environmental footprint one step at a time.</p>
                 </div>
                 <div class="card">
-                    <h3>Product Highlight X</h3>
-                    <p>Description of Product X. Duis aute irure dolor in reprehenderit.</p>
+                    <h3>Tech Behind the Scenes</h3>
+                    <p>A glimpse into the cutting-edge technology that powers our seamless online shopping experience and innovative product lines.</p>
                 </div>
                 <div class="card">
-                    <h3>Product Highlight Y</h3>
-                    <p>Description of Product Y. Velit esse cillum dolore eu fugiat nulla.</p>
+                    <h3>Community Impact Initiatives</h3>
+                    <p>We believe in giving back to society. See how we're making a positive difference in the communities we serve and support.</p>
                 </div>
                 <div class="card">
-                    <h3>Product Highlight Z</h3>
-                    <p>Description of Product Z. Excepteur sint occaecat cupidatat non proident.</p>
+                    <h3>24/7 Customer Support</h3>
+                    <p>Have questions or need assistance? Our dedicated support team is here to help you around the clock, ensuring a smooth experience.</p>
                 </div>
             </div>
         </section>
