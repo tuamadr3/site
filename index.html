@@ -14,7 +14,7 @@
 
 /* Scroll Snap properties for the root element */
 html {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity; /* Changed from mandatory */
     overflow-y: scroll; /* Ensure vertical scrollbar is present for snapping */
     scroll-padding-top: 70px; /* Offset for fixed navigation bar */
 }
@@ -365,56 +365,52 @@ main {
     line-height: 1.7;
 }
 
-/* Company Story Section Styles */
-#company-story-detailed {
-    padding: 80px 0; /* Generous padding for emphasis */
-    background-color: #f8f9fa; /* Optional: slightly different background for visual separation */
-    scroll-snap-align: start; /* Changed from center to start */
-    scroll-snap-stop: always; /* Ensure scroll snapping */
-    /* min-height: 90vh; */ /* Commented out for debugging */
-    /* display: flex; */ /* Commented out for debugging */
-    /* align-items: center; */ /* Commented out for debugging */
-    /* justify-content: center; */ /* Commented out for debugging */
-}
-
-.story-card {
+/* Rebuilt Company Story Card Styles */
+.story-card-rebuilt {
     background-color: #ffffff;
     border-radius: 45px; /* Very rounded corners */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); /* Softer, deeper shadow for importance */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); /* Softer, deeper shadow */
     padding: 60px 70px; /* Large internal padding */
-    margin: 0 auto; /* Center the card if container is wider */
-    max-width: 950px; /* Max width to ensure it's large but not overly wide on huge screens */
-    opacity: 0; /* Restored for animation */
-    transform: translateY(50px); /* Restored for animation */
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out; 
+    margin: 0 auto; /* Center the card within the .container if .container is wider */
+    max-width: 950px; /* Max width for the card */
+    text-align: left; /* Reset text-align from parent section's center */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out, box-shadow 0.3s ease-out; /* Added box-shadow to transition */
 }
 
-.story-content h2 {
-    font-size: 2.8em; /* Prominent title */
-    color: var(--primary-color, #333); /* Use defined primary color or fallback */
+.story-content-rebuilt h2 {
+    font-size: 2.8em; 
+    color: var(--primary-color, #333);
     margin-bottom: 30px;
-    text-align: center;
-    font-weight: 600; /* Slightly bolder */
+    text-align: center; /* Center the heading within the card */
+    font-weight: 600;
 }
 
-.story-content p {
-    font-size: 1.25em; /* Slightly larger paragraph for readability */
-    line-height: 1.85; /* Ample line height */
-    color: #343a40; /* Darker, rich text color */
-    text-align: justify; /* Justified text for a formal block appearance */
+.story-content-rebuilt p {
+    font-size: 1.25em; 
+    line-height: 1.85; 
+    color: #343a40; 
+    text-align: justify; /* Justified text for the paragraph */
 }
 
-/* Responsive adjustments for the story card padding on smaller screens */
+/* Responsive adjustments for the rebuilt story card padding on smaller screens */
 @media (max-width: 768px) {
-    .story-card {
+    .story-card-rebuilt {
         padding: 40px 30px;
     }
-    .story-content h2 {
+    .story-content-rebuilt h2 {
         font-size: 2.2em;
     }
-    .story-content p {
+    .story-content-rebuilt p {
         font-size: 1.1em;
     }
+}
+
+/* Scroll Snap for Rebuilt Company Story */
+#company-story-rebuilt {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 /* Styles for the new Products section */
@@ -497,20 +493,99 @@ main {
 
 /* Style the footer */
 footer {
-    background-color: var(--footer-bg);
-    color: white;
-    padding: 20px 0; /* Adjust padding for container */
-    border-top: 3px solid var(--primary-color); /* Adds a distinct separation */
+    background-color: #2c3e50; /* Dark background for footer */
+    padding: 20px 0; /* Padding for the main footer element */
+    color: #bdc3c7; /* Default light text for footer, e.g., copyright */
+    border-top: 3px solid var(--primary-color); /* Keep existing border */
+    scroll-snap-align: end;    /* Snap to the end of the footer to ensure all its content is visible */
+    scroll-snap-stop: always;
+    min-height: 40vh;          /* Give it some snap-worthy vertical space, adjust as needed */
+    display: flex;             /* To help center its content if footer is made tall */
+    align-items: center;       /* Vertically center .container */
+    justify-content: center;   /* Horizontally center .container */
 }
+
+/* Footer Content Styles */
+.footer-content {
+    text-align: center;
+    padding: 30px 0; /* Increased padding */
+    color: #f0f0f0; /* Assuming a dark footer background, light text */
+}
+
+.footer-content h4 {
+    font-size: 1.6em; /* Slightly larger heading */
+    margin-bottom: 20px;
+    color: #ffffff; /* White heading on dark footer */
+    font-weight: 600;
+}
+
+.footer-content address { /* Reset browser default address styling */
+    font-style: normal;
+}
+
+.footer-content address p {
+    margin-bottom: 10px;
+    font-size: 0.95em; /* Slightly smaller for secondary info */
+    line-height: 1.6;
+}
+
+.footer-content address a {
+    color: #e0e0e0; /* Lighter link color for readability on dark bg */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-content address a:hover {
+    color: #ffffff; /* Brighter on hover */
+    text-decoration: underline;
+}
+
+.social-links {
+    margin-top: 25px; /* More space above social links */
+}
+
+.social-links p {
+    margin-bottom: 12px; /* Space between "Follow Us:" and links */
+    font-size: 1.1em; /* Slightly larger "Follow Us" */
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.social-links a {
+    color: #f0f0f0;
+    text-decoration: none;
+    margin: 0 12px; /* More spacing between social icons */
+    font-weight: 500; /* Normal weight for FB, IG, TW text */
+    font-size: 1em;
+    padding: 5px 8px; /* Padding for touch targets / visual balance */
+    border: 1px solid transparent; /* For spacing and potential hover effect */
+    border-radius: 5px; /* Slightly rounded hover effect */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #111; /* Dark text on hover */
+    background-color: #ffffff; /* White background on hover */
+    border-color: #ffffff; /* White border on hover */
+}
+
 
 footer .container {
-    display: flex;
-    justify-content: space-between; /* Space out content */
-    align-items: center;
+    display: flex; /* This was for the old simple p tags, might need adjustment for new structure */
+    flex-direction: column; /* Stack footer-content and copyright */
+    align-items: center; /* Center content */
 }
 
-footer p {
-    font-size: 1em; /* Style footer placeholder text */
+footer p { /* This will target the copyright paragraph */
+    font-size: 0.9em; 
+    margin-top: 20px; /* Space above copyright */
+    text-align: center; /* Ensure copyright is centered */
+}
+
+/* If the copyright is separate and needs centering (specific selector from prompt) */
+footer .container > p[align="center"] { 
+    margin-top: 20px;
+    font-size: 0.9em;
 }
     </style>
 </head>
@@ -532,22 +607,19 @@ footer p {
     </nav>
     <main>
         <section id="our-founders">
-            <div class="section-content-wrapper">
-                <h2>Meet the Visionaries: Our Founders</h2>
-                <p>Driven by passion and a relentless pursuit of excellence, our founders laid the groundwork for what we are today. Their pioneering spirit and commitment to innovation continue to inspire us and shape our path forward. We honor their legacy in every endeavor.</p>
-            </div>
-        </section>
-        <section id="company-story-detailed">
             <div class="container">
-                <article class="story-card">
-                    <div class="story-content">
-                        <h2>Our Journey: Crafting Trust & Excellence</h2>
-                        <p>For over two decades, Elegance has been more than just a name; it's our promise. Born from a passion for timeless design and unwavering quality, we've dedicated ourselves to creating pieces that resonate with style and purpose. Our commitment extends beyond aesthetics, embedding sustainable practices and ethical sourcing into the heart of our operations. We believe in building lasting relationships with our customers, founded on transparency and a shared appreciation for the finer details that make life beautiful.</p>
-                    </div>
-                </article>
+                <div class="section-content-wrapper">
+                    <h2>Meet the Visionaries: Our Founders</h2>
+                    <p>Driven by passion and a relentless pursuit of excellence, our founders laid the groundwork for what we are today. Their pioneering spirit and commitment to innovation continue to inspire us and shape our path forward. We honor their legacy in every endeavor.</p>
+                </div>
             </div>
         </section>
-        <section id="products">
+<section id="company-story-rebuilt" style="padding: 50px; background-color: lightyellow; min-height: 50vh; text-align: center; border: 2px dashed red; opacity: 1; transform: none;">
+            <h2>Company Story (Rebuilt Test)</h2>
+            <p>This is the basic rebuilt Company Story content. If you see this, the basic section is visible.</p>
+            <p>The border is for debugging visibility. The background should be light yellow.</p>
+        </section>
+<section id="products">
             <div class="container">
                 <!-- Product Card 1 -->
                 <article class="product-card">
@@ -608,15 +680,28 @@ footer p {
     </main>
     <footer>
         <div class="container">
-            <p>Footer Placeholder</p>
-            <p>&copy; 2024 My Company</p> <!-- Added a second placeholder for footer -->
+            <div class="footer-content">
+                <h4>Contact Us</h4>
+                <address>
+                    <p>123 Elegance Avenue, Fashion City, FC 90210</p>
+                    <p>Phone: <a href="tel:+12345678900">(123) 456-78900</a></p>
+                    <p>Email: <a href="mailto:contact@elegance.com">contact@elegance.com</a></p>
+                </address>
+                <div class="social-links">
+                    <p>Follow Us:</p>
+                    <a href="#" aria-label="Facebook">FB</a> | 
+                    <a href="#" aria-label="Instagram">IG</a> | 
+                    <a href="#" aria-label="Twitter">TW</a>
+                </div>
+            </div>
+            <p>&copy; 2024 My Company</p> <!-- Copyright can remain or be moved into footer-content if preferred -->
         </div>
     </footer>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         
         // --- IntersectionObserver for Scroll-triggered Animations (Existing Code) ---
-        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card');
+        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card-rebuilt');
         const observerOptions = {
             root: null, // relative to document viewport
             rootMargin: '0px',
