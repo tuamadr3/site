@@ -16,6 +16,7 @@
 html {
     scroll-snap-type: y mandatory;
     overflow-y: scroll; /* Ensure vertical scrollbar is present for snapping */
+    scroll-padding-top: 70px; /* Offset for fixed navigation bar */
 }
 
 /* Set a modern sans-serif font for the body */
@@ -38,6 +39,162 @@ body {
     --content-cards-bg: #ffffff;
     --card-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     --card-hover-transform: scale(1.02);
+}
+
+/* Navigation Styles */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    z-index: 1000; /* Ensure it's above other content */
+    transition: transform 0.3s ease-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Softer shadow */
+}
+
+.main-nav.nav-hidden {
+    transform: translateY(-100%);
+}
+
+.main-nav.nav-scrolled { /* Style for when page is scrolled a bit, slightly more opaque */
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px; /* Adjusted padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.6em; /* Slightly smaller logo */
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex; /* For desktop view */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 30px; /* Spacing between links */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #444; /* Slightly darker link color */
+    font-weight: 500;
+    font-size: 0.95em; /* Modest size */
+    padding: 8px 0; /* Padding for clickable area and underline room */
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Underline effect at the bottom of padding */
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color, #333); /* Use primary color or fallback */
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #111; /* Darker on hover */
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Ensure toggle is above nav-links in mobile potentially */
+}
+
+.hamburger-bar {
+    display: block;
+    width: 22px; /* Slightly smaller hamburger */
+    height: 2px; /* Thinner bars */
+    background-color: #333;
+    margin: 5px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.main-nav.nav-open .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg); /* Adjusted translate based on 2px bar height and 5px margin */
+}
+
+.main-nav.nav-open .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.main-nav.nav-open .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg); /* Adjusted translate */
+}
+
+/* Responsive Navigation for Smaller Screens */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 10px 15px; /* Adjust padding for smaller nav bar */
+    }
+
+    .nav-toggle {
+        display: block; /* Show hamburger toggle */
+    }
+
+    .nav-links {
+        display: none; /* Hide desktop links by default */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Position below the nav bar (adjust if nav bar height changes) */
+        left: 0;
+        width: 100%;
+        background-color: #ffffff; /* Solid white background for mobile menu */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        padding: 0; /* Reset padding */
+        border-top: 1px solid #eee; /* Separator */
+    }
+
+    .main-nav.nav-open .nav-links { /* Show mobile menu when nav-open class is present */
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0; /* Reset margin */
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block; /* Make links take full width */
+        padding: 15px 20px; /* Larger touch targets */
+        text-align: left; /* Align text to the left */
+        border-bottom: 1px solid #f0f0f0; /* Separators between links */
+    }
+    
+    .nav-links a::after { /* Remove underline hover effect for mobile nav items */
+        display: none;
+    }
+
+    .nav-links li:last-child a {
+        border-bottom: none;
+    }
 }
 
 /* General container for max-width and centering */
@@ -156,36 +313,22 @@ main {
     text-align: left; /* Default, but good to be explicit for card content */
 }
 
-/* Styles for new sections: #company-history and #our-founders */
-#company-history,
+/* Styles for #our-founders section (formerly grouped with #company-history) */
 #our-founders {
     height: 100vh;
     display: flex;
     align-items: center;
-    scroll-snap-align: center; /* Restored to center for the group */
-    scroll-snap-stop: always; /* Prevent skipping this snap point */
+    scroll-snap-align: start; /* Changed from center to start */
+    scroll-snap-stop: always; 
     justify-content: center;
     text-align: center;
     padding: 20px;
     color: #ffffff; /* White text */
     position: relative; /* For overlay positioning if needed, though background directly on section works */
-}
-
-#company-history {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
-    scroll-snap-align: start !important; /* Specific override for #company-history */
-}
-
-#our-founders {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
-    /* The scroll-snap-align for #our-founders remains 'center' via the grouped selector */
 }
 
-/* Fallback backgrounds if Unsplash URLs are problematic - uncomment to use
-#company-history {
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-}
-
+/* Fallback background for #our-founders if Unsplash URLs are problematic - uncomment to use
 #our-founders {
     background: linear-gradient(135deg, #3a5372, #4b6b8c);
 }
@@ -220,6 +363,54 @@ main {
 #our-founders p {
     font-size: 1.2em;
     line-height: 1.7;
+}
+
+/* Company Story Section Styles */
+#company-story-detailed {
+    padding: 80px 0; /* Generous padding for emphasis */
+    background-color: #f8f9fa; /* Optional: slightly different background for visual separation */
+    scroll-snap-align: center; /* Ensure scroll snapping */
+    scroll-snap-stop: always; /* Ensure scroll snapping */
+}
+
+.story-card {
+    background-color: #ffffff;
+    border-radius: 45px; /* Very rounded corners */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); /* Softer, deeper shadow for importance */
+    padding: 60px 70px; /* Large internal padding */
+    margin: 0 auto; /* Center the card if container is wider */
+    max-width: 950px; /* Max width to ensure it's large but not overly wide on huge screens */
+    opacity: 0; 
+    transform: translateY(50px); 
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out; 
+}
+
+.story-content h2 {
+    font-size: 2.8em; /* Prominent title */
+    color: var(--primary-color, #333); /* Use defined primary color or fallback */
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600; /* Slightly bolder */
+}
+
+.story-content p {
+    font-size: 1.25em; /* Slightly larger paragraph for readability */
+    line-height: 1.85; /* Ample line height */
+    color: #343a40; /* Darker, rich text color */
+    text-align: justify; /* Justified text for a formal block appearance */
+}
+
+/* Responsive adjustments for the story card padding on smaller screens */
+@media (max-width: 768px) {
+    .story-card {
+        padding: 40px 30px;
+    }
+    .story-content h2 {
+        font-size: 2.2em;
+    }
+    .story-content p {
+        font-size: 1.1em;
+    }
 }
 
 /* Styles for the new Products section */
@@ -320,78 +511,36 @@ footer p {
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <p>Header Placeholder</p>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">Elegance</a> <!-- Simple text logo -->
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#our-founders">Our Story</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#">Contact</a></li> 
+            </ul>
         </div>
-    </header>
+    </nav>
     <main>
-        <section id="hero">
-            <!-- Hero content is already centered by flexbox and text-align in CSS -->
-            <p>Hero Image/Banner Section</p>
-        </section>
-        <section id="company-history">
-            <div class="section-content-wrapper">
-                <h2>Our Rich Heritage: A Journey Through Time</h2>
-                <p>Founded in the spirit of innovation, our company began as a small workshop with a grand vision. Over the decades, we've navigated challenges and celebrated milestones, always staying true to our core values of quality and customer dedication. This is our story.</p>
-            </div>
-        </section>
         <section id="our-founders">
             <div class="section-content-wrapper">
                 <h2>Meet the Visionaries: Our Founders</h2>
                 <p>Driven by passion and a relentless pursuit of excellence, our founders laid the groundwork for what we are today. Their pioneering spirit and commitment to innovation continue to inspire us and shape our path forward. We honor their legacy in every endeavor.</p>
             </div>
         </section>
-        <section id="content-cards">
+        <section id="company-story-detailed">
             <div class="container">
-                <div class="card">
-                    <h3>Explore Our Latest Collection</h3>
-                    <p>Discover fresh arrivals and trending designs, crafted with passion and precision for your unique style and preferences.</p>
-                </div>
-                <div class="card">
-                    <h3>Sustainable & Ethical Sourcing</h3>
-                    <p>Learn about our commitment to the planet and fair practices, ensuring a better future with every single product we offer.</p>
-                </div>
-                <div class="card">
-                    <h3>Meet Our Artisans</h3>
-                    <p>Go behind the scenes and meet the skilled craftspeople and designers who bring our exclusive and unique designs to life.</p>
-                </div>
-                <div class="card">
-                    <h3>Rave Reviews: Customers Love Us!</h3>
-                    <p>See what our community is saying! Real stories, testimonials, and feedback from satisfied shoppers just like you.</p>
-                </div>
-                <div class="card">
-                    <h3>Innovation in Every Thread</h3>
-                    <p>We're pioneering new materials and advanced techniques to bring you the next generation of quality, comfort, and style.</p>
-                </div>
-                <div class="card">
-                    <h3>Join Our Loyalty Program</h3>
-                    <p>Unlock exclusive rewards, get early access to sales, and enjoy special perks when you become a valued member today.</p>
-                </div>
-                <div class="card">
-                    <h3>Style Guide: Trends of 2024</h3>
-                    <p>Get inspired by our latest lookbook and gather expert tips on how to style this season's absolute must-have items.</p>
-                </div>
-                <div class="card">
-                    <h3>Gift Cards: The Perfect Present</h3>
-                    <p>Give the wonderful gift of choice with our versatile gift cards, ideal for any occasion, celebration, and any taste.</p>
-                </div>
-                <div class="card">
-                    <h3>Our Journey to Zero Waste</h3>
-                    <p>Follow our dedicated progress as we strive for sustainability, actively reducing our environmental footprint one step at a time.</p>
-                </div>
-                <div class="card">
-                    <h3>Tech Behind the Scenes</h3>
-                    <p>A glimpse into the cutting-edge technology that powers our seamless online shopping experience and innovative product lines.</p>
-                </div>
-                <div class="card">
-                    <h3>Community Impact Initiatives</h3>
-                    <p>We believe in giving back to society. See how we're making a positive difference in the communities we serve and support.</p>
-                </div>
-                <div class="card">
-                    <h3>24/7 Customer Support</h3>
-                    <p>Have questions or need assistance? Our dedicated support team is here to help you around the clock, ensuring a smooth experience.</p>
-                </div>
+                <article class="story-card">
+                    <div class="story-content">
+                        <h2>Our Journey: Crafting Trust & Excellence</h2>
+                        <p>For over two decades, Elegance has been more than just a name; it's our promise. Born from a passion for timeless design and unwavering quality, we've dedicated ourselves to creating pieces that resonate with style and purpose. Our commitment extends beyond aesthetics, embedding sustainable practices and ethical sourcing into the heart of our operations. We believe in building lasting relationships with our customers, founded on transparency and a shared appreciation for the finer details that make life beautiful.</p>
+                    </div>
+                </article>
             </div>
         </section>
         <section id="products">
@@ -428,6 +577,28 @@ footer p {
                         <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="TerraGlow Backpack">
                     </div>
                 </article>
+
+                <!-- New Card 4 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>NovaDesk Lamp</h3>
+                        <p>Illuminate your workspace with adaptive lighting. The NovaDesk Lamp offers customizable brightness and color temperature, with a minimalist design.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://source.unsplash.com/random/800x600?product&sig=4" alt="NovaDesk Lamp">
+                    </div>
+                </article>
+
+                <!-- New Card 5 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>Zenith Fitness Tracker</h3>
+                        <p>Track your progress, optimize your workouts, and stay connected. The Zenith tracker offers advanced health monitoring and a sleek, durable build.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://source.unsplash.com/random/800x600?product&sig=5" alt="Zenith Fitness Tracker">
+                    </div>
+                </article>
             </div>
         </section>
     </main>
@@ -439,14 +610,14 @@ footer p {
     </footer>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card');
-
+        
+        // --- IntersectionObserver for Scroll-triggered Animations (Existing Code) ---
+        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card');
         const observerOptions = {
             root: null, // relative to document viewport
             rootMargin: '0px',
             threshold: 0.1 // percentage of target's visible area. Adjust as needed.
         };
-
         const observerCallback = (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -455,12 +626,65 @@ footer p {
                 }
             });
         };
-
         const observer = new IntersectionObserver(observerCallback, observerOptions);
-
         animatableElements.forEach(el => {
             observer.observe(el);
         });
+
+        // --- Mobile Nav Toggle (Hamburger) ---
+        const navToggle = document.querySelector('.nav-toggle');
+        const mainNav = document.querySelector('.main-nav'); // Target .main-nav for nav-open class
+
+        if (navToggle && mainNav) {
+            navToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('nav-open');
+                const isExpanded = mainNav.classList.contains('nav-open');
+                navToggle.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+
+        // --- Logitech-style Scroll Behavior for Nav ---
+        let lastScrollY = window.scrollY;
+        const navScrolledThreshold = 50; // How much to scroll before navScrolled class is added
+        // const navHeight = mainNav ? mainNav.offsetHeight : 60; // Approximate nav height for hiding logic, or get dynamically
+
+        window.addEventListener('scroll', function() {
+            if (!mainNav) return; // Guard clause if mainNav isn't found
+
+            const currentScrollY = window.scrollY;
+
+            // Add/remove .nav-scrolled class for background opacity change
+            if (currentScrollY > navScrolledThreshold) {
+                mainNav.classList.add('nav-scrolled');
+            } else {
+                mainNav.classList.remove('nav-scrolled');
+            }
+
+            // Hide/Show nav on scroll direction change (Logitech style)
+            if (currentScrollY > lastScrollY + 10 && currentScrollY > (window.innerHeight * 0.25)) { 
+                // Scrolling Down by more than 10px AND scrolled past 25% of viewport height
+                mainNav.classList.add('nav-hidden');
+            } else {
+                // Scrolling Up or at the very top or small downward scroll
+                if (currentScrollY < lastScrollY || currentScrollY < 10) {
+                     mainNav.classList.remove('nav-hidden');
+                }
+            }
+            lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+        });
+
+        // --- Close mobile menu if a link is clicked (optional but good UX) ---
+        const navLinks = document.querySelectorAll('.nav-links a');
+        if (navLinks && mainNav && navToggle) {
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav.classList.contains('nav-open')) {
+                        mainNav.classList.remove('nav-open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+        }
     });
     </script>
 </body>
