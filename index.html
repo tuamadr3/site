@@ -162,7 +162,7 @@ main {
     height: 100vh;
     display: flex;
     align-items: center;
-    scroll-snap-align: center; /* Snap point */
+    scroll-snap-align: center; /* Restored to center for the group */
     scroll-snap-stop: always; /* Prevent skipping this snap point */
     justify-content: center;
     text-align: center;
@@ -173,10 +173,12 @@ main {
 
 #company-history {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+    scroll-snap-align: start !important; /* Specific override for #company-history */
 }
 
 #our-founders {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+    /* The scroll-snap-align for #our-founders remains 'center' via the grouped selector */
 }
 
 /* Fallback backgrounds if Unsplash URLs are problematic - uncomment to use
@@ -218,6 +220,84 @@ main {
 #our-founders p {
     font-size: 1.2em;
     line-height: 1.7;
+}
+
+/* Styles for the new Products section */
+#products {
+    padding: 60px 0; /* Increased padding for more space */
+    /* background-color: #f9f9f9; */ /* Optional: a slightly different background for this section */
+    scroll-snap-align: center; /* Make this section a snap point */
+    scroll-snap-stop: always; /* Prevent skipping this snap point */
+}
+
+.product-card {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 40px; /* Very rounded corners */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Subtle shadow */
+    margin-bottom: 40px; /* Increased spacing between cards */
+    overflow: hidden; /* Ensures child elements conform to border-radius */
+    /* Initial state for scroll-triggered animation */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.3s ease-out; /* Updated transition */
+    cursor: pointer; /* Added cursor pointer */
+}
+
+.product-card:hover {
+    transform: scale(1.03) translateY(-5px); /* Slightly raise and scale up */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); /* More pronounced shadow */
+}
+
+/* Apply .is-visible to .product-card as well for consistency */
+.product-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.product-card .product-text {
+    flex: 3; /* Give more space to text */
+    padding: 40px; /* Generous padding */
+}
+
+.product-card .product-text h3 {
+    font-size: 2.2em; /* Larger title */
+    margin-bottom: 15px;
+    color: var(--primary-color); /* Use existing primary color variable */
+}
+
+.product-card .product-text p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #555; /* Slightly darker paragraph text */
+}
+
+.product-card .product-image {
+    flex: 2; /* Give less space to image compared to text */
+    padding: 20px;
+    display: flex; /* To center image if it's smaller than container */
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card .product-image img {
+    width: 100%;
+    max-width: 350px; /* Max width for the image to control its size */
+    height: auto;
+    display: block;
+    border-radius: 25px; /* Rounded corners for the image itself */
+    object-fit: cover; /* Ensures image covers the area well */
+}
+
+/* Alternating layout for product cards */
+.product-card:nth-child(even) .product-text {
+    order: 2; /* Moves text to the right for even cards */
+}
+
+.product-card:nth-child(even) .product-image {
+    order: 1; /* Moves image to the left for even cards */
 }
 
 /* Style the footer */
@@ -314,6 +394,42 @@ footer p {
                 </div>
             </div>
         </section>
+        <section id="products">
+            <div class="container">
+                <!-- Product Card 1 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>ChronoGlide Watch</h3>
+                        <p>Elegance meets precision. The ChronoGlide features a sapphire crystal face and a self-winding mechanism, encased in aerospace-grade titanium. Define your moments.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="ChronoGlide Watch">
+                    </div>
+                </article>
+
+                <!-- Product Card 2 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>AeroBloom Speaker</h3>
+                        <p>Immersive 360° sound in a sleek, portable design. The AeroBloom speaker offers 24-hour playtime and crystal-clear highs, deep lows. Your music, amplified.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="AeroBloom Speaker">
+                    </div>
+                </article>
+
+                <!-- Product Card 3 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>TerraGlow Backpack</h3>
+                        <p>Crafted from recycled ocean-bound plastic, the TerraGlow backpack is durable, water-resistant, and features ergonomic support. Adventure responsibly.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="TerraGlow Backpack">
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
     <footer>
         <div class="container">
@@ -323,7 +439,7 @@ footer p {
     </footer>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper');
+        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card');
 
         const observerOptions = {
             root: null, // relative to document viewport
