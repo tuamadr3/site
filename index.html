@@ -369,8 +369,12 @@ main {
 #company-story-detailed {
     padding: 80px 0; /* Generous padding for emphasis */
     background-color: #f8f9fa; /* Optional: slightly different background for visual separation */
-    scroll-snap-align: center; /* Ensure scroll snapping */
+    scroll-snap-align: start; /* Changed from center to start */
     scroll-snap-stop: always; /* Ensure scroll snapping */
+    /* min-height: 90vh; */ /* Commented out for debugging */
+    /* display: flex; */ /* Commented out for debugging */
+    /* align-items: center; */ /* Commented out for debugging */
+    /* justify-content: center; */ /* Commented out for debugging */
 }
 
 .story-card {
@@ -380,8 +384,8 @@ main {
     padding: 60px 70px; /* Large internal padding */
     margin: 0 auto; /* Center the card if container is wider */
     max-width: 950px; /* Max width to ensure it's large but not overly wide on huge screens */
-    opacity: 0; 
-    transform: translateY(50px); 
+    opacity: 0; /* Restored for animation */
+    transform: translateY(50px); /* Restored for animation */
     transition: opacity 0.7s ease-out, transform 0.7s ease-out; 
 }
 
