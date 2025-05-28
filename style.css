@@ -99,7 +99,14 @@ main {
     flex-basis: calc(33.333% - 40px); /* Aim for 3 cards per row, accounting for gap and margins */
     min-width: 280px; /* Minimum width before wrapping */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+    
+    /* Intended initial state for scroll-triggered animation:
+       opacity: 0;
+       transform: translateY(30px); 
+    */
+    opacity: 1; /* Set to final state for demonstration */
+    transform: translateY(0); /* Set to final state for demonstration */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; /* Added opacity and transform transitions */
 }
 
 .card:hover {
@@ -121,11 +128,64 @@ main {
     text-align: left; /* Default, but good to be explicit for card content */
 }
 
+/* Styles for new sections: #company-history and #our-founders */
+#company-history,
+#our-founders {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff; /* White text */
+    position: relative; /* For overlay positioning if needed, though background directly on section works */
+}
+
+#company-history {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+}
+
+#our-founders {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+}
+
+/* Fallback backgrounds if Unsplash URLs are problematic - uncomment to use
+#company-history {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+#our-founders {
+    background: linear-gradient(135deg, #3a5372, #4b6b8c);
+}
+*/
+
+.section-content-wrapper {
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for better readability */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow to the wrapper */
+}
+
+#company-history h2,
+#our-founders h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold; /* Ensure it stands out */
+}
+
+#company-history p,
+#our-founders p {
+    font-size: 1.2em;
+    line-height: 1.7;
+}
+
 /* Style the footer */
 footer {
     background-color: var(--footer-bg);
     color: white;
     padding: 20px 0; /* Adjust padding for container */
+    border-top: 3px solid var(--primary-color); /* Adds a distinct separation */
 }
 
 footer .container {
