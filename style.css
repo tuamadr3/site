@@ -1,0 +1,139 @@
+/* Reset default browser margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set a modern sans-serif font for the body */
+body {
+    font-family: 'Arial', sans-serif;
+    color: var(--neutral-text-color); 
+    background-color: var(--neutral-background-color);
+    line-height: 1.6; /* Improved readability */
+}
+
+/* Define a basic color palette */
+:root {
+    --primary-color: #007bff; /* Example primary color */
+    --secondary-color: #6c757d; /* Example secondary color */
+    --neutral-text-color: #333;
+    --neutral-background-color: #f4f4f4;
+    --header-bg: #343a40;
+    --footer-bg: #343a40;
+    --hero-bg-gradient: linear-gradient(135deg, #6e8efb, #a777e3); /* More distinct hero background */
+    --content-cards-bg: #ffffff;
+    --card-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --card-hover-transform: scale(1.02);
+}
+
+/* General container for max-width and centering */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Add some padding to prevent content from touching edges */
+}
+
+/* Style the header */
+header {
+    background-color: var(--header-bg);
+    color: white;
+    padding: 20px 0; /* Adjust padding for container */
+}
+
+header .container {
+    display: flex;
+    justify-content: center; /* Center content within header */
+    align-items: center;
+}
+
+header p {
+    font-size: 1.2em; /* Style header placeholder text */
+}
+
+/* Style the main section */
+main {
+    /* Main itself does not need padding if sections have it */
+}
+
+/* Style the hero section */
+#hero {
+    background-image: var(--hero-bg-gradient);
+    color: white; /* Text color on gradient */
+    min-height: 60vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#hero p {
+    font-size: 2em; /* Larger, more prominent text */
+    font-weight: bold;
+    max-width: 80%; /* Prevent text from being too wide */
+}
+
+/* Style the content-cards section */
+#content-cards {
+    background-color: var(--content-cards-bg);
+    padding: 40px 0; /* Adjust padding for container */
+}
+
+#content-cards .container {
+    display: flex; /* Set up for Flexbox/Grid for cards */
+    flex-wrap: wrap; /* Allow cards to wrap */
+    justify-content: space-around; /* Example alignment for cards */
+    gap: 20px; /* Add space between cards */
+}
+
+
+/* Style individual cards */
+.card {
+    background-color: #ffffff; /* White background for cards */
+    padding: 20px;
+    border: 1px solid #ddd; /* Light grey border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    flex-basis: calc(33.333% - 40px); /* Aim for 3 cards per row, accounting for gap and margins */
+    min-width: 280px; /* Minimum width before wrapping */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.card:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px; /* Slightly more space */
+    font-size: 1.5em;
+    font-weight: bold; /* Ensure headings are distinct */
+}
+
+.card p {
+    font-size: 1em;
+    line-height: 1.6; /* Ensure consistent line height */
+    color: var(--neutral-text-color);
+    text-align: left; /* Default, but good to be explicit for card content */
+}
+
+/* Style the footer */
+footer {
+    background-color: var(--footer-bg);
+    color: white;
+    padding: 20px 0; /* Adjust padding for container */
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between; /* Space out content */
+    align-items: center;
+}
+
+footer p {
+    font-size: 1em; /* Style footer placeholder text */
+}
