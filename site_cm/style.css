@@ -30,10 +30,12 @@ p {
 a {
     color: var(--accent-color);
     text-decoration: none;
+    transition: color 0.3s ease; /* Added transition */
 }
 
 a:hover {
     text-decoration: underline;
+    color: var(--primary-color); /* Example: darken color on hover, or use another variable */
 }
 
 .container {
@@ -81,12 +83,13 @@ header nav ul li a {
     text-decoration: none;
     font-weight: bold;
     padding-bottom: 5px; /* For border-bottom effect on hover/active */
+    transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Added transition */
 }
 
 header nav ul li a:hover {
     color: var(--accent-color);
     text-decoration: none; /* Keep no underline for nav links */
-    border-bottom: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color); /* Ensure this remains */
 }
 
 /* Active Navigation Link Style - Assuming .active class on <li> */
@@ -140,36 +143,49 @@ form button[type="submit"]:hover {
     background-color: var(--primary-color);
 }
 
-/* List Styles (for news, events, used items) */
-.article-list article, /* For novita.html */
-.event-listing, /* For eventi.html */
-.used-item /* For usato-sicuro.html */ {
-    background-color: var(--secondary-color);
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border-left: 5px solid var(--primary-color);
+/* Card styles for list items (news, events, used items) */
+.article-list article,
+.event-listing,
+.used-item {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white, or var(--white-color) if no transparency desired initially */
+    padding: 20px; /* Increased padding */
+    margin-bottom: 20px; /* Increased margin */
+    border-radius: 8px; /* More pronounced rounded corners */
+    border-left: none; /* Remove the previous left border accent, or change it */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Standard card shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* For hover effect */
 }
 
-.article-list article h3,
+.article-list article:hover,
+.event-listing:hover,
+.used-item:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.article-list article h3, /* Keep these specific if they exist */
 .event-listing h3,
 .used-item h3 {
-    margin-top: 0; /* Remove default top margin for headings within these items */
+    margin-top: 0;
+    color: var(--primary-color); /* Ensure heading color consistency */
 }
 
 /* Product Category Styles (for prodotti.html) */
 .product-category {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid var(--secondary-color);
-    border-radius: 5px;
+    background-color: rgba(248, 249, 250, 0.85); /* Very light gray, slightly transparent */
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0; /* Softer border than a shadow, or add a light shadow */
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.05); */ /* Optional lighter shadow */
 }
 
 .product-category h2 {
     margin-top: 0;
     color: var(--primary-color);
     border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 5px;
+    padding-bottom: 10px; /* Increased padding */
+    margin-bottom: 15px; /* Space below heading */
 }
 
 /* Map Placeholder Styles (for dove-siamo.html) */
