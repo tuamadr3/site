@@ -12,6 +12,12 @@
     box-sizing: border-box;
 }
 
+/* Scroll Snap properties for the root element */
+html {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll; /* Ensure vertical scrollbar is present for snapping */
+}
+
 /* Set a modern sans-serif font for the body */
 body {
     font-family: 'Arial', sans-serif;
@@ -87,12 +93,13 @@ main {
 #content-cards {
     background-color: var(--content-cards-bg);
     padding: 40px 0; /* Adjust padding for container */
+    scroll-snap-align: center; /* Snap point */
+    scroll-snap-stop: always; /* Prevent skipping this snap point */
 }
 
 #content-cards .container {
-    display: flex; /* Set up for Flexbox/Grid for cards */
-    flex-wrap: wrap; /* Allow cards to wrap */
-    justify-content: space-around; /* Example alignment for cards */
+    display: grid; /* Changed from flex to grid */
+    grid-template-columns: repeat(12, 1fr); /* 12 columns for fine-grained control */
     gap: 20px; /* Add space between cards */
 }
 
@@ -104,18 +111,31 @@ main {
     border: 1px solid #ddd; /* Light grey border */
     border-radius: 15px; /* Rounded corners */
     box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* More prominent box shadow */
-    flex-basis: calc(33.333% - 40px); /* Aim for 3 cards per row, accounting for gap and margins */
-    min-width: 280px; /* Minimum width before wrapping */
+    /* flex-basis and min-width removed for grid layout */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    grid-column: span 4; /* Default span for a 3-across feel */
+    min-height: 200px; /* Give cards some substance */
     
-    /* Intended initial state for scroll-triggered animation:
-       opacity: 0;
-       transform: translateY(30px); 
-    */
-    opacity: 1; /* Set to final state for demonstration */
-    transform: translateY(0); /* Set to final state for demonstration */
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; /* Added opacity and transform transitions */
+    /* Initial state for scroll-triggered animation */
+    opacity: 0;
+    transform: translateY(50px); 
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; /* Ensure opacity and transform are part of transition */
 }
+
+/* Asymmetrical card styling */
+.card:nth-child(1) { grid-column: span 6; }
+.card:nth-child(2) { grid-column: span 6; }
+.card:nth-child(3) { grid-column: span 3; }
+.card:nth-child(4) { grid-column: span 5; }
+.card:nth-child(5) { grid-column: span 4; } /* This was default, but explicit here */
+.card:nth-child(6) { grid-column: span 12; } /* Full width */
+.card:nth-child(7) { grid-column: span 5; }
+.card:nth-child(8) { grid-column: span 7; }
+.card:nth-child(9) { grid-column: span 6; }
+.card:nth-child(10) { grid-column: span 6; }
+.card:nth-child(11) { grid-column: span 12; } /* Full width */
+/* Card 12 will take default span 4 */
+
 
 .card:hover {
     transform: var(--card-hover-transform); /* var(--card-hover-transform) is scale(1.02) */
@@ -142,6 +162,8 @@ main {
     height: 100vh;
     display: flex;
     align-items: center;
+    scroll-snap-align: center; /* Snap point */
+    scroll-snap-stop: always; /* Prevent skipping this snap point */
     justify-content: center;
     text-align: center;
     padding: 20px;
@@ -173,6 +195,16 @@ main {
     border-radius: 10px;
     max-width: 800px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow to the wrapper */
+    /* Initial state for scroll-triggered animation */
+    opacity: 0;
+    transform: translateY(50px); /* Or scale(0.95) */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* .is-visible class to trigger animation */
+.is-visible {
+    opacity: 1;
+    transform: translateY(0); /* Or scale(1) if scale was used initially */
 }
 
 #company-history h2,
@@ -289,5 +321,31 @@ footer p {
             <p>&copy; 2024 My Company</p> <!-- Added a second placeholder for footer -->
         </div>
     </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper');
+
+        const observerOptions = {
+            root: null, // relative to document viewport
+            rootMargin: '0px',
+            threshold: 0.1 // percentage of target's visible area. Adjust as needed.
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Optional: stop observing once visible
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        animatableElements.forEach(el => {
+            observer.observe(el);
+        });
+    });
+    </script>
 </body>
 </html>
