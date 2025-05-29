@@ -38,14 +38,15 @@
 
         /* Header & Navigation */
         header {
-            background: transparent; /* Changed to transparent */
-            color: #fff; /* White text on transparent header - contrast depends on background image */
+            background-color: rgba(255, 255, 255, 0.9); /* Light semi-transparent background */
+            color: #333; /* Dark text for contrast against light background */
             padding: 1rem 0;
             /* border-bottom: #002a53 3px solid; */
             position: fixed; /* Changed from absolute to fixed */
             top: 0; /* Ensure it stays at the top */
             width: 100%;
             z-index: 1000; /* Ensure it's above other content like slideshow */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
         }
 
         header div:first-child { /* Logo area */
@@ -53,7 +54,7 @@
             font-size: 2rem;
             font-weight: 600; /* Slightly lighter font weight */
             padding-left: 20px;
-            /* Considered making this h1, but the slideshow's caption is more prominent as page title */
+            /* color is inherited from header, now #333 */
         }
 
         header nav { /* 4. ARIA label for main navigation */
@@ -74,7 +75,7 @@
         }
 
         header nav ul li a {
-            color: #fff;
+            color: #333; /* Dark text for nav links for contrast */
             font-weight: normal; /* Lighter font weight for nav links */
         }
 
@@ -101,7 +102,7 @@
             min-height: 300px; /* Or ensure it's high enough if header is part of it */
             /* If header is absolute, slideshow might be the first element visible at the top */
             /* Consider if slideshow needs to start 'under' the header */
-            padding-top: 80px; /* Example: Add padding if header is absolute and has a height ~80px, to prevent overlap of slideshow content by header text */
+            padding-top: 120px; /* Increased padding to push content further down */
             background-color: #ccc; /* Placeholder background color */
             text-align: center;
             display: flex;
@@ -362,21 +363,21 @@
         <section id="slideshow">
             <div id="slideshow-container" role="region" aria-roledescription="carousel" aria-label="Image Slideshow">
                 <div class="slide" role="group" aria-roledescription="slide">
-                    <img src="https://via.placeholder.com/800x400/004080/ffffff?text=Macchinario+1" alt="Macchinario CNC Avanzato in funzione per fresatura di precisione.">
+                    <img src="https://source.unsplash.com/800x400/?cnc,machine,metalwork" alt="Moderno macchinario CNC in funzione all'interno di un'officina meccanica.">
                     <div class="slide-caption">
                         <h1>ERGG Lavorazioni Meccaniche</h1> <!-- 5. Changed to H1 for the first slide as primary message -->
                         <p>Fresatura di Precisione</p>
                     </div>
                 </div>
                 <div class="slide" role="group" aria-roledescription="slide">
-                    <img src="https://via.placeholder.com/800x400/0052a3/ffffff?text=Macchinario+2" alt="Tornio automatico ad alta velocità che lavora un pezzo metallico.">
+                    <img src="https://source.unsplash.com/800x400/?metal,precision,component,engineering" alt="Componente metallico di precisione finemente lavorato, esempio di alta qualità produttiva.">
                     <div class="slide-caption">
                         <h2>ERGG Lavorazioni Meccaniche</h2> <!-- Subsequent slides can use H2 -->
                         <p>Tornitura ad Alta Velocità</p>
                     </div>
                 </div>
                 <div class="slide" role="group" aria-roledescription="slide">
-                    <img src="https://via.placeholder.com/800x400/002a53/ffffff?text=Controllo+Qualit%C3%A0" alt="Strumento di controllo qualità dimensionale che misura un componente meccanico.">
+                    <img src="https://source.unsplash.com/800x400/?industrial,workshop,manufacturing,clean" alt="Officina meccanica moderna, pulita e ben organizzata, con attrezzature all'avanguardia.">
                     <div class="slide-caption">
                         <h2>ERGG Lavorazioni Meccaniche</h2>
                         <p>Controllo Qualità Rigoroso</p>
