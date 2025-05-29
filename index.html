@@ -229,9 +229,8 @@ main {
 
 /* Style the hero section */
 #hero {
-    /* background-image: var(--hero-bg-gradient); */ /* This line removed or commented out */
-    background-color: var(--neutral-background-color, #f4f4f4); /* New background color */
-    color: var(--neutral-text-color, #333); /* New text color */
+    background-image: var(--hero-bg-gradient);
+    color: white; /* Text color on gradient */
     min-height: 60vh;
     padding: 40px 20px;
     display: flex;
@@ -245,7 +244,6 @@ main {
     font-size: 2em; /* Larger, more prominent text */
     font-weight: bold;
     max-width: 80%; /* Prevent text from being too wide */
-    line-height: 1.3; /* Adjust line height if needed for longer text */
 }
 
 /* Style the content-cards section */
@@ -324,30 +322,47 @@ main {
     scroll-snap-stop: always; 
     justify-content: center;
     text-align: center;
-    padding: 80px 20px 20px 20px; /* New padding with 80px top */
+    padding: 20px;
     color: #ffffff; /* White text */
     position: relative; /* For overlay positioning if needed, though background directly on section works */
-    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
 }
 
-/* Fallback background for #company-profile if Unsplash URLs are problematic - uncomment to use
-#company-profile { /* Formerly #our-founders */
+/* Fallback background for #our-founders if Unsplash URLs are problematic - uncomment to use
+#our-founders {
     background: linear-gradient(135deg, #3a5372, #4b6b8c);
 }
 */
 
 .section-content-wrapper {
-    background-color: rgba(255, 255, 255, 0.1); /* Light, semi-transparent background for blur */
-    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for better readability */
     padding: 40px;
     border-radius: 10px;
-    text-align: center; /* Ensure text content within is centered */
     max-width: 800px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow to the wrapper */
     /* Initial state for scroll-triggered animation */
     opacity: 0;
     transform: translateY(50px); /* Or scale(0.95) */
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+#company-profile .section-content-wrapper h2,
+#company-profile .section-content-wrapper p {
+    opacity: 0; /* Initial state: hidden */
+    transform: translateY(40px); /* Initial state: shifted down */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* How they animate in */
+}
+
+#company-profile .section-content-wrapper h2.is-visible {
+    opacity: 1; /* Target state: visible */
+    transform: translateY(0); /* Target state: original position */
+    transition-delay: 0.2s; /* Stagger animation for h2 */
+}
+
+#company-profile .section-content-wrapper p.is-visible {
+    opacity: 1; /* Target state: visible */
+    transform: translateY(0); /* Target state: original position */
+    transition-delay: 0.4s; /* Stagger animation for p, after h2 */
 }
 
 /* .is-visible class to trigger animation */
@@ -357,14 +372,14 @@ main {
 }
 
 #company-history h2,
-#company-profile h2 { /* Formerly #our-founders h2 */
+#our-founders h2 {
     font-size: 3em;
     margin-bottom: 20px;
     font-weight: bold; /* Ensure it stands out */
 }
 
 #company-history p,
-#company-profile p { /* Formerly #our-founders p */
+#our-founders p {
     font-size: 1.2em;
     line-height: 1.7;
 }
@@ -697,6 +712,9 @@ footer .container > p[align="center"] {
     border-radius: 15px; /* Consistent with other cards */
     box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Use existing shadow */
     /* Match card class from existing styles for consistency if possible */
+    /* opacity: 0.3; */ /* Initial state is handled by scroll-reveal base style now */
+    /* transform: scale(0.95); */ /* Initial state is handled by scroll-reveal base style now */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out, box-shadow 0.3s ease-out; /* Combined transitions */
 }
 
 .timeline-content h3 {
@@ -706,35 +724,39 @@ footer .container > p[align="center"] {
 }
 
 .timeline-content p {
-    font-size: 1em;
-    line-height: 1.6;
-    color: var(--neutral-text-color);
-    /* New properties for hiding and transition: */
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    margin-top: 0; 
-    transition: max-height 0.4s ease-out, opacity 0.3s ease-in, margin-top 0.3s ease-out;
-}
-
-.timeline-item:hover .timeline-content p {
-    max-height: 200px; /* Adjust if descriptions can be much longer, but current ones are very short */
-    opacity: 1;
-    margin-top: 10px; /* Restore or set a margin for when the text is visible */
+    font-size: 1em; 
+    line-height: 1.6; 
+    color: var(--neutral-text-color); 
+    opacity: 1; /* Normally visible */
+    margin-top: 10px; /* Default margin */
+    max-height: none; 
+    overflow: visible; 
+    transition: none; /* Remove specific paragraph transition */
 }
 
 /* Add some animation to timeline cards, similar to other cards */
 .timeline-item .timeline-content {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out;
+    transform: translateY(30px) scale(0.9); /* Start scaled down and shifted for scroll-reveal */
+    /* transition is already on .timeline-content, but if more specific needed for scroll-reveal: */
+    /* transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; */
 }
 
 /* .is-visible class will be added by JS, assuming similar JS observer is used for these elements */
 .timeline-item .timeline-content.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1; /* Fully visible after scroll */
+    transform: translateY(0) scale(1); /* Normal size and position after scroll */
+    /* box-shadow is inherited from .timeline-content or .card, or set one here if needed */
 }
+
+.timeline-item:hover .timeline-content.is-visible {
+    transform: translateY(0) scale(1.03); /* Slightly amplify on hover */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2); /* Enhance shadow on hover */
+    /* Opacity is already 1 from .is-visible, so no need to repeat */
+}
+
+/* Hide old timeline-date elements, if any remain or for safety */
+/* .timeline-item:hover .timeline-content p rule is REMOVED */
 
 /* Hide old timeline-date elements, if any remain or for safety */
 .timeline-date {
@@ -904,23 +926,27 @@ footer .container > p[align="center"] {
 }
 
 .founders-grid {
-    display: grid;
-    grid-template-columns: repeat(3, calc(33.333% - 20px)); /* Adjusted for gaps */
-    gap: 30px; /* Space between cards */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; 
     max-width: 1200px; /* Align with .container max-width */
     margin: 0 auto; /* Center the grid if it doesn't fill the container */
-    text-align: left; /* Reset text-align for card content */
+    text-align: left; /* Reset text-align for card content - this might not be needed if cards handle their own text-align */
 }
 
 .founder-card {
-    /* Inherits from .card: background, border, border-radius, base shadow, opacity/transform for animation */
-    /* Add specific styles for founder card layout */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center image and text block within the card */
-    padding: 20px; /* Override or complement .card padding if needed */
-    box-shadow: var(--card-hover-shadow, 0 4px 8px rgba(0,0,0,0.15)); /* Ensure consistent shadow */
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Keep existing card transitions */
+    /* Existing styles like padding, box-shadow, transition are preserved from .card and its own rules */
+    display: flex; /* This is for the card's *internal* content */
+    flex-direction: column; /* For card's internal content */
+    align-items: center; /* For card's internal content */
+    /* New/updated for flex layout: */
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: calc(33.333% - (2 * 30px / 3)); /* Desktop: 3 columns, accounting for 30px gap */
+    /* Other existing styles like padding, border-radius, box-shadow etc. should be preserved */
+    padding: 20px; 
+    box-shadow: var(--card-hover-shadow, 0 4px 8px rgba(0,0,0,0.15)); 
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; 
 }
 
 .founder-card:hover {
@@ -959,19 +985,20 @@ footer .container > p[align="center"] {
 
 /* Responsive adjustments for founder cards */
 @media screen and (max-width: 992px) { /* Tablet layout */
-    .founders-grid {
-        grid-template-columns: repeat(2, calc(50% - 15px)); /* Adjusted for gaps */
+    /* .founders-grid rule for grid-template-columns removed */
+    .founder-card {
+        flex-basis: calc(50% - (1 * 30px / 2)); /* Tablet: 2 columns, accounting for 30px gap */
     }
 }
 
 @media screen and (max-width: 768px) { /* Mobile layout */
+    /* .founders-grid rule for grid-template-columns and gap removed/modified */
     .founders-grid {
-        grid-template-columns: 1fr; /* Stack cards on smaller screens */
-        gap: 20px;
+        gap: 20px; /* Keep the mobile gap if desired, or remove if flex-basis: 100% handles it */
     }
     .founder-card {
-        /* Adjust padding or other properties for mobile if needed */
-        padding: 25px;
+        flex-basis: 100%; /* Mobile: 1 column */
+        padding: 25px; /* Keep existing mobile padding adjustment */
     }
     .founder-image {
         width: 120px;
@@ -1149,7 +1176,7 @@ footer .container > p[align="center"] {
     document.addEventListener('DOMContentLoaded', function() {
         
         // --- IntersectionObserver for Scroll-triggered Animations (Existing Code) ---
-        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card-rebuilt, .timeline-item .timeline-content');
+        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card-rebuilt, .timeline-item .timeline-content, #company-profile .section-content-wrapper h2, #company-profile .section-content-wrapper p');
         const observerOptions = {
             root: null, // relative to document viewport
             rootMargin: '0px',
