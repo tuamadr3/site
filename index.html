@@ -244,6 +244,7 @@ main {
     font-size: 2em; /* Larger, more prominent text */
     font-weight: bold;
     max-width: 80%; /* Prevent text from being too wide */
+    line-height: 1.3; /* Adjust line height if needed for longer text */
 }
 
 /* Style the content-cards section */
@@ -325,7 +326,7 @@ main {
     padding: 20px;
     color: #ffffff; /* White text */
     position: relative; /* For overlay positioning if needed, though background directly on section works */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
 }
 
 /* Fallback background for #our-founders if Unsplash URLs are problematic - uncomment to use
@@ -335,9 +336,11 @@ main {
 */
 
 .section-content-wrapper {
-    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for better readability */
+    background-color: rgba(255, 255, 255, 0.1); /* Light, semi-transparent background for blur */
+    backdrop-filter: blur(4px);
     padding: 40px;
     border-radius: 10px;
+    text-align: center; /* Ensure text content within is centered */
     max-width: 800px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow to the wrapper */
     /* Initial state for scroll-triggered animation */
@@ -587,6 +590,381 @@ footer .container > p[align="center"] {
     margin-top: 20px;
     font-size: 0.9em;
 }
+
+/* Company History Timeline Section */
+#company-history {
+    padding: 60px 0;
+    background-color: var(--neutral-background-color, #f4f4f4); /* Use existing variable or a light neutral color */
+    scroll-snap-align: start; /* Snap point */
+    scroll-snap-stop: always;
+    overflow: hidden; /* To contain floats or absolute positioning if used in timeline items */
+}
+
+#company-history h2 {
+    text-align: center;
+    font-size: 2.5em; /* Consistent with other section titles */
+    color: var(--neutral-text-color, #333);
+    margin-bottom: 50px;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* The timeline axis (New) */
+.timeline-line {
+    position: absolute;
+    width: 4px; /* Thickness of the timeline */
+    background-color: var(--primary-color, #007bff);
+    top: 0;
+    /* bottom: 0; */ /* Removed to allow height animation from 0 to 100% */
+    left: 50%;
+    margin-left: -2px; /* Center the line */
+    z-index: 0; /* Ensure it's behind dots and content */
+    height: 0; /* Initially hidden, to be animated by JS */
+    transition: height 1s ease-out; /* Animation transition */
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+/* The timeline dot */
+.timeline-item .timeline-dot {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 4px solid var(--primary-color, #007bff);
+    top: 28px; /* Adjust to align with content */
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Position items on the left and right */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    padding-left: 0; /* Adjust padding for items on the left */
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-right: 0; /* Adjust padding for items on the right */
+}
+
+/* Dot positioning for left and right items */
+.timeline-item:nth-child(odd) .timeline-dot {
+    right: -8px; /* Half of dot width to align on the line */
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -8px; /* Half of dot width to align on the line */
+}
+
+/* Date styling */
+.timeline-date {
+    position: absolute;
+    top: 26px; /* Align with the dot */
+    font-weight: bold;
+    color: var(--primary-color, #007bff);
+    font-size: 1.1em;
+    z-index: 1; /* Ensure date is above the line if it overlaps */
+}
+
+.timeline-item:nth-child(odd) .timeline-date {
+    right: 60px; /* Position date to the left of the dot for odd items */
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-date {
+    left: 60px; /* Position date to the right of the dot for even items */
+}
+
+/* Content card styling */
+.timeline-content {
+    padding: 20px 30px;
+    background-color: var(--content-cards-bg, #ffffff); /* Use existing card background */
+    position: relative;
+    border-radius: 15px; /* Consistent with other cards */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Use existing shadow */
+    /* Match card class from existing styles for consistency if possible */
+}
+
+.timeline-content h3 {
+    font-size: 1.5em;
+    color: var(--primary-color, #333);
+    margin-bottom: 10px;
+}
+
+.timeline-content p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--neutral-text-color);
+}
+
+/* Add some animation to timeline cards, similar to other cards */
+.timeline-item .timeline-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out;
+}
+
+/* .is-visible class will be added by JS, assuming similar JS observer is used for these elements */
+.timeline-item .timeline-content.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hide old timeline-date elements, if any remain or for safety */
+.timeline-date {
+    display: none !important;
+}
+
+/* Styling for the new dates on the timeline axis */
+.timeline-dot {
+    /* Ensure the dot itself is a positioning context if needed, though not strictly necessary if axis-date is positioned relative to timeline-item */
+}
+
+.timeline-axis-date {
+    position: absolute;
+    width: 80px; /* Width of the date box */
+    text-align: center;
+    padding: 5px 0;
+    background-color: var(--content-cards-bg, #ffffff); /* Match card background */
+    color: var(--primary-color, #007bff);
+    font-weight: bold;
+    font-size: 0.9em;
+    border: 1px solid var(--primary-color, #007bff);
+    border-radius: 4px;
+    z-index: 2; /* Above the timeline line and dot's main circle */
+    
+    /* Positioning: Center it on the dot initially, then adjust */
+    top: 50%; /* Vertically center relative to dot */
+    transform: translateY(-50%); /* Precise vertical centering */
+}
+
+/* Adjust date position based on whether item is on left or right */
+.timeline-item:nth-child(odd) .timeline-axis-date {
+    left: 30px; /* Place it to the right of the timeline axis/dot */
+}
+
+.timeline-item:nth-child(even) .timeline-axis-date {
+    right: 30px; /* Place it to the left of the timeline axis/dot */
+}
+
+/* Responsive adjustments for timeline */
+@media screen and (max-width: 768px) {
+    .timeline-line { /* Updated from .timeline::after */
+        left: 31px; /* Move timeline axis to the left for mobile */
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px; /* Space for date and dot */
+        padding-right: 25px;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0%; /* All items flow on one side */
+        padding-left: 70px; /* Ensure consistent padding */
+        padding-right: 15px; /* Adjust right padding */
+    }
+
+    .timeline-item .timeline-dot {
+        left: 23px; /* Position dot on the left axis */
+        /* right: auto; remove right positioning */
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 23px; /* Ensure dot is always on the left axis */
+        right: auto; 
+    }
+
+    .timeline-date {
+        position: relative; /* Change positioning for mobile */
+        top: auto;
+        left: auto !important; /* Override inline/specific positioning */
+        right: auto !important;
+        text-align: left !important; /* Align date text to left */
+        margin-bottom: 10px; /* Space between date and content */
+        display: block; /* Make it block to take its own line */
+        font-size: 1em;
+        color: var(--secondary-color, #6c757d); /* Maybe a more subtle color for date on mobile */
+    }
+    
+    /* Adjust content card for mobile */
+    .timeline-content {
+        margin-left: 0; /* Reset margin if any was added for desktop */
+    }
+    
+    /* Ensure date is displayed correctly for all items on mobile */
+    .timeline-item:nth-child(odd) .timeline-date,
+    .timeline-item:nth-child(even) .timeline-date {
+       /* All mobile date adjustments are handled by .timeline-date general rules above for mobile */
+    }
+
+    /* Responsive adjustments for dates on axis */
+    .timeline-axis-date {
+        /* On mobile, dates are on the left, before the content */
+        left: -85px !important; /* Move it further left of the dot on the single-sided mobile layout */
+        right: auto !important; /* Ensure no interference from 'even' rule */
+        width: auto; /* Allow it to size naturally or set a specific mobile width */
+        padding: 3px 8px;
+        font-size: 0.85em;
+    }
+
+    .timeline-item .timeline-axis-date { /* More specific selector for mobile */
+        left: -65px; 
+        position: absolute;
+        transform: translateY(-50%); /* Keep vertical centering */
+        left: -60px; /* Adjusted for better spacing from the timeline line */
+    }
+}
+
+/* Future is Unwritten Indicator */
+.timeline-future-indicator {
+    position: relative;
+    width: 50%; /* Align with one side of the timeline items */
+    padding: 20px 40px;
+    box-sizing: border-box;
+    margin-left: 50%; /* Position on the right side of the timeline */
+    text-align: center; /* Center the spans if they were inline-block */
+}
+
+.timeline-future-indicator span {
+    display: block;
+    width: 4px; /* Match timeline axis thickness */
+    height: 20px; /* Length of each dash */
+    background-color: var(--primary-color, #007bff);
+    margin: 10px auto; /* Space out the dashes, centered */
+    opacity: 0.7;
+}
+
+.timeline-future-indicator span:nth-child(2) {
+    opacity: 0.5;
+    transform: scaleY(0.8); /* Make middle dash slightly shorter */
+}
+
+.timeline-future-indicator span:nth-child(3) {
+    opacity: 0.3;
+    transform: scaleY(0.6); /* Make last dash even shorter */
+}
+
+/* Responsive adjustments for the indicator */
+@media screen and (max-width: 768px) {
+    .timeline-future-indicator {
+        width: 100%;
+        margin-left: 0; /* Full width on mobile */
+        padding-left: 70px; /* Align with mobile timeline items' content */
+        padding-right: 25px;
+        text-align: left; /* Align dashes to the left with content */
+    }
+    .timeline-future-indicator span {
+        margin: 10px 0; /* Align left, not auto for center */
+    }
+}
+
+/* Founders Section Styling */
+#founders-section {
+    padding: 60px 0;
+    background-color: var(--neutral-background-color, #f4f4f4); /* Consistent with other sections */
+    scroll-snap-align: start; /* Make it a snap point */
+    scroll-snap-stop: always;
+    text-align: center; /* Center the section title and potentially the grid if not full width */
+}
+
+#founders-section .section-title { /* Shared style for section titles if desired */
+    font-size: 2.5em;
+    color: var(--neutral-text-color, #333);
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+
+.founders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px; /* Space between cards */
+    max-width: 1200px; /* Align with .container max-width */
+    margin: 0 auto; /* Center the grid if it doesn't fill the container */
+    text-align: left; /* Reset text-align for card content */
+}
+
+.founder-card {
+    /* Inherits from .card: background, border, border-radius, base shadow, opacity/transform for animation */
+    /* Add specific styles for founder card layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center image and text block within the card */
+    padding: 20px; /* Override or complement .card padding if needed */
+    box-shadow: var(--card-hover-shadow, 0 4px 8px rgba(0,0,0,0.15)); /* Ensure consistent shadow */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Keep existing card transitions */
+}
+
+.founder-card:hover {
+    transform: var(--card-hover-transform, scale(1.02)); /* Use variable */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2); /* More pronounced shadow on hover - consistent with .card:hover */
+}
+
+.founder-image {
+    width: 150px; /* Size of the portrait */
+    height: 150px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover; /* Ensure image covers the area well */
+    margin-bottom: 20px;
+    border: 3px solid var(--primary-color, #007bff); /* Optional: border around image */
+}
+
+.founder-info {
+    text-align: center; /* Center text within the info block */
+}
+
+.founder-name {
+    font-size: 1.5em;
+    color: var(--primary-color, #333);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.founder-bio {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--neutral-text-color, #555);
+}
+
+/* Ensure founder cards are also picked up by the animation observer if not already covered by .card */
+/* The JS `animatableElements` querySelectorAll already includes '.card', so these should be animated. */
+
+/* Responsive adjustments for founder cards (mainly handled by grid's auto-fit) */
+@media screen and (max-width: 768px) {
+    .founders-grid {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+        gap: 20px;
+    }
+    .founder-card {
+        /* Adjust padding or other properties for mobile if needed */
+        padding: 25px;
+    }
+    .founder-image {
+        width: 120px;
+        height: 120px;
+    }
+    .founder-name {
+        font-size: 1.3em;
+    }
+    .founder-bio {
+        font-size: 0.9em;
+    }
+}
     </style>
 </head>
 <body>
@@ -606,6 +984,9 @@ footer .container > p[align="center"] {
         </div>
     </nav>
     <main>
+        <section id="hero"> <!-- Assuming #hero is the direct parent for the text to be changed -->
+            <p>CM Marangoni: Precisione, Affidabilità e Alta Tecnologia nelle Macchine Utensili dal 1965.</p>
+        </section>
         <section id="our-founders">
             <div class="container">
                 <div class="section-content-wrapper">
@@ -614,70 +995,121 @@ footer .container > p[align="center"] {
                 </div>
             </div>
         </section>
-<section id="company-story-rebuilt" style="padding: 50px; background-color: lightyellow; min-height: 50vh; text-align: center; border: 2px dashed red; opacity: 1; transform: none;">
-            <h2>Company Story (Rebuilt Test)</h2>
-            <p>This is the basic rebuilt Company Story content. If you see this, the basic section is visible.</p>
-            <p>The border is for debugging visibility. The background should be light yellow.</p>
-        </section>
+<section id="company-history" class="timeline-section">
+    <div class="container">
+        <h2>Our Company's Journey</h2>
+        <div class="timeline">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">1965</div></div>
+                <div class="timeline-content card">
+                    <h3>Inizio Attività Famiglia Marangoni</h3>
+                    <p>Attività iniziale della famiglia Marangoni nelle macchine utensili, gettando le basi per la futura CM Marangoni Srl.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">Anni '60-'00</div></div>
+                <div class="timeline-content card">
+                    <h3>Accumulo Esperienza</h3>
+                    <p>Oltre 50 anni di esperienza con produttori di pregio, consolidando competenze e reputazione nel settore macchine utensili.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">2001</div></div>
+                <div class="timeline-content card">
+                    <h3>Fondazione CM Marangoni Srl</h3>
+                    <p>Nasce CM Marangoni Srl: focus su prodotti di nicchia ad alta tecnologia, affidabilità e forte impegno verso i clienti.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">Post 2001</div></div>
+                <div class="timeline-content card">
+                    <h3>Sviluppo Continuo</h3>
+                    <p>Affermazione per l'alta qualità dei prodotti e costruzione di una clientela importante grazie a serietà e problem-solving.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">
+                    <div class="timeline-axis-date">2026</div>
+                </div>
+                <div class="timeline-content card">
+                    <h3>Espansione Europea</h3>
+                    <p>Obiettivo strategico: espansione delle operazioni commerciali e della presenza in nuovi mercati europei.</p>
+                </div>
+            </div>
+            <div class="timeline-future-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</section>
 <section id="products">
             <div class="container">
                 <!-- Product Card 1 -->
                 <article class="product-card">
                     <div class="product-text">
-                        <h3>ChronoGlide Watch</h3>
-                        <p>Elegance meets precision. The ChronoGlide features a sapphire crystal face and a self-winding mechanism, encased in aerospace-grade titanium. Define your moments.</p>
+                        <h3>Torni CNC di Alta Precisione</h3>
+                        <p>Soluzioni avanzate per tornitura CNC, garantendo massima precisione e produttività per componenti complessi.</p>
                     </div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="ChronoGlide Watch">
+                        <img src="https://source.unsplash.com/random/800x600?lathe,industrial&sig=10" alt="Tornio CNC di Alta Precisione">
                     </div>
                 </article>
 
                 <!-- Product Card 2 -->
                 <article class="product-card">
                     <div class="product-text">
-                        <h3>AeroBloom Speaker</h3>
-                        <p>Immersive 360° sound in a sleek, portable design. The AeroBloom speaker offers 24-hour playtime and crystal-clear highs, deep lows. Your music, amplified.</p>
+                        <h3>Centri di Lavoro Verticali</h3>
+                        <p>Centri di lavoro versatili per fresatura, foratura e maschiatura, progettati per efficienza e performance durature.</p>
                     </div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="AeroBloom Speaker">
+                        <img src="https://source.unsplash.com/random/800x600?cnc+milling+machine,industry&sig=11" alt="Centro di Lavoro Verticale">
                     </div>
                 </article>
 
                 <!-- Product Card 3 -->
                 <article class="product-card">
                     <div class="product-text">
-                        <h3>TerraGlow Backpack</h3>
-                        <p>Crafted from recycled ocean-bound plastic, the TerraGlow backpack is durable, water-resistant, and features ergonomic support. Adventure responsibly.</p>
+                        <h3>Rettificatrici Universali</h3>
+                        <p>Macchine per rettifica di precisione, ideali per finiture superficiali impeccabili su una vasta gamma di materiali.</p>
                     </div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="TerraGlow Backpack">
-                    </div>
-                </article>
-
-                <!-- New Card 4 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>NovaDesk Lamp</h3>
-                        <p>Illuminate your workspace with adaptive lighting. The NovaDesk Lamp offers customizable brightness and color temperature, with a minimalist design.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?product&sig=4" alt="NovaDesk Lamp">
-                    </div>
-                </article>
-
-                <!-- New Card 5 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>Zenith Fitness Tracker</h3>
-                        <p>Track your progress, optimize your workouts, and stay connected. The Zenith tracker offers advanced health monitoring and a sleek, durable build.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?product&sig=5" alt="Zenith Fitness Tracker">
+                        <img src="https://source.unsplash.com/random/800x600?grinding+machine,manufacturing&sig=12" alt="Rettificatrice Universale">
                     </div>
                 </article>
             </div>
         </section>
     </main>
+<section id="founders-section">
+    <div class="container">
+        <h2 class="section-title">I Nostri Fondatori</h2>
+        <div class="founders-grid">
+            <div class="founder-card card">
+                <img src="https://source.unsplash.com/random/400x400?portrait,man,professional&sig=1" alt="Fondatore 1 Placeholder" class="founder-image">
+                <div class="founder-info">
+                    <h3 class="founder-name">Nome Fondatore 1</h3>
+                    <p class="founder-bio">Breve biografia o ruolo del fondatore 1. Informazioni sulla sua visione e contributo all'azienda CM Marangoni.</p>
+                </div>
+            </div>
+            <div class="founder-card card">
+                <img src="https://source.unsplash.com/random/400x400?portrait,woman,professional&sig=2" alt="Fondatore 2 Placeholder" class="founder-image">
+                <div class="founder-info">
+                    <h3 class="founder-name">Nome Fondatore 2</h3>
+                    <p class="founder-bio">Breve biografia o ruolo del fondatore 2. Dettagli sul suo impatto e sulla guida strategica fornita all'azienda.</p>
+                </div>
+            </div>
+            <div class="founder-card card">
+                <img src="https://source.unsplash.com/random/400x400?portrait,professional&sig=3" alt="Fondatore 3 Placeholder" class="founder-image">
+                <div class="founder-info">
+                    <h3 class="founder-name">Nome Fondatore 3</h3>
+                    <p class="founder-bio">Breve biografia o ruolo del fondatore 3, con enfasi sulla sua esperienza e dedizione al successo di CM Marangoni.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -694,14 +1126,14 @@ footer .container > p[align="center"] {
                     <a href="#" aria-label="Twitter">TW</a>
                 </div>
             </div>
-            <p>&copy; 2024 My Company</p> <!-- Copyright can remain or be moved into footer-content if preferred -->
+            <p>&copy; 2024 CM Marangoni Srl. Tutti i diritti riservati.</p> <!-- Copyright can remain or be moved into footer-content if preferred -->
         </div>
     </footer>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         
         // --- IntersectionObserver for Scroll-triggered Animations (Existing Code) ---
-        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card-rebuilt');
+        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card-rebuilt, .timeline-item .timeline-content');
         const observerOptions = {
             root: null, // relative to document viewport
             rootMargin: '0px',
@@ -719,6 +1151,39 @@ footer .container > p[align="center"] {
         animatableElements.forEach(el => {
             observer.observe(el);
         });
+
+        // --- Timeline Axis Animation Observer ---
+        const companyHistorySection = document.getElementById('company-history');
+        const timelineLine = document.querySelector('.timeline .timeline-line');
+
+        if (companyHistorySection && timelineLine) {
+            const timelineObserverOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Start animation when 10% of the section is visible
+            };
+
+            const timelineObserverCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const timelineContainer = document.querySelector('.timeline');
+                        if (timelineContainer) {
+                            // Ensure .timeline is a positioning context for .timeline-line
+                            // (It should already have position: relative from CSS)
+                            // if (getComputedStyle(timelineContainer).position === 'static') {
+                            //     timelineContainer.style.position = 'relative';
+                            // }
+                            timelineLine.style.height = '100%'; // Animate to full height of its container
+                        }
+                        
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            };
+
+            const timelineAxisObserver = new IntersectionObserver(timelineObserverCallback, timelineObserverOptions);
+            timelineAxisObserver.observe(companyHistorySection);
+        }
 
         // --- Mobile Nav Toggle (Hamburger) ---
         const navToggle = document.querySelector('.nav-toggle');
