@@ -42,7 +42,8 @@
             color: #fff; /* White text on transparent header - contrast depends on background image */
             padding: 1rem 0;
             /* border-bottom: #002a53 3px solid; */
-            position: absolute;
+            position: fixed; /* Changed from absolute to fixed */
+            top: 0; /* Ensure it stays at the top */
             width: 100%;
             z-index: 1000; /* Ensure it's above other content like slideshow */
         }
@@ -287,6 +288,60 @@
         footer nav ul li a {
             color: #fff;
         }
+
+        /* Collaborations Section */
+        #collaborazioni {
+            /* Padding is handled by .container, margin-bottom by main section rule */
+            text-align: center; /* Center the main heading of this section */
+        }
+
+        .collaborations-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between items */
+            justify-content: center; /* Center items in the row */
+            margin-top: 20px; /* Space below the heading */
+        }
+
+        .collaboration-item {
+            flex-basis: calc(25% - 20px); /* Aim for 4 items per row, accounting for gap */
+            min-width: 180px; /* Minimum width before items stack more */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            text-align: center; /* Center content within each item */
+        }
+
+        .collaboration-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto; /* Center image and add space below */
+            border: 1px solid #eee; /* Subtle border for images */
+        }
+
+        .collaboration-item .caption {
+            font-size: 0.9em;
+            color: #555; /* Slightly muted text color for captions */
+            line-height: 1.4;
+        }
+
+        /* Responsive adjustments for collaboration items */
+        @media (max-width: 992px) {
+            .collaboration-item {
+                flex-basis: calc(33.333% - 20px); /* 3 items per row */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .collaboration-item {
+                flex-basis: calc(50% - 20px); /* 2 items per row */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .collaboration-item {
+                flex-basis: 100%; /* 1 item per row */
+            }
+        }
     </style>
 </head>
 <body>
@@ -380,6 +435,44 @@
             <h2>Contatti</h2>
             <p>Informazioni su come contattare l'azienda.</p>
             <a href="#" class="button">Richiedi un Preventivo</a> <!-- or "Contattaci Ora" -->
+        </section>
+
+        <section id="collaborazioni" class="container">
+            <h2>Le Nostre Collaborazioni</h2>
+            <div class="collaborations-grid">
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+1" alt="Logo Azienda Partner 1">
+                    <p class="caption">Collaborazione strategica per componentistica di precisione con Azienda 1.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+2" alt="Logo Azienda Partner 2">
+                    <p class="caption">Sviluppo congiunto di soluzioni innovative per il settore automotive con Azienda 2.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+3" alt="Logo Azienda Partner 3">
+                    <p class="caption">Fornitura di lavorazioni meccaniche specializzate per Azienda 3.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+4" alt="Logo Azienda Partner 4">
+                    <p class="caption">Partnership tecnologica per l'ottimizzazione dei processi produttivi con Azienda 4.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+5" alt="Logo Azienda Partner 5">
+                    <p class="caption">Consulenza e produzione per prototipazione rapida con Azienda 5.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+6" alt="Logo Azienda Partner 6">
+                    <p class="caption">Lavorazioni di alta precisione per il settore aerospaziale con Azienda 6.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+7" alt="Logo Azienda Partner 7">
+                    <p class="caption">Supporto alla produzione per macchinari industriali con Azienda 7.</p>
+                </div>
+                <div class="collaboration-item">
+                    <img src="https://via.placeholder.com/200x150?text=Azienda+Partner+8" alt="Logo Azienda Partner 8">
+                    <p class="caption">Collaborazione per la realizzazione di componenti meccanici su misura con Azienda 8.</p>
+                </div>
+            </div>
         </section>
     </main>
 
