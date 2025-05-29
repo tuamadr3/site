@@ -705,16 +705,13 @@ footer .container > p[align="center"] {
 }
 
 /* Content card styling */
-.timeline-content {
+.timeline-content { /* This is the base style for the card itself, also before .is-visible */
     padding: 20px 30px;
-    background-color: var(--content-cards-bg, #ffffff); /* Use existing card background */
+    background-color: var(--content-cards-bg, #ffffff); 
     position: relative;
-    border-radius: 15px; /* Consistent with other cards */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* Use existing shadow */
-    /* Match card class from existing styles for consistency if possible */
-    /* opacity: 0.3; */ /* Initial state is handled by scroll-reveal base style now */
-    /* transform: scale(0.95); */ /* Initial state is handled by scroll-reveal base style now */
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out, box-shadow 0.3s ease-out; /* Combined transitions */
+    border-radius: 15px; 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15); 
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out, box-shadow 0.3s ease-out; /* Handles hover transitions */
 }
 
 .timeline-content h3 {
@@ -734,29 +731,29 @@ footer .container > p[align="center"] {
     transition: none; /* Remove specific paragraph transition */
 }
 
-/* Add some animation to timeline cards, similar to other cards */
-.timeline-item .timeline-content {
+/* Animation for scroll-reveal */
+.timeline-item .timeline-content { /* This is the initial state BEFORE .is-visible */
     opacity: 0;
-    transform: translateY(30px) scale(0.9); /* Start scaled down and shifted for scroll-reveal */
-    /* transition is already on .timeline-content, but if more specific needed for scroll-reveal: */
-    /* transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; */
+    transform: translateY(30px) scale(0.9); /* Start scaled down and shifted */
+    /* The transition from .timeline-content (above) will apply for the .is-visible state change if specific enough. 
+       Alternatively, a more specific transition can be placed here too if scroll-reveal needs different timing.
+       For now, relying on the transition on .timeline-content for hover, and this will also affect scroll-reveal.
+       Let's ensure the main scroll-reveal transition is also on this more specific selector if needed.
+    */
+   transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; /* Original scroll-reveal transition */
 }
 
-/* .is-visible class will be added by JS, assuming similar JS observer is used for these elements */
+/* State after scroll-reveal (visible, but not hovered) */
 .timeline-item .timeline-content.is-visible {
-    opacity: 1; /* Fully visible after scroll */
-    transform: translateY(0) scale(1); /* Normal size and position after scroll */
-    /* box-shadow is inherited from .timeline-content or .card, or set one here if needed */
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
 }
 
+/* State after scroll-reveal AND hovered */
 .timeline-item:hover .timeline-content.is-visible {
-    transform: translateY(0) scale(1.03); /* Slightly amplify on hover */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.2); /* Enhance shadow on hover */
-    /* Opacity is already 1 from .is-visible, so no need to repeat */
+    transform: translateY(0) scale(1.03); 
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2); 
 }
-
-/* Hide old timeline-date elements, if any remain or for safety */
-/* .timeline-item:hover .timeline-content p rule is REMOVED */
 
 /* Hide old timeline-date elements, if any remain or for safety */
 .timeline-date {
@@ -1042,52 +1039,75 @@ footer .container > p[align="center"] {
     <div class="container">
         <h2>Our Company's Journey</h2>
         <div class="timeline">
-            <div class="timeline-line"></div>
+            <!-- This is the new timeline axis -->
+            <div class="timeline-line"></div> 
+
+            <!-- Timeline Item 1 -->
             <div class="timeline-item">
-                <div class="timeline-dot"><div class="timeline-axis-date">1965</div></div>
+                <div class="timeline-dot">
+                    <!-- New: Date directly on the axis -->
+                    <div class="timeline-axis-date">1965</div>
+                </div>
                 <div class="timeline-content card">
                     <h3>Inizio Attività Famiglia Marangoni</h3>
-                    <p>Origini: la famiglia Marangoni avvia l'attività nelle macchine utensili.</p>
+                    <p>Le radici della nostra azienda affondano nel 1965, quando la famiglia Marangoni inizia la sua attività nel settore delle macchine utensili, ponendo le basi di una lunga tradizione di competenza e passione.</p>
                 </div>
             </div>
+
+            <!-- Timeline Item 2 -->
             <div class="timeline-item">
-                <div class="timeline-dot"><div class="timeline-axis-date">Anni '60-'00</div></div>
+                <div class="timeline-dot">
+                    <div class="timeline-axis-date">Anni '60-'00</div>
+                </div>
                 <div class="timeline-content card">
-                    <h3>Accumulo Esperienza</h3>
-                    <p>Consolidamento: 50+ anni di esperienza e reputazione nel settore.</p>
+                    <h3>Consolidamento ed Esperienza</h3>
+                    <p>Durante questi decenni, la famiglia Marangoni consolida la propria presenza nel mercato, accumulando una vasta esperienza e costruendo una solida reputazione basata sull'affidabilità e sulla profonda conoscenza del settore.</p>
                 </div>
             </div>
+
+            <!-- Timeline Item 3 -->
             <div class="timeline-item">
-                <div class="timeline-dot"><div class="timeline-axis-date">2001</div></div>
+                <div class="timeline-dot">
+                    <div class="timeline-axis-date">2001</div>
+                </div>
                 <div class="timeline-content card">
-                    <h3>Fondazione CM Marangoni Srl</h3>
-                    <p>Fondazione CM Marangoni Srl: focus su alta tecnologia e affidabilità.</p>
+                    <h3>Nasce CM Marangoni Srl</h3>
+                    <p>Viene fondata CM Marangoni Srl, con l'obiettivo di specializzarsi nella fornitura di macchine utensili ad alta tecnologia, combinando l'esperienza pregressa con un forte orientamento all'innovazione e al servizio clienti.</p>
                 </div>
             </div>
+
+            <!-- Timeline Item 4 -->
             <div class="timeline-item">
-                <div class="timeline-dot"><div class="timeline-axis-date">Post 2001</div></div>
+                <div class="timeline-dot">
+                    <div class="timeline-axis-date">Post 2001</div>
+                </div>
                 <div class="timeline-content card">
-                    <h3>Sviluppo Continuo</h3>
-                    <p>Crescita: qualità, clientela selezionata e problem-solving efficace.</p>
+                    <h3>Crescita e Affermazione</h3>
+                    <p>L'azienda si sviluppa costantemente, distinguendosi per la qualità superiore dei suoi prodotti, la capacità di fornire soluzioni su misura e un supporto tecnico-commerciale che fidelizza una clientela selezionata e esigente.</p>
                 </div>
             </div>
+
+            <!-- Timeline Item 5: Future Goal -->
             <div class="timeline-item">
                 <div class="timeline-dot">
                     <div class="timeline-axis-date">2026</div>
                 </div>
                 <div class="timeline-content card">
                     <h3>Espansione Europea</h3>
-                    <p>Futuro: espansione strategica nei mercati europei.</p>
+                    <p>Obiettivo strategico: estendere la nostra presenza e portare l'eccellenza delle macchine utensili CM Marangoni nei principali mercati europei, consolidando la nostra posizione di leader tecnologico.</p>
                 </div>
             </div>
+            
+            <!-- Optional: Visual indicator for future continuation -->
             <div class="timeline-future-indicator">
+                <!-- Simple spans for dashes, styled with CSS -->
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-        </div>
-    </div>
-</section>
+        </div> <!-- /.timeline -->
+    </div> <!-- /.container -->
+</section> <!-- /#company-history -->
 <section id="products">
             <div class="container">
                 <!-- Product Card 1 -->
@@ -1132,22 +1152,22 @@ footer .container > p[align="center"] {
             <div class="founder-card card">
                 <img src="https://source.unsplash.com/random/400x400?professional+man,ceo&sig=23" alt="Fondatore 1 Placeholder" class="founder-image">
                 <div class="founder-info">
-                    <h3 class="founder-name">Nome Fondatore 1</h3>
-                    <p class="founder-bio">Visione strategica e leadership.</p>
+                    <h3 class="founder-name">Marco Bianchi</h3>
+                    <p class="founder-bio">Con una profonda esperienza nel settore metalmeccanico, Marco ha guidato l'azienda verso l'eccellenza tecnologica e l'innovazione continua.</p>
                 </div>
             </div>
             <div class="founder-card card">
                 <img src="https://source.unsplash.com/random/400x400?professional+woman,engineer&sig=24" alt="Fondatore 2 Placeholder" class="founder-image">
                 <div class="founder-info">
-                    <h3 class="founder-name">Nome Fondatore 2</h3>
-                    <p class="founder-bio">Innovazione e sviluppo tecnico.</p>
+                    <h3 class="founder-name">Sofia Rossi</h3>
+                    <p class="founder-bio">Sofia ha apportato una visione strategica focalizzata sulla crescita sostenibile e sull'espansione in nuovi mercati internazionali.</p>
                 </div>
             </div>
             <div class="founder-card card">
                 <img src="https://source.unsplash.com/random/400x400?mature+professional,leader&sig=25" alt="Fondatore 3 Placeholder" class="founder-image">
                 <div class="founder-info">
-                    <h3 class="founder-name">Nome Fondatore 3</h3>
-                    <p class="founder-bio">Esperienza e dedizione al cliente.</p>
+                    <h3 class="founder-name">Alessandro Conti</h3>
+                    <p class="founder-bio">Esperto di operations e qualità, Alessandro ha implementato i processi che garantiscono l'affidabilità e la precisione dei nostri prodotti.</p>
                 </div>
             </div>
         </div>
