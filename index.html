@@ -709,6 +709,18 @@ footer .container > p[align="center"] {
     font-size: 1em;
     line-height: 1.6;
     color: var(--neutral-text-color);
+    /* New properties for hiding and transition: */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0; 
+    transition: max-height 0.4s ease-out, opacity 0.3s ease-in, margin-top 0.3s ease-out;
+}
+
+.timeline-item:hover .timeline-content p {
+    max-height: 200px; /* Adjust if descriptions can be much longer, but current ones are very short */
+    opacity: 1;
+    margin-top: 10px; /* Restore or set a margin for when the text is visible */
 }
 
 /* Add some animation to timeline cards, similar to other cards */
@@ -750,6 +762,14 @@ footer .container > p[align="center"] {
     /* Positioning: Center it on the dot initially, then adjust */
     top: 50%; /* Vertically center relative to dot */
     transform: translateY(-50%); /* Precise vertical centering */
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-axis-date {
+    transform: translateY(-50%) scale(1.1); /* Maintain vertical centering while scaling */
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border-color: transparent; /* Optional: hide border if it clashes with bg or looks better */
 }
 
 /* Adjust date position based on whether item is on left or right */
@@ -1050,7 +1070,7 @@ footer .container > p[align="center"] {
                         <p>Soluzioni avanzate per tornitura CNC, garantendo massima precisione e produttività per componenti complessi.</p>
                     </div>
                     <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?lathe,industrial&sig=10" alt="Tornio CNC di Alta Precisione">
+                        <img src="https://source.unsplash.com/random/800x600?cnc+lathe,metalworking&sig=20" alt="Tornio CNC di Alta Precisione">
                     </div>
                 </article>
 
@@ -1061,7 +1081,7 @@ footer .container > p[align="center"] {
                         <p>Centri di lavoro versatili per fresatura, foratura e maschiatura, progettati per efficienza e performance durature.</p>
                     </div>
                     <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?cnc+milling+machine,industry&sig=11" alt="Centro di Lavoro Verticale">
+                        <img src="https://source.unsplash.com/random/800x600?machining+center,automation&sig=21" alt="Centro di Lavoro Verticale">
                     </div>
                 </article>
 
@@ -1072,7 +1092,7 @@ footer .container > p[align="center"] {
                         <p>Macchine per rettifica di precisione, ideali per finiture superficiali impeccabili su una vasta gamma di materiali.</p>
                     </div>
                     <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?grinding+machine,manufacturing&sig=12" alt="Rettificatrice Universale">
+                        <img src="https://source.unsplash.com/random/800x600?industrial+grinder,precision+engineering&sig=22" alt="Rettificatrice Universale">
                     </div>
                 </article>
             </div>
@@ -1083,21 +1103,21 @@ footer .container > p[align="center"] {
         <h2 class="section-title">I Nostri Fondatori</h2>
         <div class="founders-grid">
             <div class="founder-card card">
-                <img src="https://source.unsplash.com/random/400x400?portrait,man,professional&sig=1" alt="Fondatore 1 Placeholder" class="founder-image">
+                <img src="https://source.unsplash.com/random/400x400?professional+man,ceo&sig=23" alt="Fondatore 1 Placeholder" class="founder-image">
                 <div class="founder-info">
                     <h3 class="founder-name">Nome Fondatore 1</h3>
                     <p class="founder-bio">Visione strategica e leadership.</p>
                 </div>
             </div>
             <div class="founder-card card">
-                <img src="https://source.unsplash.com/random/400x400?portrait,woman,professional&sig=2" alt="Fondatore 2 Placeholder" class="founder-image">
+                <img src="https://source.unsplash.com/random/400x400?professional+woman,engineer&sig=24" alt="Fondatore 2 Placeholder" class="founder-image">
                 <div class="founder-info">
                     <h3 class="founder-name">Nome Fondatore 2</h3>
                     <p class="founder-bio">Innovazione e sviluppo tecnico.</p>
                 </div>
             </div>
             <div class="founder-card card">
-                <img src="https://source.unsplash.com/random/400x400?portrait,professional&sig=3" alt="Fondatore 3 Placeholder" class="founder-image">
+                <img src="https://source.unsplash.com/random/400x400?mature+professional,leader&sig=25" alt="Fondatore 3 Placeholder" class="founder-image">
                 <div class="founder-info">
                     <h3 class="founder-name">Nome Fondatore 3</h3>
                     <p class="founder-bio">Esperienza e dedizione al cliente.</p>
