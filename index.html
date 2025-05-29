@@ -324,14 +324,14 @@ main {
     scroll-snap-stop: always; 
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 80px 20px 20px 20px; /* New padding with 80px top */
     color: #ffffff; /* White text */
     position: relative; /* For overlay positioning if needed, though background directly on section works */
-    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
 }
 
-/* Fallback background for #our-founders if Unsplash URLs are problematic - uncomment to use
-#our-founders {
+/* Fallback background for #company-profile if Unsplash URLs are problematic - uncomment to use
+#company-profile { /* Formerly #our-founders */
     background: linear-gradient(135deg, #3a5372, #4b6b8c);
 }
 */
@@ -357,14 +357,14 @@ main {
 }
 
 #company-history h2,
-#our-founders h2 {
+#company-profile h2 { /* Formerly #our-founders h2 */
     font-size: 3em;
     margin-bottom: 20px;
     font-weight: bold; /* Ensure it stands out */
 }
 
 #company-history p,
-#our-founders p {
+#company-profile p { /* Formerly #our-founders p */
     font-size: 1.2em;
     line-height: 1.7;
 }
@@ -885,7 +885,7 @@ footer .container > p[align="center"] {
 
 .founders-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Default 3 columns for desktop */
+    grid-template-columns: repeat(3, calc(33.333% - 20px)); /* Adjusted for gaps */
     gap: 30px; /* Space between cards */
     max-width: 1200px; /* Align with .container max-width */
     margin: 0 auto; /* Center the grid if it doesn't fill the container */
@@ -940,7 +940,7 @@ footer .container > p[align="center"] {
 /* Responsive adjustments for founder cards */
 @media screen and (max-width: 992px) { /* Tablet layout */
     .founders-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, calc(50% - 15px)); /* Adjusted for gaps */
     }
 }
 
