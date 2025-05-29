@@ -1,780 +1,487 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it"> <!-- 1. Global Language Set -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Webpage</title>
-    <style type="text/css">
-/* Reset default browser margins and paddings */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Scroll Snap properties for the root element */
-html {
-    scroll-snap-type: y proximity; /* Changed from mandatory */
-    overflow-y: scroll; /* Ensure vertical scrollbar is present for snapping */
-    scroll-padding-top: 70px; /* Offset for fixed navigation bar */
-}
-
-/* Set a modern sans-serif font for the body */
-body {
-    font-family: 'Arial', sans-serif;
-    color: var(--neutral-text-color); 
-    background-color: var(--neutral-background-color);
-    line-height: 1.6; /* Improved readability */
-}
-
-/* Define a basic color palette */
-:root {
-    --primary-color: #007bff; /* Example primary color */
-    --secondary-color: #6c757d; /* Example secondary color */
-    --neutral-text-color: #333;
-    --neutral-background-color: #f4f4f4;
-    --header-bg: #343a40;
-    --footer-bg: #343a40;
-    --hero-bg-gradient: linear-gradient(135deg, #6e8efb, #a777e3); /* More distinct hero background */
-    --content-cards-bg: #ffffff;
-    --card-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    --card-hover-transform: scale(1.02);
-}
-
-/* Navigation Styles */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
-    backdrop-filter: blur(5px); /* Frosted glass effect */
-    z-index: 1000; /* Ensure it's above other content */
-    transition: transform 0.3s ease-out;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Softer shadow */
-}
-
-.main-nav.nav-hidden {
-    transform: translateY(-100%);
-}
-
-.main-nav.nav-scrolled { /* Style for when page is scrolled a bit, slightly more opaque */
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px 20px; /* Adjusted padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.6em; /* Slightly smaller logo */
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex; /* For desktop view */
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links li {
-    margin-left: 30px; /* Spacing between links */
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #444; /* Slightly darker link color */
-    font-weight: 500;
-    font-size: 0.95em; /* Modest size */
-    padding: 8px 0; /* Padding for clickable area and underline room */
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0; /* Underline effect at the bottom of padding */
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color, #333); /* Use primary color or fallback */
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #111; /* Darker on hover */
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-.nav-toggle {
-    display: none; /* Hidden on desktop */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001; /* Ensure toggle is above nav-links in mobile potentially */
-}
-
-.hamburger-bar {
-    display: block;
-    width: 22px; /* Slightly smaller hamburger */
-    height: 2px; /* Thinner bars */
-    background-color: #333;
-    margin: 5px 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.main-nav.nav-open .hamburger-bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg); /* Adjusted translate based on 2px bar height and 5px margin */
-}
-
-.main-nav.nav-open .hamburger-bar:nth-child(2) {
-    opacity: 0;
-}
-
-.main-nav.nav-open .hamburger-bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg); /* Adjusted translate */
-}
-
-/* Responsive Navigation for Smaller Screens */
-@media (max-width: 768px) {
-    .nav-container {
-        padding: 10px 15px; /* Adjust padding for smaller nav bar */
-    }
-
-    .nav-toggle {
-        display: block; /* Show hamburger toggle */
-    }
-
-    .nav-links {
-        display: none; /* Hide desktop links by default */
-        flex-direction: column;
-        position: absolute;
-        top: 100%; /* Position below the nav bar (adjust if nav bar height changes) */
-        left: 0;
-        width: 100%;
-        background-color: #ffffff; /* Solid white background for mobile menu */
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        padding: 0; /* Reset padding */
-        border-top: 1px solid #eee; /* Separator */
-    }
-
-    .main-nav.nav-open .nav-links { /* Show mobile menu when nav-open class is present */
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 0; /* Reset margin */
-        width: 100%;
-    }
-
-    .nav-links a {
-        display: block; /* Make links take full width */
-        padding: 15px 20px; /* Larger touch targets */
-        text-align: left; /* Align text to the left */
-        border-bottom: 1px solid #f0f0f0; /* Separators between links */
-    }
-    
-    .nav-links a::after { /* Remove underline hover effect for mobile nav items */
-        display: none;
-    }
-
-    .nav-links li:last-child a {
-        border-bottom: none;
-    }
-}
-
-/* General container for max-width and centering */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px; /* Add some padding to prevent content from touching edges */
-}
-
-/* Style the header */
-header {
-    background-color: var(--header-bg);
-    color: white;
-    padding: 20px 0; /* Adjust padding for container */
-}
-
-header .container {
-    display: flex;
-    justify-content: center; /* Center content within header */
-    align-items: center;
-}
-
-header p {
-    font-size: 1.2em; /* Style header placeholder text */
-}
-
-/* Style the main section */
-main {
-    /* Main itself does not need padding if sections have it */
-}
-
-/* Style the hero section */
-#hero {
-    background-image: var(--hero-bg-gradient);
-    color: white; /* Text color on gradient */
-    min-height: 60vh;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-#hero p {
-    font-size: 2em; /* Larger, more prominent text */
-    font-weight: bold;
-    max-width: 80%; /* Prevent text from being too wide */
-}
-
-/* Style the content-cards section */
-#content-cards {
-    background-color: var(--content-cards-bg);
-    padding: 40px 0; /* Adjust padding for container */
-    scroll-snap-align: center; /* Snap point */
-    scroll-snap-stop: always; /* Prevent skipping this snap point */
-}
-
-#content-cards .container {
-    display: grid; /* Changed from flex to grid */
-    grid-template-columns: repeat(12, 1fr); /* 12 columns for fine-grained control */
-    gap: 20px; /* Add space between cards */
-}
-
-
-/* Style individual cards */
-.card {
-    background-color: #ffffff; /* White background for cards */
-    padding: 25px; /* Increased padding */
-    border: 1px solid #ddd; /* Light grey border */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15); /* More prominent box shadow */
-    /* flex-basis and min-width removed for grid layout */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    grid-column: span 4; /* Default span for a 3-across feel */
-    min-height: 200px; /* Give cards some substance */
-    
-    /* Initial state for scroll-triggered animation */
-    opacity: 0;
-    transform: translateY(50px); 
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease-in-out; /* Ensure opacity and transform are part of transition */
-}
-
-/* Asymmetrical card styling */
-.card:nth-child(1) { grid-column: span 6; }
-.card:nth-child(2) { grid-column: span 6; }
-.card:nth-child(3) { grid-column: span 3; }
-.card:nth-child(4) { grid-column: span 5; }
-.card:nth-child(5) { grid-column: span 4; } /* This was default, but explicit here */
-.card:nth-child(6) { grid-column: span 12; } /* Full width */
-.card:nth-child(7) { grid-column: span 5; }
-.card:nth-child(8) { grid-column: span 7; }
-.card:nth-child(9) { grid-column: span 6; }
-.card:nth-child(10) { grid-column: span 6; }
-.card:nth-child(11) { grid-column: span 12; } /* Full width */
-/* Card 12 will take default span 4 */
-
-
-.card:hover {
-    transform: var(--card-hover-transform); /* var(--card-hover-transform) is scale(1.02) */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.2); /* More pronounced shadow on hover */
-}
-
-.card h3 {
-    color: var(--primary-color);
-    margin-bottom: 15px; /* Slightly more space */
-    font-size: 1.5em;
-    font-weight: bold; /* Ensure headings are distinct */
-}
-
-.card p {
-    font-size: 1em;
-    line-height: 1.6; /* Ensure consistent line height */
-    color: var(--neutral-text-color);
-    text-align: left; /* Default, but good to be explicit for card content */
-}
-
-/* Styles for #our-founders section (formerly grouped with #company-history) */
-#our-founders {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    scroll-snap-align: start; /* Changed from center to start */
-    scroll-snap-stop: always; 
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    color: #ffffff; /* White text */
-    position: relative; /* For overlay positioning if needed, though background directly on section works */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
-}
-
-/* Fallback background for #our-founders if Unsplash URLs are problematic - uncomment to use
-#our-founders {
-    background: linear-gradient(135deg, #3a5372, #4b6b8c);
-}
-*/
-
-.section-content-wrapper {
-    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for better readability */
-    padding: 40px;
-    border-radius: 10px;
-    max-width: 800px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow to the wrapper */
-    /* Initial state for scroll-triggered animation */
-    opacity: 0;
-    transform: translateY(50px); /* Or scale(0.95) */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-/* .is-visible class to trigger animation */
-.is-visible {
-    opacity: 1;
-    transform: translateY(0); /* Or scale(1) if scale was used initially */
-}
-
-#company-history h2,
-#our-founders h2 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-weight: bold; /* Ensure it stands out */
-}
-
-#company-history p,
-#our-founders p {
-    font-size: 1.2em;
-    line-height: 1.7;
-}
-
-/* Rebuilt Company Story Card Styles */
-.story-card-rebuilt {
-    background-color: #ffffff;
-    border-radius: 45px; /* Very rounded corners */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1); /* Softer, deeper shadow */
-    padding: 60px 70px; /* Large internal padding */
-    margin: 0 auto; /* Center the card within the .container if .container is wider */
-    max-width: 950px; /* Max width for the card */
-    text-align: left; /* Reset text-align from parent section's center */
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out, box-shadow 0.3s ease-out; /* Added box-shadow to transition */
-}
-
-.story-content-rebuilt h2 {
-    font-size: 2.8em; 
-    color: var(--primary-color, #333);
-    margin-bottom: 30px;
-    text-align: center; /* Center the heading within the card */
-    font-weight: 600;
-}
-
-.story-content-rebuilt p {
-    font-size: 1.25em; 
-    line-height: 1.85; 
-    color: #343a40; 
-    text-align: justify; /* Justified text for the paragraph */
-}
-
-/* Responsive adjustments for the rebuilt story card padding on smaller screens */
-@media (max-width: 768px) {
-    .story-card-rebuilt {
-        padding: 40px 30px;
-    }
-    .story-content-rebuilt h2 {
-        font-size: 2.2em;
-    }
-    .story-content-rebuilt p {
-        font-size: 1.1em;
-    }
-}
-
-/* Scroll Snap for Rebuilt Company Story */
-#company-story-rebuilt {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-}
-
-/* Styles for the new Products section */
-#products {
-    padding: 60px 0; /* Increased padding for more space */
-    /* background-color: #f9f9f9; */ /* Optional: a slightly different background for this section */
-    scroll-snap-align: center; /* Make this section a snap point */
-    scroll-snap-stop: always; /* Prevent skipping this snap point */
-}
-
-.product-card {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border-radius: 40px; /* Very rounded corners */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08); /* Subtle shadow */
-    margin-bottom: 40px; /* Increased spacing between cards */
-    overflow: hidden; /* Ensures child elements conform to border-radius */
-    /* Initial state for scroll-triggered animation */
-    opacity: 0;
-    transform: translateY(50px);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.3s ease-out; /* Updated transition */
-    cursor: pointer; /* Added cursor pointer */
-}
-
-.product-card:hover {
-    transform: scale(1.03) translateY(-5px); /* Slightly raise and scale up */
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15); /* More pronounced shadow */
-}
-
-/* Apply .is-visible to .product-card as well for consistency */
-.product-card.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-.product-card .product-text {
-    flex: 3; /* Give more space to text */
-    padding: 40px; /* Generous padding */
-}
-
-.product-card .product-text h3 {
-    font-size: 2.2em; /* Larger title */
-    margin-bottom: 15px;
-    color: var(--primary-color); /* Use existing primary color variable */
-}
-
-.product-card .product-text p {
-    font-size: 1.1em;
-    line-height: 1.7;
-    color: #555; /* Slightly darker paragraph text */
-}
-
-.product-card .product-image {
-    flex: 2; /* Give less space to image compared to text */
-    padding: 20px;
-    display: flex; /* To center image if it's smaller than container */
-    align-items: center;
-    justify-content: center;
-}
-
-.product-card .product-image img {
-    width: 100%;
-    max-width: 350px; /* Max width for the image to control its size */
-    height: auto;
-    display: block;
-    border-radius: 25px; /* Rounded corners for the image itself */
-    object-fit: cover; /* Ensures image covers the area well */
-}
-
-/* Alternating layout for product cards */
-.product-card:nth-child(even) .product-text {
-    order: 2; /* Moves text to the right for even cards */
-}
-
-.product-card:nth-child(even) .product-image {
-    order: 1; /* Moves image to the left for even cards */
-}
-
-/* Style the footer */
-footer {
-    background-color: #2c3e50; /* Dark background for footer */
-    padding: 20px 0; /* Padding for the main footer element */
-    color: #bdc3c7; /* Default light text for footer, e.g., copyright */
-    border-top: 3px solid var(--primary-color); /* Keep existing border */
-    scroll-snap-align: end;    /* Snap to the end of the footer to ensure all its content is visible */
-    scroll-snap-stop: always;
-    min-height: 40vh;          /* Give it some snap-worthy vertical space, adjust as needed */
-    display: flex;             /* To help center its content if footer is made tall */
-    align-items: center;       /* Vertically center .container */
-    justify-content: center;   /* Horizontally center .container */
-}
-
-/* Footer Content Styles */
-.footer-content {
-    text-align: center;
-    padding: 30px 0; /* Increased padding */
-    color: #f0f0f0; /* Assuming a dark footer background, light text */
-}
-
-.footer-content h4 {
-    font-size: 1.6em; /* Slightly larger heading */
-    margin-bottom: 20px;
-    color: #ffffff; /* White heading on dark footer */
-    font-weight: 600;
-}
-
-.footer-content address { /* Reset browser default address styling */
-    font-style: normal;
-}
-
-.footer-content address p {
-    margin-bottom: 10px;
-    font-size: 0.95em; /* Slightly smaller for secondary info */
-    line-height: 1.6;
-}
-
-.footer-content address a {
-    color: #e0e0e0; /* Lighter link color for readability on dark bg */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-content address a:hover {
-    color: #ffffff; /* Brighter on hover */
-    text-decoration: underline;
-}
-
-.social-links {
-    margin-top: 25px; /* More space above social links */
-}
-
-.social-links p {
-    margin-bottom: 12px; /* Space between "Follow Us:" and links */
-    font-size: 1.1em; /* Slightly larger "Follow Us" */
-    font-weight: 500;
-    color: #ffffff;
-}
-
-.social-links a {
-    color: #f0f0f0;
-    text-decoration: none;
-    margin: 0 12px; /* More spacing between social icons */
-    font-weight: 500; /* Normal weight for FB, IG, TW text */
-    font-size: 1em;
-    padding: 5px 8px; /* Padding for touch targets / visual balance */
-    border: 1px solid transparent; /* For spacing and potential hover effect */
-    border-radius: 5px; /* Slightly rounded hover effect */
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #111; /* Dark text on hover */
-    background-color: #ffffff; /* White background on hover */
-    border-color: #ffffff; /* White border on hover */
-}
-
-
-footer .container {
-    display: flex; /* This was for the old simple p tags, might need adjustment for new structure */
-    flex-direction: column; /* Stack footer-content and copyright */
-    align-items: center; /* Center content */
-}
-
-footer p { /* This will target the copyright paragraph */
-    font-size: 0.9em; 
-    margin-top: 20px; /* Space above copyright */
-    text-align: center; /* Ensure copyright is centered */
-}
-
-/* If the copyright is separate and needs centering (specific selector from prompt) */
-footer .container > p[align="center"] { 
-    margin-top: 20px;
-    font-size: 0.9em;
-}
+    <title>ERGG Lavorazioni Meccaniche di Precisione - Homepage</title> <!-- 2. Descriptive Page Title -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif; /* Clean sans-serif font */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Dark gray text for contrast */
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            color: #004080; /* Dark blue for headings */
+        }
+
+        a {
+            color: #0066cc; /* Standard blue for links */
+            text-decoration: none;
+        }
+
+        a:hover, a:focus {
+            text-decoration: underline;
+            outline: 2px solid #0066cc; /* Focus indicator for accessibility */
+        }
+
+        /* Header & Navigation */
+        header {
+            background: #004080; /* Dark blue background */
+            color: #fff; /* White text */
+            padding: 1rem 0;
+            border-bottom: #002a53 3px solid;
+        }
+
+        header div:first-child { /* Logo area */
+            float: left;
+            font-size: 2rem;
+            font-weight: bold;
+            padding-left: 20px;
+            /* Considered making this h1, but the slideshow's caption is more prominent as page title */
+        }
+
+        header nav { /* 4. ARIA label for main navigation */
+            float: right;
+            margin-top: 10px; /* Align with logo */
+            padding-right: 20px;
+        }
+
+        header nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-left: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        header nav ul li a[aria-current="page"] { /* Style for current page link */
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
+        
+        header::after { /* Clearfix for floated elements */
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Main Content Area */
+        main {
+            padding-bottom: 60px; /* Space for footer */
+        }
+
+        #slideshow {
+            min-height: 300px;
+            background-color: #ccc; /* Placeholder background color */
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative; /* For positioning buttons and captions */
+            overflow: hidden; /* Ensures buttons don't overflow weirdly */
+        }
+
+        #slideshow-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            display: none; /* Hidden by default */
+            width: 100%;
+            height: 100%;
+            position: absolute; /* Allow slides to overlap for transitions */
+            top: 0;
+            left: 0;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .slide.active {
+            display: flex; /* Show active slide, using flex for centering caption */
+            flex-direction: column;
+        }
+
+        .slide img {
+            width: 100%; /* Make image responsive within the slide */
+            height: 100%;
+            object-fit: cover; /* Cover the area, might crop */
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .slide-caption h1, .slide-caption h2 { /* Allow h1 or h2 in caption */
+            color: #fff;
+            margin: 0 0 5px 0;
+            font-size: 1.8em; /* Made slightly larger if it's the H1 */
+        }
+        .slide-caption p {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        /* Slideshow Buttons */
+        #prevSlide, #nextSlide {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 64, 128, 0.7); /* Semi-transparent dark blue */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100; /* Ensure they are above slides */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #prevSlide:hover, #nextSlide:hover,
+        #prevSlide:focus, #nextSlide:focus {
+            background-color: rgba(0, 42, 83, 0.9); /* Darker on hover/focus */
+            outline: 2px solid #fff; /* White outline for focus */
+        }
+
+        #prevSlide {
+            left: 15px;
+        }
+
+        #nextSlide {
+            right: 15px;
+        }
+
+
+        main section {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff; /* White background for sections */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        main section h2 {
+            margin-top: 0;
+        }
+
+        /* Buttons and Links styling */
+        .button, main section a[href="#"], footer section a[href="#"] { /* Targeting specific placeholder links for button style */
+            display: inline-block;
+            background-color: #0066cc;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover, main section a[href="#"]:hover, footer section a[href="#"]:hover {
+            background-color: #0052a3;
+            text-decoration: none;
+        }
+        
+        .button:focus, main section a[href="#"]:focus, footer section a[href="#"]:focus {
+            outline: 3px solid #004080; /* Clearer focus for buttons */
+        }
+
+
+        /* Lavorazioni Section */
+        #lavorazioni article {
+            border: 1px solid #ddd; /* Border for distinct blocks */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            background-color: #f9f9f9; /* Slight background difference */
+        }
+
+        #lavorazioni ul { /* Added missing CSS */
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        #lavorazioni li article { /* Added missing CSS */
+            overflow: auto; /* To clear the floated placeholder image */
+        }
+
+        #lavorazioni article h3 {
+            margin-top: 0;
+            color: #0052a3; /* Slightly different blue for sub-headings */
+        }
+
+        /* Footer */
+        footer {
+            background: #333; /* Dark gray background */
+            color: #fff; /* White text */
+            text-align: center;
+            padding: 20px 0;
+            border-top: #004080 3px solid;
+        }
+
+        footer #contact-info p {
+            margin: 0.5rem 0;
+        }
+        
+        footer #contact-info a {
+            color: #aacdff; /* Lighter blue for footer links */
+        }
+
+        footer nav ul {
+            margin: 10px 0 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        footer nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        footer nav ul li a {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="#" class="logo">Elegance</a> <!-- Simple text logo -->
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span class="hamburger-bar"></span>
-                <span class="hamburger-bar"></span>
-                <span class="hamburger-bar"></span>
-            </button>
-            <ul class="nav-links">
-                <li><a href="#our-founders">Our Story</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#">Contact</a></li> 
+    <header>
+        <div>ERGG</div> <!-- Logo text -->
+        <nav aria-label="Menu principale"> <!-- 4. ARIA label for main navigation -->
+            <ul>
+                <li><a href="#" aria-current="page">Home</a></li> <!-- 3. aria-current for Home link -->
+                <li><a href="#">Azienda</a></li>
+                <li><a href="#">Lavorazioni</a></li>
+                <li><a href="#">Parco Macchine</a></li>
+                <li><a href="#">Contatti</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
+    </header>
+
     <main>
-        <section id="our-founders">
-            <div class="container">
-                <div class="section-content-wrapper">
-                    <h2>Meet the Visionaries: Our Founders</h2>
-                    <p>Driven by passion and a relentless pursuit of excellence, our founders laid the groundwork for what we are today. Their pioneering spirit and commitment to innovation continue to inspire us and shape our path forward. We honor their legacy in every endeavor.</p>
+        <section id="slideshow">
+            <div id="slideshow-container" role="region" aria-roledescription="carousel" aria-label="Image Slideshow">
+                <div class="slide" role="group" aria-roledescription="slide">
+                    <img src="https://via.placeholder.com/800x400/004080/ffffff?text=Macchinario+1" alt="Macchinario CNC Avanzato in funzione per fresatura di precisione.">
+                    <div class="slide-caption">
+                        <h1>ERGG Lavorazioni Meccaniche</h1> <!-- 5. Changed to H1 for the first slide as primary message -->
+                        <p>Fresatura di Precisione</p>
+                    </div>
+                </div>
+                <div class="slide" role="group" aria-roledescription="slide">
+                    <img src="https://via.placeholder.com/800x400/0052a3/ffffff?text=Macchinario+2" alt="Tornio automatico ad alta velocità che lavora un pezzo metallico.">
+                    <div class="slide-caption">
+                        <h2>ERGG Lavorazioni Meccaniche</h2> <!-- Subsequent slides can use H2 -->
+                        <p>Tornitura ad Alta Velocità</p>
+                    </div>
+                </div>
+                <div class="slide" role="group" aria-roledescription="slide">
+                    <img src="https://via.placeholder.com/800x400/002a53/ffffff?text=Controllo+Qualit%C3%A0" alt="Strumento di controllo qualità dimensionale che misura un componente meccanico.">
+                    <div class="slide-caption">
+                        <h2>ERGG Lavorazioni Meccaniche</h2>
+                        <p>Controllo Qualità Rigoroso</p>
+                    </div>
                 </div>
             </div>
+            <button id="prevSlide" aria-label="Previous Slide">◄</button>
+            <button id="nextSlide" aria-label="Next Slide">►</button>
         </section>
-<section id="company-story-rebuilt" style="padding: 50px; background-color: lightyellow; min-height: 50vh; text-align: center; border: 2px dashed red; opacity: 1; transform: none;">
-            <h2>Company Story (Rebuilt Test)</h2>
-            <p>This is the basic rebuilt Company Story content. If you see this, the basic section is visible.</p>
-            <p>The border is for debugging visibility. The background should be light yellow.</p>
+
+        <section id="azienda" class="container">
+            <h2>ERGG Lavorazioni Meccaniche di Precisione</h2>
+            <p>Descrizione dell'azienda e dei suoi valori. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <a href="#" class="button">Scopri di più</a>
         </section>
-<section id="products">
-            <div class="container">
-                <!-- Product Card 1 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>ChronoGlide Watch</h3>
-                        <p>Elegance meets precision. The ChronoGlide features a sapphire crystal face and a self-winding mechanism, encased in aerospace-grade titanium. Define your moments.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="ChronoGlide Watch">
-                    </div>
-                </article>
 
-                <!-- Product Card 2 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>AeroBloom Speaker</h3>
-                        <p>Immersive 360° sound in a sleek, portable design. The AeroBloom speaker offers 24-hour playtime and crystal-clear highs, deep lows. Your music, amplified.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="AeroBloom Speaker">
-                    </div>
-                </article>
+        <section id="lavorazioni" class="container">
+            <h2>Lavorazioni Offerte</h2> <!-- Changed title slightly for clarity -->
+            <ul> <!-- 6. Refactor Lavorazioni into a <ul> -->
+                <li>
+                    <article>
+                        <h3>Fresatura CNC</h3>
+                        <img src="https://via.placeholder.com/100x100/cccccc/333333?text=Icona+Fresatura" alt="Icona rappresentativa per Fresatura CNC." style="float: right; margin-left: 15px; width:100px; height:100px;"> <!-- 7. Placeholder image -->
+                        <p>Descrizione del servizio di fresatura CNC. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </article>
+                </li>
+                <li>
+                    <article>
+                        <h3>Tornitura CNC</h3>
+                        <img src="https://via.placeholder.com/100x100/cccccc/333333?text=Icona+Tornitura" alt="Icona rappresentativa per Tornitura CNC." style="float: right; margin-left: 15px; width:100px; height:100px;"> <!-- 7. Placeholder image -->
+                        <p>Descrizione del servizio di tornitura CNC. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    </article>
+                </li>
+                <li>
+                    <article>
+                        <h3>Rettifica</h3>
+                        <img src="https://via.placeholder.com/100x100/cccccc/333333?text=Icona+Rettifica" alt="Icona rappresentativa per Rettifica." style="float: right; margin-left: 15px; width:100px; height:100px;"> <!-- 7. Placeholder image -->
+                        <p>Descrizione del servizio di rettifica. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </article>
+                </li>
+            </ul>
+        </section>
 
-                <!-- Product Card 3 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>TerraGlow Backpack</h3>
-                        <p>Crafted from recycled ocean-bound plastic, the TerraGlow backpack is durable, water-resistant, and features ergonomic support. Adventure responsibly.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="TerraGlow Backpack">
-                    </div>
-                </article>
+        <section id="parco-macchine" class="container"> <!-- Added container class -->
+            <h2>Parco Macchine</h2>
+            <p>Descrizione generale del parco macchine. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <!-- Ulteriori dettagli o elenco macchine qui -->
+        </section>
 
-                <!-- New Card 4 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>NovaDesk Lamp</h3>
-                        <p>Illuminate your workspace with adaptive lighting. The NovaDesk Lamp offers customizable brightness and color temperature, with a minimalist design.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?product&sig=4" alt="NovaDesk Lamp">
-                    </div>
-                </article>
+        <section id="qualita" class="container"> <!-- Added container class -->
+            <h2>Qualità</h2>
+            <p>Informazioni sull'impegno per la qualità e le certificazioni. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </section>
 
-                <!-- New Card 5 -->
-                <article class="product-card">
-                    <div class="product-text">
-                        <h3>Zenith Fitness Tracker</h3>
-                        <p>Track your progress, optimize your workouts, and stay connected. The Zenith tracker offers advanced health monitoring and a sleek, durable build.</p>
-                    </div>
-                    <div class="product-image">
-                        <img src="https://source.unsplash.com/random/800x600?product&sig=5" alt="Zenith Fitness Tracker">
-                    </div>
-                </article>
-            </div>
+        <section id="contatti" class="container"> <!-- Added container class -->
+            <h2>Contatti</h2>
+            <p>Informazioni su come contattare l'azienda.</p>
+            <a href="#" class="button">Richiedi un Preventivo</a> <!-- or "Contattaci Ora" -->
         </section>
     </main>
+
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <h4>Contact Us</h4>
-                <address>
-                    <p>123 Elegance Avenue, Fashion City, FC 90210</p>
-                    <p>Phone: <a href="tel:+12345678900">(123) 456-78900</a></p>
-                    <p>Email: <a href="mailto:contact@elegance.com">contact@elegance.com</a></p>
-                </address>
-                <div class="social-links">
-                    <p>Follow Us:</p>
-                    <a href="#" aria-label="Facebook">FB</a> | 
-                    <a href="#" aria-label="Instagram">IG</a> | 
-                    <a href="#" aria-label="Twitter">TW</a>
-                </div>
-            </div>
-            <p>&copy; 2024 My Company</p> <!-- Copyright can remain or be moved into footer-content if preferred -->
+        <section id="contact-info">
+            <p>Indirizzo: Via Placeholder, 123 - Città (Provincia)</p>
+            <p>P.IVA: 01234567890</p>
+            <p>Tel: <a href="tel:+390123456789">+39 0123 456789</a></p>
+            <p>Email: <a href="mailto:info@ergg.it">info@ergg.it</a></p>
+        </section>
+        <nav>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+            </ul>
+        </nav>
         </div>
     </footer>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // --- IntersectionObserver for Scroll-triggered Animations (Existing Code) ---
-        const animatableElements = document.querySelectorAll('.card, .section-content-wrapper, .product-card, .story-card-rebuilt');
-        const observerOptions = {
-            root: null, // relative to document viewport
-            rootMargin: '0px',
-            threshold: 0.1 // percentage of target's visible area. Adjust as needed.
-        };
-        const observerCallback = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Optional: stop observing once visible
-                }
-            });
-        };
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-        animatableElements.forEach(el => {
-            observer.observe(el);
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('#slideshow-container .slide');
+            const prevButton = document.getElementById('prevSlide');
+            const nextButton = document.getElementById('nextSlide');
+            const slideshowContainer = document.getElementById('slideshow-container');
+            let currentSlide = 0;
+            let slideInterval;
+            let isPaused = false;
 
-        // --- Mobile Nav Toggle (Hamburger) ---
-        const navToggle = document.querySelector('.nav-toggle');
-        const mainNav = document.querySelector('.main-nav'); // Target .main-nav for nav-open class
-
-        if (navToggle && mainNav) {
-            navToggle.addEventListener('click', function() {
-                mainNav.classList.toggle('nav-open');
-                const isExpanded = mainNav.classList.contains('nav-open');
-                navToggle.setAttribute('aria-expanded', isExpanded);
-            });
-        }
-
-        // --- Logitech-style Scroll Behavior for Nav ---
-        let lastScrollY = window.scrollY;
-        const navScrolledThreshold = 50; // How much to scroll before navScrolled class is added
-        // const navHeight = mainNav ? mainNav.offsetHeight : 60; // Approximate nav height for hiding logic, or get dynamically
-
-        window.addEventListener('scroll', function() {
-            if (!mainNav) return; // Guard clause if mainNav isn't found
-
-            const currentScrollY = window.scrollY;
-
-            // Add/remove .nav-scrolled class for background opacity change
-            if (currentScrollY > navScrolledThreshold) {
-                mainNav.classList.add('nav-scrolled');
-            } else {
-                mainNav.classList.remove('nav-scrolled');
-            }
-
-            // Hide/Show nav on scroll direction change (Logitech style)
-            if (currentScrollY > lastScrollY + 10 && currentScrollY > (window.innerHeight * 0.25)) { 
-                // Scrolling Down by more than 10px AND scrolled past 25% of viewport height
-                mainNav.classList.add('nav-hidden');
-            } else {
-                // Scrolling Up or at the very top or small downward scroll
-                if (currentScrollY < lastScrollY || currentScrollY < 10) {
-                     mainNav.classList.remove('nav-hidden');
-                }
-            }
-            lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
-        });
-
-        // --- Close mobile menu if a link is clicked (optional but good UX) ---
-        const navLinks = document.querySelectorAll('.nav-links a');
-        if (navLinks && mainNav && navToggle) {
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (mainNav.classList.contains('nav-open')) {
-                        mainNav.classList.remove('nav-open');
-                        navToggle.setAttribute('aria-expanded', 'false');
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    slide.setAttribute('aria-hidden', 'true');
+                    if (i === index) {
+                        slide.classList.add('active');
+                        slide.setAttribute('aria-hidden', 'false');
                     }
                 });
+            }
+
+            function next() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prev() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function startSlideshow() {
+                if (!isPaused) {
+                    slideInterval = setInterval(next, 5000); // Change slide every 5 seconds
+                }
+            }
+
+            function stopSlideshow() {
+                clearInterval(slideInterval);
+            }
+
+            // Initial setup
+            if (slides.length > 0) {
+                showSlide(currentSlide);
+                startSlideshow();
+            }
+
+            // Event Listeners
+            nextButton.addEventListener('click', function() {
+                stopSlideshow();
+                next();
+                startSlideshow(); // Restart timer after manual navigation
             });
-        }
-    });
+
+            prevButton.addEventListener('click', function() {
+                stopSlideshow();
+                prev();
+                startSlideshow(); // Restart timer
+            });
+
+            slideshowContainer.addEventListener('mouseenter', function() {
+                isPaused = true;
+                stopSlideshow();
+            });
+
+            slideshowContainer.addEventListener('mouseleave', function() {
+                isPaused = false;
+                startSlideshow();
+            });
+            
+            // Pause on focus for accessibility (e.g. keyboard navigation to buttons)
+            prevButton.addEventListener('focus', function() {
+                isPaused = true;
+                stopSlideshow();
+            });
+            prevButton.addEventListener('blur', function() { // Resume if focus moves out and not to another slideshow control
+                if (!nextButton.matches(':focus')) {
+                    isPaused = false;
+                    startSlideshow();
+                }
+            });
+
+            nextButton.addEventListener('focus', function() {
+                isPaused = true;
+                stopSlideshow();
+            });
+             nextButton.addEventListener('blur', function() { // Resume if focus moves out and not to another slideshow control
+                if (!prevButton.matches(':focus')) {
+                    isPaused = false;
+                    startSlideshow();
+                }
+            });
+
+
+        });
     </script>
 </body>
 </html>
