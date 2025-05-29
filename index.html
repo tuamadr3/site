@@ -832,47 +832,39 @@ footer .container > p[align="center"] {
     }
 }
 
-/* Future is Unwritten Indicator */
+/* Future is Unwritten Indicator - New Dashed Line Style */
 .timeline-future-indicator {
     position: relative;
-    width: 50%; /* Align with one side of the timeline items */
-    padding: 20px 40px;
-    box-sizing: border-box;
-    margin-left: 50%; /* Position on the right side of the timeline */
-    text-align: center; /* Center the spans if they were inline-block */
-}
-
-.timeline-future-indicator span {
-    display: block;
     width: 4px; /* Match timeline axis thickness */
-    height: 20px; /* Length of each dash */
-    background-color: var(--primary-color, #007bff);
-    margin: 10px auto; /* Space out the dashes, centered */
-    opacity: 0.7;
+    left: calc(50% - 2px); /* Align with the main timeline axis (center) */
+    margin-top: 0; /* Directly after the last item's natural flow */
+    height: 60px; /* Height of the dashed continuation element */
+    background: linear-gradient(
+        var(--primary-color, #007bff) 0%, 
+        var(--primary-color, #007bff) 40%, 
+        transparent 40%, 
+        transparent 60%, 
+        var(--primary-color, #007bff) 60%, 
+        var(--primary-color, #007bff) 80%, 
+        transparent 80%, 
+        transparent 100%
+    );
+    background-size: 100% 20px; /* Controls the size of the repeating pattern for dashes. */
+    opacity: 0.7; /* Slightly faded to indicate future/less solid */
 }
 
-.timeline-future-indicator span:nth-child(2) {
-    opacity: 0.5;
-    transform: scaleY(0.8); /* Make middle dash slightly shorter */
-}
-
-.timeline-future-indicator span:nth-child(3) {
-    opacity: 0.3;
-    transform: scaleY(0.6); /* Make last dash even shorter */
+/* Hide old spans if HTML was not updated */
+.timeline-future-indicator span { 
+    display: none !important; 
 }
 
 /* Responsive adjustments for the indicator */
 @media screen and (max-width: 768px) {
     .timeline-future-indicator {
-        width: 100%;
-        margin-left: 0; /* Full width on mobile */
-        padding-left: 70px; /* Align with mobile timeline items' content */
-        padding-right: 25px;
-        text-align: left; /* Align dashes to the left with content */
+        left: calc(31px - 2px); /* Align with mobile timeline axis (31px left, 2px half-width of indicator) */
+        /* Old properties like width, margin-left, padding-left, padding-right, text-align are removed */
     }
-    .timeline-future-indicator span {
-        margin: 10px 0; /* Align left, not auto for center */
-    }
+    /* .timeline-future-indicator span rule for mobile is no longer needed as spans are hidden globally */
 }
 
 /* Founders Section Styling */
@@ -893,7 +885,7 @@ footer .container > p[align="center"] {
 
 .founders-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(3, 1fr); /* Default 3 columns for desktop */
     gap: 30px; /* Space between cards */
     max-width: 1200px; /* Align with .container max-width */
     margin: 0 auto; /* Center the grid if it doesn't fill the container */
@@ -945,8 +937,14 @@ footer .container > p[align="center"] {
 /* Ensure founder cards are also picked up by the animation observer if not already covered by .card */
 /* The JS `animatableElements` querySelectorAll already includes '.card', so these should be animated. */
 
-/* Responsive adjustments for founder cards (mainly handled by grid's auto-fit) */
-@media screen and (max-width: 768px) {
+/* Responsive adjustments for founder cards */
+@media screen and (max-width: 992px) { /* Tablet layout */
+    .founders-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) { /* Mobile layout */
     .founders-grid {
         grid-template-columns: 1fr; /* Stack cards on smaller screens */
         gap: 20px;
@@ -971,28 +969,25 @@ footer .container > p[align="center"] {
 <body>
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="#" class="logo">Elegance</a> <!-- Simple text logo -->
+            <a href="#" class="logo">CM Marangoni Srl</a> <!-- Simple text logo -->
             <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
             </button>
             <ul class="nav-links">
-                <li><a href="#our-founders">Our Story</a></li>
+                <li><a href="#company-history">Our Story</a></li>
                 <li><a href="#products">Products</a></li>
                 <li><a href="#">Contact</a></li> 
             </ul>
         </div>
     </nav>
     <main>
-        <section id="hero"> <!-- Assuming #hero is the direct parent for the text to be changed -->
-            <p>CM Marangoni: Precisione, Affidabilità e Alta Tecnologia nelle Macchine Utensili dal 1965.</p>
-        </section>
-        <section id="our-founders">
+        <section id="company-profile">
             <div class="container">
                 <div class="section-content-wrapper">
-                    <h2>Meet the Visionaries: Our Founders</h2>
-                    <p>Driven by passion and a relentless pursuit of excellence, our founders laid the groundwork for what we are today. Their pioneering spirit and commitment to innovation continue to inspire us and shape our path forward. We honor their legacy in every endeavor.</p>
+                    <h2>CM Marangoni: Innovazione e Affidabilità</h2>
+                    <p>Fondata sull'esperienza pluridecennale della famiglia Marangoni, CM Marangoni Srl si è affermata dal 2001 come fornitore di macchine utensili di alta tecnologia. La nostra missione è offrire soluzioni precise, affidabili e all'avanguardia, supportate da un impegno tecnico e commerciale senza pari verso ogni cliente. La qualità dei nostri prodotti e la capacità di risolvere problematiche complesse sono i pilastri della nostra reputazione e della fiducia della nostra selezionata clientela.</p>
                 </div>
             </div>
         </section>
