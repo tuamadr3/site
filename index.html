@@ -49,7 +49,7 @@
         }
 
         /* Keep placeholder text style for other sections for now */
-        /* #section2 p, */ #section3 p, #section4 p { /* #section2 p removed */
+        /* #section2 p, */ /* #section3 p, */ #section4 p { /* #section2 p & #section3 p removed */
             font-size: 2.5em;
             font-weight: bold;
         }
@@ -122,7 +122,137 @@
         #section3 {
             background-color: #4A90E2; /* Pleasant blue */
             color: #FFFFFF;           /* White text */
+            display: flex; /* Ensure flex properties are explicitly set or inherited */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
+
+        .timeline-container {
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline-container h2 {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 60px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            /* top: calc(20px + 25px); Year marker is 50px high, padding-top is 20px. (20 + 50/2) = 45px */
+            top: 45px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.5);
+            z-index: 0;
+        }
+
+        .timeline-event {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: default;
+            z-index: 1;
+            flex-basis: 20%; /* Give some base for distribution, might need adjustment */
+        }
+
+        .timeline-year {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #4A90E2;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .timeline-caption {
+            display: none;
+            position: absolute;
+            top: 80px; /* Below the year marker (50px height + 20px margin-bottom + 10px space) */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.95); /* More opaque for readability */
+            color: #333333;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            width: 220px;
+            font-size: 0.85em;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .timeline-event:hover .timeline-caption {
+            display: block;
+        }
+
+        .timeline-caption h4 {
+            font-size: 1em;
+            font-weight: bold;
+            color: #4A90E2;
+            margin-bottom: 8px;
+        }
+
+        /* Responsive adjustments for timeline */
+        @media (max-width: 768px) {
+            .timeline {
+                flex-direction: column;
+                align-items: center; /* Center events when stacked */
+                padding-top: 0; /* Reset padding as line will be vertical */
+            }
+            .timeline::before { /* Vertical line */
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 4px; /* Thickness of vertical line */
+                height: 100%;
+            }
+            .timeline-event {
+                margin-bottom: 40px; /* Space between stacked events */
+                width: 100%; /* Allow event to take width if needed for caption */
+                align-items: center; /* Ensure year marker is centered */
+            }
+            .timeline-event:last-child {
+                margin-bottom: 0;
+            }
+            .timeline-year {
+                margin-bottom: 15px; /* Space between year and caption when stacked */
+            }
+            .timeline-caption {
+                position: static; /* Let it flow naturally in the column */
+                transform: none;
+                left: auto;
+                margin-top: 10px; /* Space from year marker */
+                width: 80%; /* Adjust width for stacked layout */
+                max-width: 300px; /* Max width for caption */
+            }
+        }
+
 
         #section4 {
             background-color: #FFFFFF; /* White */
@@ -190,6 +320,41 @@
         header nav ul li a:focus::after {
             width: 100%; /* Expand to full width on hover/focus */
         }
+
+        /* Footer Section Styling */
+        #footer-section {
+            /* Inherits .snap-container section for full height, width, snap-align, display:flex, align-items, justify-content */
+            background-color: #4A90E2; /* Light blue, same as section1 & section3 */
+            color: #FFFFFF;           /* White text */
+            padding: 40px 20px;       /* Generous padding */
+            box-sizing: border-box;   /* Include padding in height calculation */
+            /* Flex properties from .snap-container section (justify-content: center, align-items: center) will center .footer-content */
+        }
+
+        .footer-content {
+            text-align: center;
+            max-width: 800px; /* Constrain width for professional look */
+        }
+
+        #footer-section p {
+            margin-bottom: 10px;
+            font-size: 0.9em; /* Slightly smaller for footer info */
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        #footer-section a {
+            color: #FFFFFF; /* White links to match text */
+            text-decoration: underline;
+            margin: 0 10px; /* Spacing for links */
+        }
+
+        #footer-section a:hover {
+            text-decoration: none; /* Example hover effect */
+        }
     </style>
 </head>
 <body>
@@ -225,10 +390,51 @@
             </div>
         </section>
         <section id="section3">
-            <p>Sezione 3</p>
+            <div class="timeline-container">
+                <h2>La Nostra Evoluzione</h2>
+                <div class="timeline">
+                    <div class="timeline-event">
+                        <div class="timeline-year">1956</div>
+                        <div class="timeline-caption">
+                            <h4>Fondazione Storica</h4>
+                            <p>Nel 1956 viene posta la prima pietra, iniziando un viaggio di passione e impegno.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-year">2001</div>
+                        <div class="timeline-caption">
+                            <h4>Innovazione del Millennio</h4>
+                            <p>Il 2001 segna l'adozione di nuove tecnologie e l'espansione verso mercati emergenti.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-caption">
+                            <h4>Riconoscimento Globale</h4>
+                            <p>Nel 2015 l'azienda ottiene importanti certificazioni e riconoscimenti internazionali.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-event">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-caption">
+                            <h4>Verso il Futuro</h4>
+                            <p>Proiettati al 2025, continuiamo a innovare con sostenibilità e visione strategica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section id="section4">
             <p>Sezione 4</p>
+        </section>
+        <section id="footer-section">
+            <div class="footer-content">
+                <p>&copy; 2023 Nome Azienda ERGG. Tutti i diritti riservati.</p>
+                <p>P.IVA: 01234567890</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a> | <a href="#cookies">Cookie Policy</a>
+                </div>
+            </div>
         </section>
     </div>
 </body>
