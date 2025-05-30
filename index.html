@@ -24,22 +24,100 @@
             width: 100%;   /* Each section is full viewport width */
             scroll-snap-align: start; /* Snap to the start of each section */
             display: flex;
-            justify-content: center;
+            /* justify-content: center; */ /* Default centering, will be overridden by #section1 */
             align-items: center;
-            font-size: 2.5em; /* Make placeholder text clearly visible */
-            font-weight: bold;
+            /* font-size: 2.5em; */ /* General font size for section text, moved to specific elements */
+            /* font-weight: bold; */
         }
 
         /* Section-specific background and text colors */
         #section1 {
             background-color: #4A90E2; /* Pleasant blue */
             color: #FFFFFF;           /* White text */
+            justify-content: flex-end; /* Align content (the .content-right div) to the right */
         }
+
+        .content-right {
+            text-align: right; /* Aligns text within this div to the right */
+            padding-right: 5%; /* Adds some margin from the very edge of the viewport */
+            max-width: 60%; /* Optional: prevents title from being too wide, adjust as needed */
+        }
+
+        #section1 .content-right h1 {
+            font-size: 2.8em;
+            font-weight: bold;
+        }
+
+        /* Keep placeholder text style for other sections for now */
+        /* #section2 p, */ #section3 p, #section4 p { /* #section2 p removed */
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
 
         #section2 {
             background-color: #FFFFFF; /* White */
             color: #333333;           /* Dark grey text */
+            display: flex; /* Already there from .snap-container section */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 5%; /* Overall spacing */
+            box-sizing: border-box; /* Ensure padding is included in height/width */
         }
+
+        .slide-content-container { /* General container for slide content if needed for structure */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pimpa-story h2 {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #337ab7; /* Theme blue for heading */
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .two-columns {
+            display: flex;
+            gap: 40px; /* Space between columns */
+            width: 100%;
+            max-width: 1100px; /* Max width for the two-column content */
+        }
+
+        .column { /* Applies to columns within .two-columns */
+            flex-basis: calc(50% - 20px); /* For two equal columns considering the gap */
+            text-align: left;
+        }
+
+        .column p { /* Specific to paragraphs within .column */
+            font-size: 1em;
+            line-height: 1.7;
+            color: #333333;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column; /* Stack columns */
+                gap: 20px;
+                align-items: center;
+            }
+            .column { /* Applies to columns within .two-columns */
+                flex-basis: 100%;
+                max-width: 500px;
+            }
+            .pimpa-story h2 {
+                font-size: 1.8em;
+            }
+            #section2 {
+                 padding: 30px 5%;
+            }
+        }
+
 
         #section3 {
             background-color: #4A90E2; /* Pleasant blue */
@@ -94,7 +172,7 @@
         /* Remove old background-color hover effect */
         /* header nav ul li a:hover,
         header nav ul li a:focus {
-            background-color: rgba(0, 0, 0, 0.1); 
+            background-color: rgba(0, 0, 0, 0.1);
         } */
 
         header nav ul li a::after {
@@ -127,10 +205,24 @@
     </header>
     <div class="snap-container">
         <section id="section1">
-            <p>Sezione 1</p>
+            <div class="content-right">
+                <h1>Un Titolo Accattivante</h1>
+            </div>
         </section>
         <section id="section2">
-            <p>Sezione 2</p>
+            <div class="slide-content-container pimpa-story">
+                <h2>Le Incredibili Avventure di Pimpa nel Bosco Colorato</h2>
+                <div class="two-columns">
+                    <div class="column">
+                        <p>Pimpa, la cagnolina a pois rossi, si svegliò una mattina con un'idea brillante: esplorare il Bosco Colorato oltre la collina! Con il suo amico Armando, l'elefante saggio, preparò uno zainetto con succo di mela e biscotti a forma di nuvola.</p>
+                        <p>Nel bosco, ogni albero aveva foglie di un colore diverso: azzurro cielo, giallo sole, rosa fenicottero! Pimpa ruzzolò felice su un prato di margherite viola, mentre Armando la osservava sorridendo sotto un grande fungo arancione.</p>
+                    </div>
+                    <div class="column">
+                        <p>Incontrarono Cip, lo scoiattolo postino, che stava consegnando lettere scritte su foglie di betulla. "Attenzione," disse Cip, "nel cuore del bosco vive il Mago Scribacchino, che adora trasformare le parole in farfalle!"</p>
+                        <p>Pimpa e Armando, curiosi, decisero di far visita al Mago. Lo trovarono intento a scrivere poesie che, appena finite, si libravano in aria come variopinte farfalle di carta. Che meraviglia! Il Bosco Colorato era davvero un posto pieno di sorprese.</p>
+                    </div>
+                </div>
+            </div>
         </section>
         <section id="section3">
             <p>Sezione 3</p>
