@@ -3,323 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full-Screen Slide Website</title>
+    <title>Snap Scroll Sections</title>
     <style>
-        /* Basic Reset/Normalization */
-        * {
+        html, body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            height: 100%;
+            overflow: hidden; /* Prevent scroll on body, snap-container will handle scroll */
+            font-family: Arial, sans-serif; /* Basic font */
         }
 
-        /* Main Content Area */
-        main {
-            /* Add padding-top to offset for the fixed header's height */
-            /* Approximate header height: (15px top + 15px bottom padding) + line height of text (e.g., ~20-25px) = ~50-55px */
-            /* Using 60px for a round number, can be adjusted. */
-            padding-top: 60px; 
+        .snap-container {
+            scroll-snap-type: y mandatory; /* Enable vertical mandatory snapping */
+            overflow-y: scroll; /* Allow vertical scrolling within the container */
+            height: 100vh; /* Container itself takes full viewport height */
         }
 
-        /* Full-Screen Slide Styling */
-        .fullscreen-slide {
-            height: 100vh;
-            width: 100%;
+        .snap-container section {
+            height: 100vh; /* Each section is full viewport height */
+            width: 100%;   /* Each section is full viewport width */
+            scroll-snap-align: start; /* Snap to the start of each section */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            /* Temporary distinct background colors for visibility */
-            /* These will be overridden later */
-        }
-        /* #slide1 { background-color: #f0f0f0; } */ /* Original placeholder, now handled below */
-        /* #slide2 { background-color: #e0e0e0; } */ /* Original placeholder, now handled below */
-        /* #slide3 { background-color: #d0d0d0; } */ /* Original placeholder, now handled below */
-        /* Add a placeholder for #contatti if it's also a fullscreen slide */
-        #contatti { 
-            background-color: #c0c0c0; 
-            /* Assuming #contatti might be a slide too based on nav */
-            /* If it's not a slide, this style won't apply or can be removed */
+            font-size: 2.5em; /* Make placeholder text clearly visible */
+            font-weight: bold;
         }
 
-        /* Slide 1 Specific Styling */
-        #slide1 {
-            background-image: url('https://source.unsplash.com/1600x900/?technology,abstract,innovation');
-            background-size: cover;
-            background-position: center;
-            color: #fff; /* White text for contrast */
-            position: relative; /* For overlay positioning */
-            text-align: center; /* Center text elements */
+        /* Section-specific background and text colors */
+        #section1 {
+            background-color: #4A90E2; /* Pleasant blue */
+            color: #FFFFFF;           /* White text */
         }
 
-        #slide1::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
-            z-index: 1; /* Overlay above background, below content */
+        #section2 {
+            background-color: #FFFFFF; /* White */
+            color: #333333;           /* Dark grey text */
         }
 
-        /* Ensure content is above the overlay */
-        #slide1 > * {
-            position: relative;
-            z-index: 2;
+        #section3 {
+            background-color: #4A90E2; /* Pleasant blue */
+            color: #FFFFFF;           /* White text */
         }
 
-        #slide1 h1 {
-            font-size: 3.5em; /* Large font size for main title */
-            margin-bottom: 20px;
-        }
-
-        #slide1 .subtitle {
-            font-size: 1.5em; /* Moderate font size for subtitle */
-        }
-
-        /* Slide 2 Specific Styling */
-        #slide2 {
-            background-color: #fff; /* Plain white background */
-            color: #333; /* Default dark text color */
-            /* .fullscreen-slide already provides flex centering for the content block */
-        }
-
-        #slide2 h2 {
-            font-size: 2.5em;
-            margin-bottom: 40px; /* Increased space for story columns */
-            text-align: center;
-            color: #337ab7; /* Using the established heading blue */
-        }
-
-        .story-columns {
-            display: flex;
-            justify-content: space-between;
-            gap: 40px; /* Space between columns */
-            width: 80%; /* Max width for the two columns area */
-            max-width: 1000px; /* Cap the width */
-            margin: 0 auto; /* Center the columns container */
-            text-align: left; /* Default text align for content in columns */
-        }
-
-        .column {
-            flex-basis: calc(50% - 20px); /* Each column takes half the space minus half the gap */
-        }
-
-        .column p {
-            font-size: 1em; /* Standard paragraph font size */
-            line-height: 1.7; /* Improved line height for readability */
-            margin-bottom: 15px; /* Space between paragraphs if multiple */
-        }
-        /* Responsive adjustment for story columns */
-        @media (max-width: 768px) {
-            .story-columns {
-                flex-direction: column; /* Stack columns on smaller screens */
-                width: 90%; /* Allow a bit more width on smaller screens */
-                gap: 20px;
-            }
-            .column {
-                flex-basis: 100%; /* Full width for stacked columns */
-            }
-            #slide2 h2 {
-                font-size: 2em; /* Slightly smaller heading on mobile */
-                margin-bottom: 20px;
-            }
-        }
-
-        /* Slide 3 Specific Styling - Partner Cards */
-        #slide3 {
-            background-color: #e9eff3; /* Slightly cool light grey/blue background */
-            color: #333;
-            /* .fullscreen-slide already provides flex centering for the content block */
-            /* We may want to adjust justify-content if content overflows on small screens */
-            /* For now, default centering is fine. */
-        }
-
-        #slide3 h2 {
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            text-align: center;
-            color: #337ab7; /* Consistent heading blue */
-        }
-
-        .partner-cards-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px; /* Space between cards */
-            width: 90%;
-            max-width: 1200px; /* Max width for the cards area */
-            margin: 0 auto; /* Center the grid */
-        }
-
-        .partner-card {
-            background-color: #fff;
-            border-radius: 15px; /* Rounded corners */
-            padding: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            text-align: center;
-            flex-basis: calc(33.333% - 30px); /* Aim for 3 cards, consider gap */
-            min-width: 280px; /* Min width before stacking */
-            box-sizing: border-box; /* Ensure padding/border are part of width calc */
-        }
-
-        .partner-logo {
-            max-width: 120px; /* Control logo size */
-            height: auto;
-            margin-bottom: 15px;
-        }
-
-        .partner-name {
-            font-size: 1.5em;
-            color: #333; /* Darker color for partner name */
-            margin-bottom: 10px;
-        }
-
-        .partner-description {
-            font-size: 0.9em;
-            color: #555; /* Slightly muted description text */
-            line-height: 1.5;
-        }
-
-        /* Responsive adjustments for partner cards */
-        @media (max-width: 992px) { /* Medium devices (tablets, less than 992px) */
-            .partner-card {
-                flex-basis: calc(50% - 30px); /* 2 cards per row */
-            }
-        }
-
-        @media (max-width: 768px) { /* Small devices (landscape phones, less than 768px) */
-            #slide3 h2 {
-                font-size: 2em; /* Adjust heading size for smaller screens */
-            }
-        }
-
-        @media (max-width: 576px) { /* Extra small devices (portrait phones, less than 576px) */
-            .partner-card {
-                flex-basis: 100%; /* 1 card per row */
-            }
-        }
-
-
-        /* Header/Menu Styling */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
-            z-index: 1000;
-            padding: 15px 0;
-        }
-        header nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-        }
-        header nav ul li {
-            margin: 0 15px;
-        }
-        header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1em;
-            padding: 5px 10px;
-            border-radius: 3px;
-            transition: background-color 0.3s ease;
-        }
-        header nav ul li a:hover,
-        header nav ul li a:focus {
-            background-color: rgba(255, 255, 255, 0.2); /* Subtle hover effect */
+        #section4 {
+            background-color: #FFFFFF; /* White */
+            color: #333333;           /* Dark grey text */
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#slide1">Home</a></li>
-                <li><a href="#slide2">Chi Siamo</a></li>
-                <li><a href="#slide3">Partners</a></li>
-                <li><a href="#contatti">Contatti</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="slide1" class="fullscreen-slide">
-            <h1>Innovazione e Precisione ERGG</h1>
-            <p class="subtitle">Soluzioni meccaniche all'avanguardia per la tua azienda.</p>
+    <div class="snap-container">
+        <section id="section1">
+            <p>Sezione 1</p>
         </section>
-        <section id="slide2" class="fullscreen-slide">
-            <h2>La Nostra Storia</h2>
-            <div class="story-columns">
-                <div class="column">
-                    <p>Fondata nel [Anno], ERGG ha iniziato il suo percorso con una visione chiara: ridefinire gli standard della meccanica di precisione. I nostri valori fondamentali - qualità, innovazione e affidabilità - sono stati la bussola che ha guidato ogni nostra decisione e investimento sin dal primo giorno.</p>
-                    <p>Siamo partiti con un piccolo team di ingegneri appassionati e macchinari all'avanguardia, determinati a offrire soluzioni che superassero le aspettative dei clienti.</p>
-                </div>
-                <div class="column">
-                    <p>Nel corso degli anni, ERGG è cresciuta esponenzialmente, affrontando sfide complesse e trasformandole in opportunità di miglioramento. Abbiamo ampliato il nostro parco macchine, investito in tecnologie di ultima generazione e, soprattutto, coltivato il talento dei nostri collaboratori.</p>
-                    <p>Oggi, siamo orgogliosi dei traguardi raggiunti e continuiamo a guardare al futuro con lo stesso impegno, pronti a innovare e a supportare i nostri partner nel raggiungimento dei loro obiettivi.</p>
-                </div>
-            </div>
+        <section id="section2">
+            <p>Sezione 2</p>
         </section>
-        <section id="slide3" class="fullscreen-slide">
-            <h2>I Nostri Partner Commerciali</h2>
-            <div class="partner-cards-grid">
-                <div class="partner-card">
-                    <img src="https://via.placeholder.com/150x80?text=Logo+Partner+1" alt="Logo Partner Azienda 1" class="partner-logo">
-                    <h3 class="partner-name">Partner Innovatech</h3>
-                    <p class="partner-description">Collaboriamo con Innovatech per lo sviluppo di soluzioni tecnologiche all'avanguardia nel settore IoT.</p>
-                </div>
-                <div class="partner-card">
-                    <img src="https://via.placeholder.com/150x80?text=Logo+Partner+2" alt="Logo Partner Azienda 2" class="partner-logo">
-                    <h3 class="partner-name">Precision Parts Ltd.</h3>
-                    <p class="partner-description">Fornitore strategico di componenti meccanici di alta precisione, garantendo qualità e affidabilità.</p>
-                </div>
-                <div class="partner-card">
-                    <img src="https://via.placeholder.com/150x80?text=Logo+Partner+3" alt="Logo Partner Azienda 3" class="partner-logo">
-                    <h3 class="partner-name">Soluzioni Verdi S.p.A.</h3>
-                    <p class="partner-description">Partnership per la realizzazione di progetti eco-sostenibili e l'ottimizzazione energetica dei processi.</p>
-                </div>
-            </div>
+        <section id="section3">
+            <p>Sezione 3</p>
         </section>
-        <!-- Potenziale sezione Contatti qui, se non è una slide -->
-    </main>
-
-    <!-- Footer potrebbe essere aggiunto qui se necessario, al di fuori del main -->
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('header nav ul li a');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    const hrefAttribute = this.getAttribute('href');
-
-                    // Ensure it's an internal link starting with #
-                    if (hrefAttribute && hrefAttribute.startsWith('#')) {
-                        event.preventDefault();
-                        const targetId = hrefAttribute.substring(1); // Remove #
-                        const targetElement = document.getElementById(targetId);
-
-                        if (targetElement) {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+        <section id="section4">
+            <p>Sezione 4</p>
+        </section>
+    </div>
 </body>
 </html>
