@@ -54,19 +54,22 @@
         /* Header/Menu Styling */
         header {
             position: fixed;
-            top: 10px; /* Add some space from the top */
-            right: 20px; /* Add some space from the right, align to top-right */
+            top: 10px; /* Keep some space from the top */
+            left: 0;   /* Align to the left edge */
+            width: 100%; /* Span full viewport width */
             z-index: 1000; /* Ensure it's above other content */
-            background-color: rgba(0, 0, 0, 0.4); /* Translucent dark background */
-            padding: 8px 15px; /* Smaller padding */
-            border-radius: 5px; /* Slightly rounded corners */
+            background-color: rgba(255, 255, 255, 0.85); /* White translucent background */
+            padding: 8px 15px; /* Vertical and horizontal padding */
+            /* border-radius: 5px; */ /* Removed for full-width design */
+            box-sizing: border-box; /* Ensure padding doesn't add to width */
         }
 
         header nav ul {
             list-style: none;
             margin: 0;
-            padding: 0;
+            padding: 0; /* Remove default padding */
             display: flex; /* Lay out items horizontally */
+            justify-content: flex-end; /* Align menu items to the right */
         }
 
         header nav ul li {
@@ -78,18 +81,36 @@
         }
 
         header nav ul li a {
-            color: #FFFFFF; /* White text */
+            color: #333333; /* Dark text for contrast on light background */
             text-decoration: none;
             font-size: 0.9em; /* Smaller font size */
             padding: 5px 8px; /* Small padding for links */
             display: block; /* Make the link area fill the li */
             border-radius: 3px;
-            transition: background-color 0.2s ease-in-out;
+            /* transition: background-color 0.2s ease-in-out; */ /* Old transition */
+            position: relative; /* For positioning the ::after pseudo-element */
         }
 
-        header nav ul li a:hover,
+        /* Remove old background-color hover effect */
+        /* header nav ul li a:hover,
         header nav ul li a:focus {
-            background-color: rgba(255, 255, 255, 0.2); /* Subtle hover/focus effect */
+            background-color: rgba(0, 0, 0, 0.1); 
+        } */
+
+        header nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; /* Position underline slightly below text */
+            left: 0;
+            width: 0; /* Initial state: no width */
+            height: 2px; /* Thickness of the underline */
+            background-color: #50a0d0; /* Pleasant light blue */
+            transition: width 0.3s ease-in-out; /* Animation for width */
+        }
+
+        header nav ul li a:hover::after,
+        header nav ul li a:focus::after {
+            width: 100%; /* Expand to full width on hover/focus */
         }
     </style>
 </head>
