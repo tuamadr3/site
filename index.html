@@ -17,6 +17,8 @@
             scroll-snap-type: y mandatory; /* Enable vertical mandatory snapping */
             overflow-y: scroll; /* Allow vertical scrolling within the container */
             height: 100vh; /* Container itself takes full viewport height */
+            padding-top: 60px; /* Offset for the fixed header */
+            box-sizing: border-box; /* Ensure padding doesn't increase overall height */
         }
 
         .snap-container section {
@@ -431,13 +433,15 @@
         header {
             position: fixed;
             top: 0; /* Position at the very top */
-            left: 0;   /* Align to the left edge */
-            width: 100%; /* Span full viewport width */
+            left: 50%; /* Center the menu */
+            transform: translateX(-50%); /* Fine-tune centering */
+            width: auto; /* Auto width based on content */
             z-index: 1000; /* Ensure it's above other content */
             background-color: rgba(255, 255, 255, 0.85); /* White translucent background */
-            padding: 8px 15px; /* Vertical and horizontal padding */
-            /* border-radius: 5px; */ /* Removed for full-width design */
-            box-sizing: border-box; /* Ensure padding doesn't add to width */
+            padding: 10px 25px; /* Adjusted padding: more horizontal for auto width */
+            border-radius: 25px; /* More rounded corners for pill-shape */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Existing shadow */
+            /* box-sizing: border-box; is good practice but less critical for width:auto */
         }
 
         header nav ul {
