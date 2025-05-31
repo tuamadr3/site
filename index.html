@@ -233,42 +233,42 @@
     margin-bottom: 0;
 }
 
-/* Add a specific style for the section3 timeline container for the original styles */
-#section3 .timeline-container {
+/* Generic Timeline Container Styles (previously #section3 specific) */
+.timeline-container { /* Was #section3 .timeline-container */
     width: 90%;
     max-width: 1000px;
     text-align: center;
     position: relative;
 }
 
-#section3 .timeline-container h2 {
+.timeline-container h2 { /* Was #section3 .timeline-container h2 */
     font-size: 2.2em;
     font-weight: bold;
-    color: #FFFFFF;
+    color: #FFFFFF; /* This color might need to be adjusted if timeline is on light background */
     margin-bottom: 60px;
 }
 
-#section3 .timeline {
+.timeline-container .timeline { /* Was #section3 .timeline */
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
-    padding-top: 20px; /* This might be adjusted depending on card content */
+    padding-top: 20px;
     width: 100%;
 }
 
-#section3 .timeline::before {
+.timeline-container .timeline::before { /* Was #section3 .timeline::before */
     content: '';
     position: absolute;
     top: 45px;
     left: 0;
     width: 100%;
     height: 4px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5); /* This color might need to be adjusted */
     z-index: 0;
 }
 
-#section3 .timeline-event {
+.timeline-container .timeline-event { /* Was #section3 .timeline-event */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -283,12 +283,12 @@
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-#section3 .timeline-event:hover {
+.timeline-container .timeline-event:hover { /* Was #section3 .timeline-event:hover */
     box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     transform: translateY(-3px);
 }
 
-#section3 .timeline-year {
+.timeline-container .timeline-year { /* Was #section3 .timeline-year */
     font-size: 1.4em;
     font-weight: bold;
     color: #4A90E2;
@@ -304,7 +304,7 @@
     z-index: 2;
 }
 
-#section3 .timeline-caption {
+.timeline-container .timeline-caption { /* Was #section3 .timeline-caption */
     display: block;
     position: static;
     transform: none;
@@ -320,52 +320,54 @@
     z-index: 1;
 }
 
-#section3 .timeline-caption h4 {
+.timeline-container .timeline-caption h4 { /* Was #section3 .timeline-caption h4 */
     font-size: 1em;
     font-weight: bold;
     color: #4A90E2;
     margin-bottom: 8px;
 }
 
-#section3 .timeline-caption p {
-    font-size: 0.95em; /* Relative to parent .timeline-caption's 0.85em */
+.timeline-container .timeline-caption p { /* Was #section3 .timeline-caption p */
+    font-size: 0.95em;
     line-height: 1.4;
     max-height: 70px;
     overflow-y: auto;
     margin-bottom: 0;
 }
-        /* Responsive adjustments for timeline */
+        /* Responsive adjustments for generic timeline */
         @media (max-width: 768px) {
-            #section3 .timeline {
+            .timeline-container .timeline { /* Was #section3 .timeline */
                 flex-direction: column;
                 align-items: center;
             }
-            #section3 .timeline::before {
+            .timeline-container .timeline::before { /* Was #section3 .timeline::before */
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
                 width: 4px;
                 height: 100%;
             }
-            #section3 .timeline-event {
+            .timeline-container .timeline-event { /* Was #section3 .timeline-event */
                 margin-bottom: 40px;
                 width: 80%;
                 max-width: 400px;
                 align-items: center;
             }
-            #section3 .timeline-event:last-child {
+            .timeline-container .timeline-event:last-child { /* Added generalization */
                 margin-bottom: 0;
             }
-            #section3 .timeline-year {
+            .timeline-container .timeline-year { /* Was #section3 .timeline-year */
                 margin-bottom: 15px;
             }
-            #section3 .timeline-caption {
-                /* position: static; already set */
-                /* transform: none; already set */
+            .timeline-container .timeline-caption { /* Was #section3 .timeline-caption */
                 margin-top: 10px;
                 width: 100%;
             }
         }
+
+#section4 .timeline-container h2 {
+    color: #333333; /* Dark grey, similar to other text on this light background */
+}
 
         #section4 {
             background-color: #f0f8ff; /* AliceBlue */
@@ -754,68 +756,42 @@
             </div>
         </section>
         <section id="section3">
-            <div class="timeline-container">
-                <h2>La Nostra Evoluzione</h2>
-                <div class="timeline">
-                    <div class="timeline-event">
-                        <div class="timeline-year">1956</div>
-                        <div class="timeline-caption">
-                            <h4>Fondazione Storica</h4>
-                            <p>Nel 1956 viene posta la prima pietra, iniziando un viaggio di passione e impegno.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="timeline-year">2001</div>
-                        <div class="timeline-caption">
-                            <h4>Innovazione del Millennio</h4>
-                            <p>Il 2001 segna l'adozione di nuove tecnologie e l'espansione verso mercati emergenti.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="timeline-year">2015</div>
-                        <div class="timeline-caption">
-                            <h4>Riconoscimento Globale</h4>
-                            <p>Nel 2015 l'azienda ottiene importanti certificazioni e riconoscimenti internazionali.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="timeline-year">2025</div>
-                        <div class="timeline-caption">
-                            <h4>Verso il Futuro</h4>
-                            <p>Proiettati al 2025, continuiamo a innovare con sostenibilità e visione strategica.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </section>
         <section id="section4">
-            <h2>I Nostri Stimati Partner</h2>
-            <div class="partner-layout-container">
-                <div class="primary-partners-area">
-                    <div class="partner-card primary-card">
-                        <img src="https://via.placeholder.com/120x60?text=Logo+Partner+A" alt="Logo Partner A" class="partner-logo">
-                        <h3 class="partner-name">Partner Principale Alpha</h3>
-                        <p class="partner-description">Descrizione della collaborazione strategica con Alpha e del loro impatto nel settore.</p>
-                    </div>
-                    <div class="partner-card primary-card">
-                        <img src="https://via.placeholder.com/120x60?text=Logo+Partner+B" alt="Logo Partner B" class="partner-logo">
-                        <h3 class="partner-name">Partner Principale Beta</h3>
-                        <p class="partner-description">Beta ci affianca con soluzioni innovative e una visione condivisa del futuro.</p>
-                    </div>
-                </div>
-                <div class="secondary-partners-area">
-                    <div class="partner-card secondary-card">
-                        <img src="https://via.placeholder.com/100x50?text=Logo+Partner+C" alt="Logo Partner C" class="partner-logo">
-                        <h3 class="partner-name">Partner Gamma</h3>
-                        <p class="partner-description">Collaborazione di supporto con Gamma per servizi essenziali.</p>
-                    </div>
-                    <div class="partner-card secondary-card">
-                        <img src="https://via.placeholder.com/100x50?text=Logo+Partner+D" alt="Logo Partner D" class="partner-logo">
-                        <h3 class="partner-name">Partner Delta</h3>
-                        <p class="partner-description">Delta contribuisce con la sua esperienza in nicchie specifiche.</p>
-                    </div>
-                </div>
+<h2>Eventi Chiave</h2>
+<div class="timeline-container">
+    <div class="timeline">
+        <div class="timeline-event">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-caption">
+                <h4>Nuovo Inizio</h4>
+                <p>Introduzione della nuova timeline in questa sezione, mostrando eventi significativi.</p>
             </div>
+        </div>
+        <div class="timeline-event">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-caption">
+                <h4>Prossimi Passi</h4>
+                <p>Ulteriori sviluppi e innovazioni sono previste per l'anno a venire.</p>
+            </div>
+        </div>
+        <div class="timeline-event">
+            <div class="timeline-year">2026</div>
+            <div class="timeline-caption">
+                <h4>Traguardo Futuro</h4>
+                <p>Vengono stabiliti obiettivi a lungo termine per la crescita e l'espansione.</p>
+            </div>
+        </div>
+        <div class="timeline-event">
+            <div class="timeline-year">2027</div>
+            <div class="timeline-caption">
+                <h4>Celebrazione</h4>
+                <p>Commemorazione dei successi ottenuti e dei progressi fatti fino ad ora.</p>
+            </div>
+        </div>
+    </div>
+</div>
         </section>
     </div>
 </body>
