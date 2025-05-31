@@ -48,6 +48,8 @@
         #section1 .content-right h1 {
             font-size: 2.8em;
             font-weight: bold;
+    overflow-wrap: break-word;
+    hyphens: auto;
         }
 
         /* Keep placeholder text style for other sections for now */
@@ -133,57 +135,102 @@
         }
 
 /* Miniaturized Timeline Styles */
-.timeline-miniature .timeline-container h2 {
-    font-size: 1.2em; /* Smaller title */
+/* .timeline-miniature IS the .timeline-container with an additional class */
+.timeline-miniature {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    transform: scale(0.85);
+    transform-origin: top center;
+    text-align: center;
+    position: relative;
+}
+
+.timeline-miniature h2 { /* Corrected selector */
+    font-size: 1.2em;
     margin-bottom: 20px;
 }
 
 .timeline-miniature .timeline {
     padding-top: 10px;
+    display: flex; /* Ensure flex properties */
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
 }
 
 .timeline-miniature .timeline::before {
-    top: 25px; /* Adjusted for smaller year marker */
+    content: ''; /* Ensure content is present for pseudo-elements */
+    position: absolute; /* Required for positioning */
+    top: 25px;
     height: 2px;
+    left: 0; /* Define position */
+    width: 100%; /* Define size */
+    background-color: rgba(255, 255, 255, 0.5); /* Match section3 */
+    z-index: 0; /* Match section3 */
 }
 
 .timeline-miniature .timeline-event {
-    flex-basis: 22%; /* Adjust if necessary for spacing */
+    flex-basis: 22%;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    z-index: 1; /* Ensure event is above timeline::before */
+}
+
+.timeline-miniature .timeline-event:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
 }
 
 .timeline-miniature .timeline-year {
     font-size: 0.8em;
     width: 30px;
     height: 30px;
-    margin-bottom: 10px;
-    border-width: 1px;
+    margin-bottom: 8px;
+    color: #4A90E2;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #4A90E2;
 }
 
 .timeline-miniature .timeline-caption {
-    top: 45px; /* Adjusted for smaller year marker */
-    padding: 8px;
-    border-radius: 6px;
-    width: 150px; /* Smaller caption box */
+    display: block;
+    position: static;
+    transform: none;
+    width: 100%;
     font-size: 0.7em;
+    padding: 0;
+    margin-top: 5px;
+    background-color: transparent;
+    color: #333333;
+    box-shadow: none;
+    border-radius: 0;
+    text-align: left;
 }
 
 .timeline-miniature .timeline-caption h4 {
     font-size: 0.8em;
     margin-bottom: 5px;
+    color: #4A90E2;
 }
 
-/* Responsive adjustments for miniaturized timeline - might need further thought if it's too complex */
-/* For now, let's assume the small version won't need its own complex responsive rules, */
-/* or that they would be similar to the main timeline but scaled down. */
-/* This could be a point of refinement if the display is not good. */
-
-/* Ensure the miniaturized timeline itself is contained if placed in a flex column */
-.timeline-miniature {
-    width: 100%; /* Take full width of its container */
-    max-width: 500px; /* Max width for the mini timeline block */
-    margin: 20px auto; /* Center it if it's in a wider column */
-    transform: scale(0.85); /* General scaling for the whole block */
-    transform-origin: top center;
+.timeline-miniature .timeline-caption p {
+    font-size: 0.9em; /* Relative to parent .timeline-caption's 0.7em: 0.9 * 0.7 = 0.63em of page default */
+    line-height: 1.3;
+    max-height: 50px;
+    overflow-y: auto;
+    margin-bottom: 0;
 }
 
 /* Add a specific style for the section3 timeline container for the original styles */
@@ -206,7 +253,7 @@
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
-    padding-top: 20px;
+    padding-top: 20px; /* This might be adjusted depending on card content */
     width: 100%;
 }
 
@@ -226,9 +273,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: default;
     z-index: 1;
     flex-basis: 20%;
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 15px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#section3 .timeline-event:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transform: translateY(-3px);
 }
 
 #section3 .timeline-year {
@@ -242,29 +299,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
+    border: 2px solid #4A90E2;
+    z-index: 2;
 }
 
 #section3 .timeline-caption {
-    display: none;
-    position: absolute;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #333333;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    width: 220px;
-    font-size: 0.85em;
-    text-align: left;
-    z-index: 10;
-}
-
-#section3 .timeline-event:hover .timeline-caption {
     display: block;
+    position: static;
+    transform: none;
+    width: 100%;
+    background-color: transparent;
+    color: #333333;
+    padding: 0;
+    margin-top: 10px;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: left;
+    font-size: 0.85em;
+    z-index: 1;
 }
 
 #section3 .timeline-caption h4 {
@@ -273,38 +326,44 @@
     color: #4A90E2;
     margin-bottom: 8px;
 }
+
+#section3 .timeline-caption p {
+    font-size: 0.95em; /* Relative to parent .timeline-caption's 0.85em */
+    line-height: 1.4;
+    max-height: 70px;
+    overflow-y: auto;
+    margin-bottom: 0;
+}
         /* Responsive adjustments for timeline */
         @media (max-width: 768px) {
             #section3 .timeline {
                 flex-direction: column;
-                align-items: center; /* Center events when stacked */
-                padding-top: 0; /* Reset padding as line will be vertical */
+                align-items: center;
             }
-            #section3 .timeline::before { /* Vertical line */
+            #section3 .timeline::before {
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 4px; /* Thickness of vertical line */
+                width: 4px;
                 height: 100%;
             }
             #section3 .timeline-event {
-                margin-bottom: 40px; /* Space between stacked events */
-                width: 100%; /* Allow event to take width if needed for caption */
-                align-items: center; /* Ensure year marker is centered */
+                margin-bottom: 40px;
+                width: 80%;
+                max-width: 400px;
+                align-items: center;
             }
             #section3 .timeline-event:last-child {
                 margin-bottom: 0;
             }
             #section3 .timeline-year {
-                margin-bottom: 15px; /* Space between year and caption when stacked */
+                margin-bottom: 15px;
             }
             #section3 .timeline-caption {
-                position: static; /* Let it flow naturally in the column */
-                transform: none;
-                left: auto;
-                margin-top: 10px; /* Space from year marker */
-                width: 80%; /* Adjust width for stacked layout */
-                max-width: 300px; /* Max width for caption */
+                /* position: static; already set */
+                /* transform: none; already set */
+                margin-top: 10px;
+                width: 100%;
             }
         }
 
@@ -412,6 +471,10 @@
             font-size: 0.9em;
             color: #555555; /* Slightly lighter color for description */
             line-height: 1.5;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-height: 100px; /* Approx 5-6 lines, adjust as needed */
+    overflow-y: auto;
         }
 
         .primary-card p.partner-description {
@@ -648,14 +711,45 @@
             <div class="slide-content-container pimpa-story">
                 <h2>Le Incredibili Avventure di Pimpa nel Bosco Colorato</h2>
                 <div class="two-columns">
-                    <div class="column">
-                        <p>Pimpa, la cagnolina a pois rossi, si svegliò una mattina con un'idea brillante: esplorare il Bosco Colorato oltre la collina! Con il suo amico Armando, l'elefante saggio, preparò uno zainetto con succo di mela e biscotti a forma di nuvola.</p>
-                        <p>Nel bosco, ogni albero aveva foglie di un colore diverso: azzurro cielo, giallo sole, rosa fenicottero! Pimpa ruzzolò felice su un prato di margherite viola, mentre Armando la osservava sorridendo sotto un grande fungo arancione.</p>
+    <div class="column">
+        <p>Pimpa, la cagnolina a pois rossi, si svegliò una mattina con un'idea brillante: esplorare il Bosco Colorato oltre la collina! Con il suo amico Armando, l'elefante saggio, preparò uno zainetto con succo di mela e biscotti a forma di nuvola.</p>
+        <p>Nel bosco, ogni albero aveva foglie di un colore diverso: azzurro cielo, giallo sole, rosa fenicottero! Pimpa ruzzolò felice su un prato di margherite viola, mentre Armando la osservava sorridendo sotto un grande fungo arancione.</p>
+    </div>
+    <div class="column">
+        <div class="timeline-container timeline-miniature">
+            <h2>La Nostra Evoluzione</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="timeline-year">1956</div>
+                    <div class="timeline-caption">
+                        <h4>Fondazione Storica</h4>
+                        <p>Nel 1956 viene posta la prima pietra, iniziando un viaggio di passione e impegno.</p>
                     </div>
-                    <div class="column">
-                        <p>Incontrarono Cip, lo scoiattolo postino, che stava consegnando lettere scritte su foglie di betulla. "Attenzione," disse Cip, "nel cuore del bosco vive il Mago Scribacchino, che adora trasformare le parole in farfalle!"</p>
-                        <p>Pimpa e Armando, curiosi, decisero di far visita al Mago. Lo trovarono intento a scrivere poesie che, appena finite, si libravano in aria come variopinte farfalle di carta. Che meraviglia! Il Bosco Colorato era davvero un posto pieno di sorprese.</p>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-year">2001</div>
+                    <div class="timeline-caption">
+                        <h4>Innovazione del Millennio</h4>
+                        <p>Il 2001 segna l'adozione di nuove tecnologie e l'espansione verso mercati emergenti.</p>
                     </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-caption">
+                        <h4>Riconoscimento Globale</h4>
+                        <p>Nel 2015 l'azienda ottiene importanti certificazioni e riconoscimenti internazionali.</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-caption">
+                        <h4>Verso il Futuro</h4>
+                        <p>Proiettati al 2025, continuiamo a innovare con sostenibilità e visione strategica.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
             </div>
         </section>
