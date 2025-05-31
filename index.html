@@ -36,16 +36,16 @@
         #section1 {
             background-color: #4A90E2; /* Pleasant blue */
             color: #FFFFFF;           /* White text */
-            justify-content: flex-end; /* Align content (the .content-right div) to the right */
+    justify-content: flex-start; /* Align content (the .content-right div) to the right */
         }
 
-        .content-right {
-            text-align: right; /* Aligns text within this div to the right */
-            padding-right: 5%; /* Adds some margin from the very edge of the viewport */
+.content-left {
+    text-align: left; /* Aligns text within this div to the left */
+    padding-left: 5%; /* Adds some margin from the very edge of the viewport */
             max-width: 60%; /* Optional: prevents title from being too wide, adjust as needed */
         }
 
-        #section1 .content-right h1 {
+#section1 .content-left h1 {
             font-size: 2.8em;
             font-weight: bold;
     overflow-wrap: break-word;
@@ -548,11 +548,12 @@
         }
 
 #section5 {
-    background-color: #f0f8ff; /* AliceBlue */
-    /* Inherits main text color from #section4 or body if not overridden */
-    /* Flex properties also inherited from .snap-container section if not overridden */
-    /* display: flex; flex-direction: column; justify-content: center; align-items: center; */
-    /* padding: 40px 3%; box-sizing: border-box; */ /* These would match #section4 */
+    background-color: #f0f8ff; /* AliceBlue - This should already be there */
+    padding-top: 80px;
+    justify-content: center; /* Ensure content is centered after padding */
+    /* display: flex; align-items: center; flex-direction: column; are inherited or default for sections */
+    box-sizing: border-box; /* Add if not already inherited */
+    /* The default align-items: center on the section should handle the vertical centering of the content block after padding. */
 }
 
         /* Header/Menu Styling */
@@ -668,7 +669,7 @@
     </header>
     <div class="snap-container">
         <section id="section1">
-            <div class="content-right">
+            <div class="content-left">
                 <h1>Un Titolo Accattivante</h1>
             </div>
         </section>
@@ -803,7 +804,6 @@
 </div>
         </section>
 <section id="section5">
-<h2>I Nostri Stimati Partner</h2>
 <div class="partner-layout-container">
     <div class="primary-partners-area">
         <div class="partner-card primary-card">
