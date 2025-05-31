@@ -135,7 +135,6 @@
         }
 
 /* Miniaturized Timeline Styles */
-/* .timeline-miniature IS the .timeline-container with an additional class */
 .timeline-miniature {
     width: 100%;
     max-width: 500px;
@@ -146,14 +145,14 @@
     position: relative;
 }
 
-.timeline-miniature h2 { /* Corrected selector */
+.timeline-miniature h2 {
     font-size: 1.2em;
     margin-bottom: 20px;
 }
 
 .timeline-miniature .timeline {
     padding-top: 10px;
-    display: flex; /* Ensure flex properties */
+    display: flex;
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
@@ -161,33 +160,30 @@
 }
 
 .timeline-miniature .timeline::before {
-    content: ''; /* Ensure content is present for pseudo-elements */
-    position: absolute; /* Required for positioning */
+    content: '';
+    position: absolute;
     top: 25px;
     height: 2px;
-    left: 0; /* Define position */
-    width: 100%; /* Define size */
-    background-color: rgba(255, 255, 255, 0.5); /* Match section3 */
-    z-index: 0; /* Match section3 */
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 0;
 }
 
 .timeline-miniature .timeline-event {
     flex-basis: 22%;
-    background-color: #FFFFFF;
-    border: 1px solid #DDDDDD;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-    z-index: 1; /* Ensure event is above timeline::before */
+    padding: 0; /* Reverted */
+    /* Removed background, border, shadow from card style */
+    /* transition: none; */ /* Removed card hover transition for event itself */
+    z-index: 1;
+    position: relative; /* Needed for absolute caption positioning */
 }
 
-.timeline-miniature .timeline-event:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
+.timeline-miniature .timeline-event:hover .timeline-caption {
+    display: block;
 }
 
 .timeline-miniature .timeline-year {
@@ -205,18 +201,20 @@
 }
 
 .timeline-miniature .timeline-caption {
-    display: block;
-    position: static;
-    transform: none;
-    width: 100%;
+    display: none;
+    position: absolute;
+    transform: translateX(-50%);
+    top: 40px; /* Approx. year height 30px + margin 8px + a bit */
+    left: 50%;
+    width: 150px;
     font-size: 0.7em;
-    padding: 0;
-    margin-top: 5px;
-    background-color: transparent;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.95);
     color: #333333;
-    box-shadow: none;
-    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px;
     text-align: left;
+    z-index: 10;
 }
 
 .timeline-miniature .timeline-caption h4 {
@@ -226,29 +224,29 @@
 }
 
 .timeline-miniature .timeline-caption p {
-    font-size: 0.9em; /* Relative to parent .timeline-caption's 0.7em: 0.9 * 0.7 = 0.63em of page default */
+    font-size: 0.9em;
     line-height: 1.3;
     max-height: 50px;
     overflow-y: auto;
     margin-bottom: 0;
 }
 
-/* Generic Timeline Container Styles (previously #section3 specific) */
-.timeline-container { /* Was #section3 .timeline-container */
+/* Generic Timeline Container Styles */
+.timeline-container {
     width: 90%;
     max-width: 1000px;
     text-align: center;
     position: relative;
 }
 
-.timeline-container h2 { /* Was #section3 .timeline-container h2 */
+.timeline-container h2 {
     font-size: 2.2em;
     font-weight: bold;
-    color: #FFFFFF; /* This color might need to be adjusted if timeline is on light background */
+    color: #FFFFFF;
     margin-bottom: 60px;
 }
 
-.timeline-container .timeline { /* Was #section3 .timeline */
+.timeline-container .timeline {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -257,38 +255,34 @@
     width: 100%;
 }
 
-.timeline-container .timeline::before { /* Was #section3 .timeline::before */
+.timeline-container .timeline::before {
     content: '';
     position: absolute;
-    top: 45px;
+    top: 45px; /* Based on year marker position */
     left: 0;
     width: 100%;
     height: 4px;
-    background-color: rgba(255, 255, 255, 0.5); /* This color might need to be adjusted */
+    background-color: rgba(255, 255, 255, 0.5);
     z-index: 0;
 }
 
-.timeline-container .timeline-event { /* Was #section3 .timeline-event */
-    position: relative;
+.timeline-container .timeline-event {
+    position: relative; /* Needed for absolute caption positioning */
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 1;
     flex-basis: 20%;
-    background-color: #FFFFFF;
-    border: 1px solid #DDDDDD;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    padding: 15px;
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    padding: 0; /* Reverted */
+    /* Removed background, border, shadow from card style */
+    /* transition: none; */ /* Removed card hover transition for event itself */
 }
 
-.timeline-container .timeline-event:hover { /* Was #section3 .timeline-event:hover */
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    transform: translateY(-3px);
+.timeline-container .timeline-event:hover .timeline-caption {
+    display: block;
 }
 
-.timeline-container .timeline-year { /* Was #section3 .timeline-year */
+.timeline-container .timeline-year {
     font-size: 1.4em;
     font-weight: bold;
     color: #4A90E2;
@@ -304,30 +298,31 @@
     z-index: 2;
 }
 
-.timeline-container .timeline-caption { /* Was #section3 .timeline-caption */
-    display: block;
-    position: static;
-    transform: none;
-    width: 100%;
-    background-color: transparent;
+.timeline-container .timeline-caption {
+    display: none;
+    position: absolute;
+    transform: translateX(-50%);
+    top: 60px; /* Approx. year height 50px + margin 10px */
+    left: 50%;
+    width: 220px;
+    background-color: rgba(255, 255, 255, 0.95);
     color: #333333;
-    padding: 0;
-    margin-top: 10px;
-    border-radius: 0;
-    box-shadow: none;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     text-align: left;
     font-size: 0.85em;
-    z-index: 1;
+    z-index: 10;
 }
 
-.timeline-container .timeline-caption h4 { /* Was #section3 .timeline-caption h4 */
+.timeline-container .timeline-caption h4 {
     font-size: 1em;
     font-weight: bold;
     color: #4A90E2;
     margin-bottom: 8px;
 }
 
-.timeline-container .timeline-caption p { /* Was #section3 .timeline-caption p */
+.timeline-container .timeline-caption p {
     font-size: 0.95em;
     line-height: 1.4;
     max-height: 70px;
@@ -336,37 +331,44 @@
 }
         /* Responsive adjustments for generic timeline */
         @media (max-width: 768px) {
-            .timeline-container .timeline { /* Was #section3 .timeline */
+            .timeline-container .timeline {
                 flex-direction: column;
                 align-items: center;
             }
-            .timeline-container .timeline::before { /* Was #section3 .timeline::before */
+            .timeline-container .timeline::before {
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
                 width: 4px;
                 height: 100%;
             }
-            .timeline-container .timeline-event { /* Was #section3 .timeline-event */
+            .timeline-container .timeline-event {
                 margin-bottom: 40px;
                 width: 80%;
                 max-width: 400px;
                 align-items: center;
             }
-            .timeline-container .timeline-event:last-child { /* Added generalization */
+            .timeline-container .timeline-event:last-child {
                 margin-bottom: 0;
             }
-            .timeline-container .timeline-year { /* Was #section3 .timeline-year */
+            .timeline-container .timeline-year {
                 margin-bottom: 15px;
             }
-            .timeline-container .timeline-caption { /* Was #section3 .timeline-caption */
-                margin-top: 10px;
-                width: 100%;
+            .timeline-container .timeline-caption {
+                 /* If captions are too wide or overlap badly on mobile with absolute positioning */
+                 /* consider making them static for this breakpoint */
+                 width: 80%;
+                 max-width: 300px;
+                 /* top: auto; left:auto; transform:none; position:static; margin-top:10px; */
             }
         }
 
 #section4 .timeline-container h2 {
     color: #333333; /* Dark grey, similar to other text on this light background */
+}
+
+#section4 .timeline-container .timeline::before {
+    background-color: rgba(74, 144, 226, 0.4); /* Semi-transparent version of #4A90E2 blue */
 }
 
         #section4 {
