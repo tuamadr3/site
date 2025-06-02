@@ -1,0 +1,58 @@
+<section id="products">
+            <div class="container">
+                <!-- Product Card 1 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>ChronoGlide Watch</h3>
+                        <p>Elegance meets precision. The ChronoGlide features a sapphire crystal face and a self-winding mechanism, encased in aerospace-grade titanium. Define your moments.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="ChronoGlide Watch">
+                    </div>
+                </article>
+
+                <!-- Product Card 2 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>AeroBloom Speaker</h3>
+                        <p>Immersive 360° sound in a sleek, portable design. The AeroBloom speaker offers 24-hour playtime and crystal-clear highs, deep lows. Your music, amplified.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="AeroBloom Speaker">
+                    </div>
+                </article>
+
+                <!-- Product Card 3 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>TerraGlow Backpack</h3>
+                        <p>Crafted from recycled ocean-bound plastic, the TerraGlow backpack is durable, water-resistant, and features ergonomic support. Adventure responsibly.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="TerraGlow Backpack">
+                    </div>
+                </article>
+
+                <!-- New Card 4 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>NovaDesk Lamp</h3>
+                        <p>Illuminate your workspace with adaptive lighting. The NovaDesk Lamp offers customizable brightness and color temperature, with a minimalist design.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://source.unsplash.com/random/800x600?product&sig=4" alt="NovaDesk Lamp">
+                    </div>
+                </article>
+
+                <!-- New Card 5 -->
+                <article class="product-card">
+                    <div class="product-text">
+                        <h3>Zenith Fitness Tracker</h3>
+                        <p>Track your progress, optimize your workouts, and stay connected. The Zenith tracker offers advanced health monitoring and a sleek, durable build.</p>
+                    </div>
+                    <div class="product-image">
+                        <img src="https://source.unsplash.com/random/800x600?product&sig=5" alt="Zenith Fitness Tracker">
+                    </div>
+                </article>
+            </div>
+        </section>

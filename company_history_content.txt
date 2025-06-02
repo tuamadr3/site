@@ -1,0 +1,50 @@
+<section id="company-history" class="timeline-section">
+    <div class="container">
+        <h2>Our Company's Journey</h2>
+        <div class="timeline">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">1965</div></div>
+                <div class="timeline-content card">
+                    <h3>Inizio Attività Famiglia Marangoni</h3>
+                    <p>Inizio dell'attività della famiglia Marangoni nel campo delle macchine utensili. Questo segna l'origine dell'esperienza che porterà alla fondazione della CM Marangoni Srl.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">Anni '60-'00</div></div>
+                <div class="timeline-content card">
+                    <h3>Accumulo Esperienza</h3>
+                    <p>Accumulo di una vasta esperienza lavorando con prodotti di prestigiosi produttori tedeschi, svizzeri e italiani. Questo periodo è fondamentale per lo sviluppo delle competenze e della reputazione nel settore.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">2001</div></div>
+                <div class="timeline-content card">
+                    <h3>Fondazione CM Marangoni Srl</h3>
+                    <p>Fondazione ufficiale della CM Marangoni Srl. L'azienda nasce con l'obiettivo di fornire prodotti di nicchia ad elevata tecnologia e affidabilità, e di garantire massimo impegno tecnico e commerciale verso i clienti.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"><div class="timeline-axis-date">Post 2001</div></div>
+                <div class="timeline-content card">
+                    <h3>Sviluppo Continuo</h3>
+                    <p>Si afferma come un'azienda che si distingue per l'elevata qualità dei prodotti commercializzati. Costruisce una clientela selezionata e importante, grazie alla qualità dei prodotti e alla serietà nella risoluzione dei problemi.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">
+                    <div class="timeline-axis-date">2026</div>
+                </div>
+                <div class="timeline-content card">
+                    <h3>Espansione Europea</h3>
+                    <p>Obiettivo: Espandere le operazioni e la presenza commerciale in nuovi mercati europei.</p>
+                </div>
+            </div>
+            <div class="timeline-future-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</section>

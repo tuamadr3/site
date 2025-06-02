@@ -1,0 +1,19 @@
+<footer>
+        <div class="container">
+            <div class="footer-content">
+                <h4>Contact Us</h4>
+                <address>
+                    <p>123 Elegance Avenue, Fashion City, FC 90210</p>
+                    <p>Phone: <a href="tel:+12345678900">(123) 456-78900</a></p>
+                    <p>Email: <a href="mailto:contact@elegance.com">contact@elegance.com</a></p>
+                </address>
+                <div class="social-links">
+                    <p>Follow Us:</p>
+                    <a href="#" aria-label="Facebook">FB</a> |
+                    <a href="#" aria-label="Instagram">IG</a> |
+                    <a href="#" aria-label="Twitter">TW</a>
+                </div>
+            </div>
+            <p>&copy; 2024 My Company</p> <!-- Copyright can remain or be moved into footer-content if preferred -->
+        </div>
+    </footer>
