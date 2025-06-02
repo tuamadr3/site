@@ -36,18 +36,20 @@
         #section1 {
             background-color: #4A90E2; /* Pleasant blue */
             color: #FFFFFF;           /* White text */
-            justify-content: flex-end; /* Align content (the .content-right div) to the right */
+    justify-content: flex-start; /* Align content (the .content-right div) to the right */
         }
 
-        .content-right {
-            text-align: right; /* Aligns text within this div to the right */
-            padding-right: 5%; /* Adds some margin from the very edge of the viewport */
+.content-left {
+    text-align: left; /* Aligns text within this div to the left */
+    padding-left: 5%; /* Adds some margin from the very edge of the viewport */
             max-width: 60%; /* Optional: prevents title from being too wide, adjust as needed */
         }
 
-        #section1 .content-right h1 {
+#section1 .content-left h1 {
             font-size: 2.8em;
             font-weight: bold;
+    overflow-wrap: break-word;
+    hyphens: auto;
         }
 
         /* Keep placeholder text style for other sections for now */
@@ -132,129 +134,242 @@
             box-sizing: border-box;
         }
 
-        .timeline-container {
-            width: 90%;
-            max-width: 1000px;
-            text-align: center;
-            position: relative;
-        }
+/* Miniaturized Timeline Styles */
+.timeline-miniature {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    transform: scale(0.85);
+    transform-origin: top center;
+    text-align: center;
+    position: relative;
+}
 
-        .timeline-container h2 {
-            font-size: 2.2em;
-            font-weight: bold;
-            color: #FFFFFF;
-            margin-bottom: 60px;
-        }
+.timeline-miniature h2 {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
 
-        .timeline {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            padding-top: 20px;
-            width: 100%;
-        }
+.timeline-miniature .timeline {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+}
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            /* top: calc(20px + 25px); Year marker is 50px high, padding-top is 20px. (20 + 50/2) = 45px */
-            top: 45px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: rgba(255, 255, 255, 0.5);
-            z-index: 0;
-        }
+.timeline-miniature .timeline::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    height: 2px;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 0;
+}
 
-        .timeline-event {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: default;
-            z-index: 1;
-            flex-basis: 20%; /* Give some base for distribution, might need adjustment */
-        }
+.timeline-miniature .timeline-event {
+    flex-basis: 22%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0; /* Reverted */
+    /* Removed background, border, shadow from card style */
+    /* transition: none; */ /* Removed card hover transition for event itself */
+    z-index: 1;
+    position: relative; /* Needed for absolute caption positioning */
+}
 
-        .timeline-year {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #4A90E2;
-            background-color: #FFFFFF;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
+.timeline-miniature .timeline-event:hover .timeline-caption {
+    display: block;
+}
 
-        .timeline-caption {
-            display: none;
-            position: absolute;
-            top: 80px; /* Below the year marker (50px height + 20px margin-bottom + 10px space) */
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(255, 255, 255, 0.95); /* More opaque for readability */
-            color: #333333;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-            width: 220px;
-            font-size: 0.85em;
-            text-align: left;
-            z-index: 10;
-        }
+.timeline-miniature .timeline-year {
+    font-size: 0.8em;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 8px;
+    color: #4A90E2;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #4A90E2;
+}
 
-        .timeline-event:hover .timeline-caption {
-            display: block;
-        }
+.timeline-miniature .timeline-caption {
+    display: none;
+    position: absolute;
+    transform: translateX(-50%);
+    top: 40px; /* Approx. year height 30px + margin 8px + a bit */
+    left: 50%;
+    width: 150px;
+    font-size: 0.7em;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    text-align: left;
+    z-index: 10;
+}
 
-        .timeline-caption h4 {
-            font-size: 1em;
-            font-weight: bold;
-            color: #4A90E2;
-            margin-bottom: 8px;
-        }
+.timeline-miniature .timeline-caption h4 {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+    color: #4A90E2;
+}
 
-        /* Responsive adjustments for timeline */
+.timeline-miniature .timeline-caption p {
+    font-size: 0.9em;
+    line-height: 1.3;
+    max-height: 50px;
+    overflow-y: auto;
+    margin-bottom: 0;
+}
+
+/* Generic Timeline Container Styles */
+.timeline-container {
+    width: 90%;
+    max-width: 1000px;
+    text-align: center;
+    position: relative;
+}
+
+.timeline-container h2 {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-bottom: 60px;
+}
+
+.timeline-container .timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 20px;
+    width: 100%;
+}
+
+.timeline-container .timeline::before {
+    content: '';
+    position: absolute;
+    top: 45px; /* Based on year marker position */
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 0;
+}
+
+.timeline-container .timeline-event {
+    position: relative; /* Needed for absolute caption positioning */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    flex-basis: 20%;
+    padding: 0; /* Reverted */
+    /* Removed background, border, shadow from card style */
+    /* transition: none; */ /* Removed card hover transition for event itself */
+}
+
+.timeline-container .timeline-event:hover .timeline-caption {
+    display: block;
+}
+
+.timeline-container .timeline-year {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #4A90E2;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 2px solid #4A90E2;
+    z-index: 2;
+}
+
+.timeline-container .timeline-caption {
+    display: none;
+    position: absolute;
+    transform: translateX(-50%);
+    top: 60px; /* Approx. year height 50px + margin 10px */
+    left: 50%;
+    width: 220px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333333;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    text-align: left;
+    font-size: 0.85em;
+    z-index: 10;
+}
+
+.timeline-container .timeline-caption h4 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #4A90E2;
+    margin-bottom: 8px;
+}
+
+.timeline-container .timeline-caption p {
+    font-size: 0.95em;
+    line-height: 1.4;
+    max-height: 70px;
+    overflow-y: auto;
+    margin-bottom: 0;
+}
+        /* Responsive adjustments for generic timeline */
         @media (max-width: 768px) {
-            .timeline {
+            .timeline-container .timeline {
                 flex-direction: column;
-                align-items: center; /* Center events when stacked */
-                padding-top: 0; /* Reset padding as line will be vertical */
+                align-items: center;
             }
-            .timeline::before { /* Vertical line */
+            .timeline-container .timeline::before {
                 top: 0;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 4px; /* Thickness of vertical line */
+                width: 4px;
                 height: 100%;
             }
-            .timeline-event {
-                margin-bottom: 40px; /* Space between stacked events */
-                width: 100%; /* Allow event to take width if needed for caption */
-                align-items: center; /* Ensure year marker is centered */
+            .timeline-container .timeline-event {
+                margin-bottom: 40px;
+                width: 80%;
+                max-width: 400px;
+                align-items: center;
             }
-            .timeline-event:last-child {
+            .timeline-container .timeline-event:last-child {
                 margin-bottom: 0;
             }
-            .timeline-year {
-                margin-bottom: 15px; /* Space between year and caption when stacked */
+            .timeline-container .timeline-year {
+                margin-bottom: 15px;
             }
-            .timeline-caption {
-                position: static; /* Let it flow naturally in the column */
-                transform: none;
-                left: auto;
-                margin-top: 10px; /* Space from year marker */
-                width: 80%; /* Adjust width for stacked layout */
-                max-width: 300px; /* Max width for caption */
+            .timeline-container .timeline-caption {
+                 /* If captions are too wide or overlap badly on mobile with absolute positioning */
+                 /* consider making them static for this breakpoint */
+                 width: 80%;
+                 max-width: 300px;
+                 /* top: auto; left:auto; transform:none; position:static; margin-top:10px; */
             }
         }
 
+#section4 .timeline-container h2 {
+    color: #333333; /* Dark grey, similar to other text on this light background */
+}
+
+#section4 .timeline-container .timeline::before {
+    background-color: rgba(74, 144, 226, 0.4); /* Semi-transparent version of #4A90E2 blue */
+}
 
         #section4 {
             background-color: #f0f8ff; /* AliceBlue */
@@ -360,6 +475,10 @@
             font-size: 0.9em;
             color: #555555; /* Slightly lighter color for description */
             line-height: 1.5;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-height: 100px; /* Approx 5-6 lines, adjust as needed */
+    overflow-y: auto;
         }
 
         .primary-card p.partner-description {
@@ -428,11 +547,19 @@
             }
         }
 
+#section5 {
+    background-color: #f0f8ff; /* AliceBlue - This should already be there */
+    padding-top: 80px;
+    justify-content: center; /* Ensure content is centered after padding */
+    /* display: flex; align-items: center; flex-direction: column; are inherited or default for sections */
+    box-sizing: border-box; /* Add if not already inherited */
+    /* The default align-items: center on the section should handle the vertical centering of the content block after padding. */
+}
 
         /* Header/Menu Styling */
         header {
             position: fixed;
-            top: 0; /* Position at the very top */
+            top: 20px; /* Position at the very top */
             left: 50%; /* Center the menu */
             transform: translateX(-50%); /* Fine-tune centering */
             width: auto; /* Auto width based on content */
@@ -542,7 +669,7 @@
     </header>
     <div class="snap-container">
         <section id="section1">
-            <div class="content-right">
+            <div class="content-left">
                 <h1>Un Titolo Accattivante</h1>
             </div>
         </section>
@@ -555,85 +682,155 @@
                         <p>Nel bosco, ogni albero aveva foglie di un colore diverso: azzurro cielo, giallo sole, rosa fenicottero! Pimpa ruzzolò felice su un prato di margherite viola, mentre Armando la osservava sorridendo sotto un grande fungo arancione.</p>
                     </div>
                     <div class="column">
-                        <p>Incontrarono Cip, lo scoiattolo postino, che stava consegnando lettere scritte su foglie di betulla. "Attenzione," disse Cip, "nel cuore del bosco vive il Mago Scribacchino, che adora trasformare le parole in farfalle!"</p>
-                        <p>Pimpa e Armando, curiosi, decisero di far visita al Mago. Lo trovarono intento a scrivere poesie che, appena finite, si libravano in aria come variopinte farfalle di carta. Che meraviglia! Il Bosco Colorato era davvero un posto pieno di sorprese.</p>
+                        <div class="timeline-container timeline-miniature">
+                            <h2>La Nostra Evoluzione</h2>
+                            <div class="timeline">
+                                <div class="timeline-event">
+                                    <div class="timeline-year">1956</div>
+                                    <div class="timeline-caption">
+                                        <h4>Fondazione Storica</h4>
+                                        <p>Nel 1956 viene posta la prima pietra, iniziando un viaggio di passione e impegno.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div class="timeline-year">2001</div>
+                                    <div class="timeline-caption">
+                                        <h4>Innovazione del Millennio</h4>
+                                        <p>Il 2001 segna l'adozione di nuove tecnologie e l'espansione verso mercati emergenti.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div class="timeline-year">2015</div>
+                                    <div class="timeline-caption">
+                                        <h4>Riconoscimento Globale</h4>
+                                        <p>Nel 2015 l'azienda ottiene importanti certificazioni e riconoscimenti internazionali.</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-event">
+                                    <div class="timeline-year">2025</div>
+                                    <div class="timeline-caption">
+                                        <h4>Verso il Futuro</h4>
+                                        <p>Proiettati al 2025, continuiamo a innovare con sostenibilità e visione strategica.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </section>
+        <section id="section2-duplicate">
+            <div class="slide-content-container pimpa-story">
+                <h2>Le Incredibili Avventure di Pimpa nel Bosco Colorato</h2>
+                <div class="two-columns">
+    <div class="column">
+        <p>Pimpa, la cagnolina a pois rossi, si svegliò una mattina con un'idea brillante: esplorare il Bosco Colorato oltre la collina! Con il suo amico Armando, l'elefante saggio, preparò uno zainetto con succo di mela e biscotti a forma di nuvola.</p>
+        <p>Nel bosco, ogni albero aveva foglie di un colore diverso: azzurro cielo, giallo sole, rosa fenicottero! Pimpa ruzzolò felice su un prato di margherite viola, mentre Armando la osservava sorridendo sotto un grande fungo arancione.</p>
+    </div>
+    <div class="column">
+        <div class="timeline-container timeline-miniature">
+            <h2>La Nostra Evoluzione</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="timeline-year">1956</div>
+                    <div class="timeline-caption">
+                        <h4>Fondazione Storica</h4>
+                        <p>Nel 1956 viene posta la prima pietra, iniziando un viaggio di passione e impegno.</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-year">2001</div>
+                    <div class="timeline-caption">
+                        <h4>Innovazione del Millennio</h4>
+                        <p>Il 2001 segna l'adozione di nuove tecnologie e l'espansione verso mercati emergenti.</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-caption">
+                        <h4>Riconoscimento Globale</h4>
+                        <p>Nel 2015 l'azienda ottiene importanti certificazioni e riconoscimenti internazionali.</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-caption">
+                        <h4>Verso il Futuro</h4>
+                        <p>Proiettati al 2025, continuiamo a innovare con sostenibilità e visione strategica.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
             </div>
         </section>
         <section id="section3">
-            <div class="timeline-container">
-                <h2>La Nostra Evoluzione</h2>
-                <div class="timeline">
-                    <div class="timeline-event">
-                        <div class="timeline-year">1956</div>
-                        <div class="timeline-caption">
-                            <h4>Fondazione Storica</h4>
-                            <p>Nel 1956 viene posta la prima pietra, iniziando un viaggio di passione e impegno.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="timeline-year">2001</div>
-                        <div class="timeline-caption">
-                            <h4>Innovazione del Millennio</h4>
-                            <p>Il 2001 segna l'adozione di nuove tecnologie e l'espansione verso mercati emergenti.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="timeline-year">2015</div>
-                        <div class="timeline-caption">
-                            <h4>Riconoscimento Globale</h4>
-                            <p>Nel 2015 l'azienda ottiene importanti certificazioni e riconoscimenti internazionali.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="timeline-year">2025</div>
-                        <div class="timeline-caption">
-                            <h4>Verso il Futuro</h4>
-                            <p>Proiettati al 2025, continuiamo a innovare con sostenibilità e visione strategica.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </section>
         <section id="section4">
-            <h2>I Nostri Stimati Partner</h2>
-            <div class="partner-layout-container">
-                <div class="primary-partners-area">
-                    <div class="partner-card primary-card">
-                        <img src="https://via.placeholder.com/120x60?text=Logo+Partner+A" alt="Logo Partner A" class="partner-logo">
-                        <h3 class="partner-name">Partner Principale Alpha</h3>
-                        <p class="partner-description">Descrizione della collaborazione strategica con Alpha e del loro impatto nel settore.</p>
-                    </div>
-                    <div class="partner-card primary-card">
-                        <img src="https://via.placeholder.com/120x60?text=Logo+Partner+B" alt="Logo Partner B" class="partner-logo">
-                        <h3 class="partner-name">Partner Principale Beta</h3>
-                        <p class="partner-description">Beta ci affianca con soluzioni innovative e una visione condivisa del futuro.</p>
-                    </div>
-                </div>
-                <div class="secondary-partners-area">
-                    <div class="partner-card secondary-card">
-                        <img src="https://via.placeholder.com/100x50?text=Logo+Partner+C" alt="Logo Partner C" class="partner-logo">
-                        <h3 class="partner-name">Partner Gamma</h3>
-                        <p class="partner-description">Collaborazione di supporto con Gamma per servizi essenziali.</p>
-                    </div>
-                    <div class="partner-card secondary-card">
-                        <img src="https://via.placeholder.com/100x50?text=Logo+Partner+D" alt="Logo Partner D" class="partner-logo">
-                        <h3 class="partner-name">Partner Delta</h3>
-                        <p class="partner-description">Delta contribuisce con la sua esperienza in nicchie specifiche.</p>
-                    </div>
-                </div>
+<h2>Eventi Chiave</h2>
+<div class="timeline-container">
+    <div class="timeline">
+        <div class="timeline-event">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-caption">
+                <h4>Nuovo Inizio</h4>
+                <p>Introduzione della nuova timeline in questa sezione, mostrando eventi significativi.</p>
             </div>
-        </section>
-        <section id="footer-section">
-            <div class="footer-content">
-                <p>&copy; 2023 Nome Azienda ERGG. Tutti i diritti riservati.</p>
-                <p>P.IVA: 01234567890</p>
-                <div class="footer-links">
-                    <a href="#privacy">Privacy Policy</a> | <a href="#cookies">Cookie Policy</a>
-                </div>
+        </div>
+        <div class="timeline-event">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-caption">
+                <h4>Prossimi Passi</h4>
+                <p>Ulteriori sviluppi e innovazioni sono previste per l'anno a venire.</p>
             </div>
+        </div>
+        <div class="timeline-event">
+            <div class="timeline-year">2026</div>
+            <div class="timeline-caption">
+                <h4>Traguardo Futuro</h4>
+                <p>Vengono stabiliti obiettivi a lungo termine per la crescita e l'espansione.</p>
+            </div>
+        </div>
+        <div class="timeline-event">
+            <div class="timeline-year">2027</div>
+            <div class="timeline-caption">
+                <h4>Celebrazione</h4>
+                <p>Commemorazione dei successi ottenuti e dei progressi fatti fino ad ora.</p>
+            </div>
+        </div>
+    </div>
+</div>
         </section>
+<section id="section5">
+<div class="partner-layout-container">
+    <div class="primary-partners-area">
+        <div class="partner-card primary-card">
+            <img src="https://via.placeholder.com/120x60?text=Logo+Partner+A" alt="Logo Partner A" class="partner-logo">
+            <h3 class="partner-name">Partner Principale Alpha</h3>
+            <p class="partner-description">Descrizione della collaborazione strategica con Alpha e del loro impatto nel settore.</p>
+        </div>
+        <div class="partner-card primary-card">
+            <img src="https://via.placeholder.com/120x60?text=Logo+Partner+B" alt="Logo Partner B" class="partner-logo">
+            <h3 class="partner-name">Partner Principale Beta</h3>
+            <p class="partner-description">Beta ci affianca con soluzioni innovative e una visione condivisa del futuro.</p>
+        </div>
+    </div>
+    <div class="secondary-partners-area">
+        <div class="partner-card secondary-card">
+            <img src="https://via.placeholder.com/100x50?text=Logo+Partner+C" alt="Logo Partner C" class="partner-logo">
+            <h3 class="partner-name">Partner Gamma</h3>
+            <p class="partner-description">Collaborazione di supporto con Gamma per servizi essenziali.</p>
+        </div>
+        <div class="partner-card secondary-card">
+            <img src="https://via.placeholder.com/100x50?text=Logo+Partner+D" alt="Logo Partner D" class="partner-logo">
+            <h3 class="partner-name">Partner Delta</h3>
+            <p class="partner-description">Delta contribuisce con la sua esperienza in nicchie specifiche.</p>
+        </div>
+    </div>
+</div>
+</section>
     </div>
 </body>
 </html>
