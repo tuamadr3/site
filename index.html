@@ -318,14 +318,19 @@ main {
     height: 100vh;
     display: flex;
     align-items: center;
-    scroll-snap-align: start; /* Changed from center to start */
+    scroll-snap-align: start;
+    /* Changed from center to start */
     scroll-snap-stop: always;
     justify-content: center;
     text-align: center;
     padding: 20px;
-    color: #ffffff; /* White text */
-    position: relative; /* For overlay positioning if needed, though background directly on section works */
+    color: #ffffff;
+    /* White text */
+    position: relative;
+    /* For overlay positioning if needed, though background directly on section works */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80') no-repeat center center/cover;
+    flex-direction: column;
+    scroll-snap-stop: always;
 }
 
 /* Fallback background for #our-founders if Unsplash URLs are problematic - uncomment to use
@@ -415,10 +420,19 @@ main {
 
 /* Styles for the new Products section */
 #products {
-    padding: 60px 0; /* Increased padding for more space */
-    /* background-color: #f9f9f9; */ /* Optional: a slightly different background for this section */
-    scroll-snap-align: center; /* Make this section a snap point */
-    scroll-snap-stop: always; /* Prevent skipping this snap point */
+    padding: 60px 0;
+    /* Increased padding for more space */
+    /* background-color: #f9f9f9;
+    */ /* Optional: a slightly different background for this section */
+    scroll-snap-align: center;
+    /* Make this section a snap point */
+    scroll-snap-stop: always;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
 }
 
 .product-card {
@@ -870,7 +884,238 @@ footer .container > p[align="center"] {
         margin: 10px 0; /* Align left, not auto for center */
     }
 }
-    </style>
+
+
+/* --- Appended styles for #section2 and #section5 --- */
+
+.snap-container section {
+    height: 100vh; /* Each section is full viewport height */
+    width: 100%;   /* Each section is full viewport width */
+    scroll-snap-align: start; /* Snap to the start of each section */
+    display: flex;
+    align-items: center;
+}
+
+#section2 {
+    background-color: #FFFFFF; /* White */
+    color: #333333;           /* Dark grey text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 5%;
+    box-sizing: border-box;
+    /* scroll-snap-align: start; scroll-snap-stop: always; height: 100vh; */ /* Will be ensured by script */
+ height: 100vh; scroll-snap-align: start; scroll-snap-stop: always; }
+
+.slide-content-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pimpa-story h2 {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #337ab7;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.two-columns {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.column {
+    flex-basis: calc(50% - 20px);
+    text-align: left;
+}
+
+.column p {
+    font-size: 1em;
+    line-height: 1.7;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+#section5 {
+    background-color: #f0f8ff;
+    padding-top: 80px;
+    justify-content: center;
+    box-sizing: border-box;
+    /* scroll-snap-align: start; scroll-snap-stop: always; height: 100vh; */ /* Will be ensured by script */
+ height: 100vh; scroll-snap-align: start; scroll-snap-stop: always; }
+
+/* Potentially problematic rule, to be changed to #section5 > h2.section-title */
+#section5 > h2.section-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.partner-layout-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.primary-partners-area {
+    flex: 2;
+    display: flex;
+    gap: 20px;
+}
+
+.secondary-partners-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.partner-card {
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.primary-card {
+    flex: 1;
+}
+
+.secondary-card {
+    /* No specific flex property */
+}
+
+.partner-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+}
+
+.partner-card img.partner-logo {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.primary-card img.partner-logo {
+    max-width: 120px;
+}
+
+.secondary-card img.partner-logo {
+    max-width: 90px;
+}
+
+.partner-card h3.partner-name {
+    font-size: 1.3em;
+    color: #333333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.primary-card h3.partner-name {
+    font-size: 1.4em;
+}
+
+.secondary-card h3.partner-name {
+    font-size: 1.2em;
+}
+
+.partner-card p.partner-description {
+    font-size: 0.9em;
+    color: #555555;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.primary-card p.partner-description {
+    font-size: 0.95em;
+}
+
+.secondary-card p.partner-description {
+    font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+    .two-columns {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    .column {
+        flex-basis: 100%;
+        max-width: 500px;
+    }
+    .pimpa-story h2 {
+        font-size: 1.8em;
+    }
+    #section2 { /* Ensured properties: height: 100vh; scroll-snap-align: start; scroll-snap-stop: always; */
+        padding: 30px 5%;
+    }
+}
+
+@media (max-width: 992px) {
+    .partner-layout-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .primary-partners-area,
+    .secondary-partners-area {
+        flex: none;
+        width: 100%;
+    }
+    .primary-partners-area {
+        max-width: 600px;
+        flex-direction: column;
+    }
+    .secondary-partners-area {
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Potentially problematic rule, to be changed to #section5 > h2.section-title */
+    #section5 > h2.section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    /* Potentially problematic rule, to be changed to #section5 */
+    #section5 {
+        padding: 30px 5%;
+    }
+    .primary-partners-area,
+    .secondary-partners-area {
+        gap: 20px;
+    }
+    .partner-card {
+        padding: 15px;
+    }
+    .partner-card h3.partner-name { font-size: 1.1em; }
+    .primary-card h3.partner-name { font-size: 1.2em; }
+    .secondary-card h3.partner-name { font-size: 1.0em; }
+    .partner-card p.partner-description { font-size: 0.8em; }
+    .primary-card p.partner-description { font-size: 0.85em; }
+    .secondary-card p.partner-description { font-size: 0.75em; }
+}
+
+</style>
 </head>
 <body>
     <nav class="main-nav">
@@ -1052,6 +1297,7 @@ footer .container > p[align="center"] {
             </div>
         </section>
         <section id="section5">
+<h2 class="section-title">Our Partners</h2>
 <div class="partner-layout-container">
     <div class="primary-partners-area">
         <div class="partner-card primary-card">

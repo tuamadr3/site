@@ -1,0 +1,244 @@
+.snap-container section {
+    height: 100vh; /* Each section is full viewport height */
+    width: 100%;   /* Each section is full viewport width */
+    scroll-snap-align: start; /* Snap to the start of each section */
+    display: flex;
+    align-items: center;
+}
+
+#section2 {
+    background-color: #FFFFFF; /* White */
+        color: #333333;           /* Dark grey text */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 5%;
+        box-sizing: border-box;
+}
+
+.slide-content-container {
+    /* General container for slide content if needed for structure */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.pimpa-story h2 {
+    font-size: 2.2em;
+        font-weight: bold;
+        color: #337ab7;
+        margin-bottom: 30px;
+        text-align: center;
+}
+
+.two-columns {
+    display: flex;
+        gap: 40px;
+        width: 100%;
+        max-width: 1100px;
+}
+
+.column {
+    flex-basis: calc(50% - 20px);
+        text-align: left;
+}
+
+.column p {
+    font-size: 1em;
+        line-height: 1.7;
+        color: #333333;
+        margin-bottom: 15px;
+}
+
+#section5 {
+    background-color: #f0f8ff;
+        padding-top: 80px;
+        justify-content: center;
+        box-sizing: border-box;
+}
+
+/* Potentially problematic rule, seems like a typo for section5 or a general partner title */
+#section4 h2 {
+    font-size: 2.2em;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 40px;
+        text-align: center;
+}
+
+.partner-layout-container {
+    display: flex;
+        width: 100%;
+        max-width: 1200px;
+        gap: 20px;
+        align-items: stretch;
+}
+
+.primary-partners-area {
+    flex: 2;
+        display: flex;
+        gap: 20px;
+}
+
+.secondary-partners-area {
+    flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+}
+
+.partner-card {
+    background-color: #FFFFFF;
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.primary-card {
+    flex: 1;
+}
+
+.secondary-card {
+    /* No specific flex property */
+}
+
+.partner-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        transform: translateY(-5px);
+}
+
+.partner-card img.partner-logo {
+    max-width: 100px;
+        height: auto;
+        margin-bottom: 15px;
+}
+
+.primary-card img.partner-logo {
+    max-width: 120px;
+}
+
+.secondary-card img.partner-logo {
+    max-width: 90px;
+}
+
+.partner-card h3.partner-name {
+    font-size: 1.3em;
+        color: #333333;
+        margin-bottom: 10px;
+        font-weight: bold;
+}
+
+.primary-card h3.partner-name {
+    font-size: 1.4em;
+}
+
+.secondary-card h3.partner-name {
+    font-size: 1.2em;
+}
+
+.partner-card p.partner-description {
+    font-size: 0.9em;
+        color: #555555;
+        line-height: 1.5;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        max-height: 100px;
+        overflow-y: auto;
+}
+
+.primary-card p.partner-description {
+    font-size: 0.95em;
+}
+
+.secondary-card p.partner-description {
+    font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+    .two-columns {
+        flex-direction: column;
+                gap: 20px;
+                align-items: center;
+    }
+    .column {
+        flex-basis: 100%;
+                max-width: 500px;
+    }
+    .pimpa-story h2 {
+        font-size: 1.8em;
+    }
+    #section2 {
+        padding: 30px 5%;
+    }
+}}
+
+@media (max-width: 992px) {
+    .partner-layout-container {
+        flex-direction: column;
+                align-items: center;
+                gap: 30px;
+    }
+    .primary-partners-area,
+    .secondary-partners-area {
+        flex: none;
+                width: 100%;
+    }
+    .primary-partners-area {
+        max-width: 600px;
+                 flex-direction: column;
+    }
+    .secondary-partners-area {
+        max-width: 450px;
+    }
+}}
+
+@media (max-width: 576px) {
+    /* Potentially problematic rule: #section4 h2, likely for partner title */
+    #section4 h2 {
+        font-size: 1.8em;
+                margin-bottom: 30px;
+    }
+    /* Potentially problematic rule: #section4 padding, likely for #section5 padding */
+    #section4 {
+        padding: 30px 5%;
+    }
+    .primary-partners-area,
+    .secondary-partners-area {
+        gap: 20px;
+    }
+    .partner-card {
+        padding: 15px;
+    }
+    .partner-card h3.partner-name {
+        font-size: 1.1em;
+    }
+    .primary-card h3.partner-name {
+        font-size: 1.2em;
+    }
+    .secondary-card h3.partner-name {
+        font-size: 1.0em;
+    }
+    .partner-card p.partner-description {
+        font-size: 0.8em;
+    }
+    .primary-card p.partner-description {
+        font-size: 0.85em;
+    }
+    .secondary-card p.partner-description {
+        font-size: 0.75em;
+    }
+}}
+
+/* --- Notes on problematic rules --- */
+
+Potential Typographical/Misattributed Rules Noted:
+1.  `#section4 h2`: Found outside and inside media queries, but seems to style a title for the partner section (which is `#section5`). If there's no actual `#section4 h2` that needs this style, it might be a typo for a class or `#section5 h2`.
+2.  `#section4` (padding rule): Found in `@media (max-width: 576px)`, seems intended for `#section5` as it's grouped with partner card responsive styles.
+These rules have been extracted if their selectors or context were associated with the partner layout elements, but should be reviewed.
